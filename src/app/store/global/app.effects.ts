@@ -1,0 +1,18 @@
+import { Injectable } from "@angular/core";
+import { Actions, createEffect } from "@ngrx/effects";
+import { filter, map } from "rxjs/operators";
+import { ToasterService } from "src/app/shared/services/toaster.service";
+import { environment } from "src/environments/environment";
+
+@Injectable()
+export class AppGlobalEffects {
+
+  constructor(public actions$: Actions, public ts: ToasterService) {
+  }
+
+}
+
+
+export const appEffects = [
+  AppGlobalEffects
+]
