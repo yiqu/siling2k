@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppFooterComponent implements OnInit {
 
-  footerTitle: string = "@KQ 2020";
+  footerTitle: string = "@KQ 2021";
   myUrl: string = "https://yiqu.github.io/";
 
 
