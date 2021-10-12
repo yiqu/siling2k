@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.service';
 
 @Component({
   selector: 'app-core-home',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class SummaryComponent implements OnInit {
-  constructor() { }
+  constructor(private neds: NewEntryDialogService) {
+  }
 
   ngOnInit() { }
+
+  onNewEntryClick() {
+    this.neds.openDialog();
+  }
 }

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="mfont my-2">New Siling1k Entry</h1>
+<hr>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+    <div *ngIf="this.data.company; else newEntry">
+      Editing Existing Entry:
+    </div>
+    <ng-template #newEntry>
+      <div>
+        New Entry:
+      </div>
+    </ng-template>
+
+    <form [formGroup]="this.entryFg">
+      <ng-container *ngFor="">
+
+      </ng-container>
+    </form>
+  </div>
+</div>

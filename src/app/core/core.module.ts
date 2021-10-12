@@ -3,6 +3,8 @@ import { SharedBudleModule } from '../shared/shared.module';
 import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import { SummaryComponent } from './home/home.component';
+import { NewEntryDialogComponent } from './new-entry-dialog/new-entry-dialog.component';
+import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
 
 
 @NgModule({
@@ -15,9 +17,12 @@ import { SummaryComponent } from './home/home.component';
 
   declarations: [
     CoreComponent,
-    SummaryComponent
+    SummaryComponent,
+    NewEntryDialogComponent
   ],
 
-  providers: [],
+  providers: [
+    NewEntryDialogService
+  ],
 })
 export class CoreModule { }
