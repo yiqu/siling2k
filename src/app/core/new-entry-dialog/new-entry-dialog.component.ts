@@ -15,11 +15,13 @@ export class NewEntryDialogComponent {
 
   entryFg: FormGroup;
   entryFgStruct: SilingEntryStruct[] = [];
+  currentFocusControl: string | undefined;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
     this.entryFg = this.fb.group(this.createFormGroupObj(data));
-    console.log(this.entryFg)
+    this.entryFgStruct = this.createFgStructure(data);
+    console.log(this.entryFg, this.entryFgStruct)
   }
 
   createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {
@@ -30,20 +32,29 @@ export class NewEntryDialogComponent {
     }
   }
 
-  createFgStructure(data: SilingEntry) {
-    this.entryFgStruct = [];
-    const keys: string[] = Object.keys(data);
+  createFgStructure(data: SilingEntry): SilingEntryStruct[] {
+    const struc = [];
+    let keys: string[] = Object.keys(data);
+    if (keys.length < 1) {
+      keys = ['company', 'date', 'amount'];
+    }
     for (const key of keys) {
       let inputType = FormControlType.TEXT_INPUT;
       if (ENTRY_SELECT_TYPE.indexOf(key) > -1) {
         inputType = FormControlType.SELECT_INPUT;
       }
-      this.entryFgStruct.push({
+
+      struc.push({
         controlName: key,
         inputType: inputType,
         value: data[key as keyof SilingEntry]
-      })
+      });
     }
+    return struc;
+  }
+
+  onFocus(controlName: string) {
+    this.currentFocusControl = controlName;
   }
 
 

@@ -1,20 +1,45 @@
-<h1 mat-dialog-title class="mfont my-2">New Siling1k Entry</h1>
+<h1 mat-dialog-title class="mfont my-2 big">
+  <ng-container *ngIf="this.data.company; else newEntry">
+    Editing Existing Entry
+  </ng-container>
+  <ng-template #newEntry>
+    New Siling1k Entry
+  </ng-template>
+</h1>
 <hr>
 <div mat-dialog-content>
-  <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
-    <div *ngIf="this.data.company; else newEntry">
-      Editing Existing Entry:
-    </div>
-    <ng-template #newEntry>
-      <div>
-        New Entry:
-      </div>
-    </ng-template>
-
-    <form [formGroup]="this.entryFg">
-      <ng-container *ngFor="">
-
+  <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between start" class="w-100">
+    <form [formGroup]="this.entryFg" fxFlex="50">
+      <ng-container *ngFor="let control of entryFgStruct">
+        <div>
+          <mat-form-field class="example-full-width"
+            appearance="standard">
+            <mat-label>{{control.controlName | titlecase}}</mat-label>
+            <input type="text" matInput [formControlName]="control.controlName" (focus)="onFocus(control.controlName)"
+            [placeholder]="control.controlName | titlecase">
+            <mat-hint>Hint</mat-hint>
+            <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error> -->
+          </mat-form-field>
+        </div>
       </ng-container>
     </form>
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" fxHide fxShow.gt-sm>
+      <div class="font-weight-bold subtitle">
+        {{currentFocusControl | titlecase}}
+      </div>
+      <div>
+        {{currentFocusControl}}
+      </div>
+    </div>
   </div>
+</div>
+<hr>
+<div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center" >
+  <button mat-flat-button>Save</button>
+  <button mat-flat-button>Cancel</button>
 </div>
