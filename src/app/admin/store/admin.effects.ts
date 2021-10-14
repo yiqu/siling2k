@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { OnInitEffects } from "@ngrx/effects";
-import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap } from 'rxjs/operators';
+import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, delay } from 'rxjs/operators';
 import { ToasterService } from 'src/app/shared/services/toaster.service';
 import * as fromFirebaseUtils from '../../shared/services/firebase.utils';
 import { Update } from '@ngrx/entity';
@@ -38,14 +38,14 @@ const mockCompanies: SilingCompany[] = [
 
 
 @Injectable()
-export class AdminEffects implements OnInitEffects {
+export class AdminEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService) {
   }
 
-  ngrxOnInitEffects(): Action {
-    return fromAdminActions.getComapniesStart();
-  }
+  // ngrxOnInitEffects(): Action {
+  //   return fromAdminActions.getComapniesStart();
+  // }
 
 
   getSilingCompanies$ = createEffect(() => {
@@ -53,6 +53,7 @@ export class AdminEffects implements OnInitEffects {
       ofType(fromAdminActions.getComapniesStart),
       switchMap(() => {
         return of(mockCompanies).pipe(
+          delay(500),
           map((res: SilingCompany[]) => {
             return fromAdminActions.getComapniesSuccess({companies: res, date: new Date().getTime()});
           }),

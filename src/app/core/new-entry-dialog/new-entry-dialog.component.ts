@@ -1,34 +1,38 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
 import * as fromFormUtils from '../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
-const formGroupControlOmit = ['companyOptions'];
+const formGroupControlOmit = ['companyLoading', 'companies'];
 
 @Component({
   selector: 'new-siling1k-entry-dialog',
   templateUrl: 'new-entry-dialog.component.html',
   styleUrls: ['./new-entry-dialog.component.scss']
 })
-export class NewEntryDialogComponent implements OnInit {
+export class NewEntryDialogComponent implements OnInit, OnDestroy {
 
   entryFg: FormGroup;
   entryFgStruct: SilingEntryStruct[] = [];
   currentFocusControl: string | undefined;
+  compDest$: Subject<void> = new Subject<void>();
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
-    this.entryFg = this.fb.group(this.createFormGroupObj(data));
-    this.entryFgStruct = this.createFgStructure(data);
-    console.log(this.data, this.entryFgStruct)
+  constructor(public dialogRef: MatDialogRef<NewEntryDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
+      this.entryFg = this.fb.group(this.createFormGroupObj(data));
+      this.entryFgStruct = this.createFgStructure(data);
+      console.log(this.data, this.entryFgStruct)
   }
 
   ngOnInit() {
     this.entryFg.valueChanges.subscribe((res) => {
       console.log(this.entryFg.getRawValue());
-    })
+    });
+
   }
 
   createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {
@@ -63,6 +67,18 @@ export class NewEntryDialogComponent implements OnInit {
 
   onFocus(controlName: string) {
     this.currentFocusControl = controlName;
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSave() {
+    this.dialogRef.close(this.entryFg.getRawValue());
+  }
+
+  ngOnDestroy() {
+
   }
 
 

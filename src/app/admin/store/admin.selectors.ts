@@ -12,3 +12,11 @@ export const getSilingCompanies = createSelector(
   }
 );
 
+export const getSilingCompaniesLoading = createSelector(
+  selectAdminFeatureState,
+  (state): boolean => {
+    return state.apiLoading;
+  }
+);
+
+

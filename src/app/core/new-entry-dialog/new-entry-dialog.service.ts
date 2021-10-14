@@ -9,11 +9,11 @@ export class NewEntryDialogService {
   private dialogRef: MatDialogRef<NewEntryDialogComponent> | undefined = undefined;
 
   constructor(private dialog: MatDialog) {
-
   }
 
 
-  public openDialog(info: SilingEntry): void {
+  public getDialog(info: SilingEntry) {
+    this.dialogRef = undefined;
     this.dialogRef = this.dialog.open(NewEntryDialogComponent, {
       data: {
         ...info
@@ -23,6 +23,8 @@ export class NewEntryDialogService {
       autoFocus: true,
       disableClose: true,
     });
+
+    return this.dialogRef;
   }
 
 }

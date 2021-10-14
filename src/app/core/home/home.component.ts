@@ -12,28 +12,28 @@ import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.serv
 })
 export class SummaryComponent implements OnInit, OnDestroy {
 
-  silingCompanies: SilingCompany[] = [];
   compDest$: Subject<void> = new Subject<void>();
 
   constructor(private neds: NewEntryDialogService, public as: AdminService) {
   }
 
   ngOnInit() {
-    this.as.getSilingCompanies$.pipe(
-      takeUntil(this.compDest$)
-    ).subscribe((res) => {
-      this.silingCompanies = [...res];
-    })
   }
 
   onNewEntryClick() {
+    this.as.fetchSilingCompanies();
     const newEntryInfo: SilingEntry = {
       amount: undefined,
       company: undefined,
-      companyOptions: this.silingCompanies,
+      companies: this.as.getSilingCompanies$,
+      companyLoading: this.as.getSilingCompanyLoading$,
       date: new Date().getTime()
-    }
-    this.neds.openDialog(newEntryInfo);
+    };
+
+    const dialogRef = this.neds.getDialog(newEntryInfo);
+    dialogRef.afterClosed().subscribe((res) => {
+      console.log('closed', res)
+    })
   }
 
   ngOnDestroy() {
