@@ -19,6 +19,7 @@ import { TopNavModule } from './top-nav/top-nav.module';
 import { FooterModule } from './footer/footer.module';
 import { SideNavModule } from './side-nav/side-nav.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { HttpClientModule } from '@angular/common/http';
       }
     }),
     SharedBudleModule,
+    AdminModule,
     AppRoutingModule
   ],
   providers: [],

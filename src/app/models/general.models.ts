@@ -1,7 +1,10 @@
+import { SilingCompany } from "../admin/store/admin.state";
+
 export interface SilingEntry {
-  company: string;
-  amount: number;
+  company?: string;
+  amount?: number;
   date: number;
+  companyOptions: SilingCompany[]
 }
 
 export enum FormControlType {

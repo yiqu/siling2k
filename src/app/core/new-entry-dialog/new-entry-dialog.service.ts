@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, DialogPosition } from '@angular/material/dialog';
+import { SilingEntry } from 'src/app/models/general.models';
 import { NewEntryDialogComponent } from './new-entry-dialog.component';
 
 @Injectable()
@@ -12,14 +13,15 @@ export class NewEntryDialogService {
   }
 
 
-  public openDialog(): void {
+  public openDialog(info: SilingEntry): void {
     this.dialogRef = this.dialog.open(NewEntryDialogComponent, {
       data: {
+        ...info
       },
       panelClass: 'new-siling1k-entry',
       hasBackdrop: true,
       autoFocus: true,
-      disableClose: true
+      disableClose: true,
     });
   }
 

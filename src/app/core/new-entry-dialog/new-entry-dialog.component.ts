@@ -1,17 +1,18 @@
-import { Component, Inject} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
 import * as fromFormUtils from '../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
+const formGroupControlOmit = ['companyOptions'];
 
 @Component({
   selector: 'new-siling1k-entry-dialog',
   templateUrl: 'new-entry-dialog.component.html',
   styleUrls: ['./new-entry-dialog.component.scss']
 })
-export class NewEntryDialogComponent {
+export class NewEntryDialogComponent implements OnInit {
 
   entryFg: FormGroup;
   entryFgStruct: SilingEntryStruct[] = [];
@@ -21,7 +22,13 @@ export class NewEntryDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
     this.entryFg = this.fb.group(this.createFormGroupObj(data));
     this.entryFgStruct = this.createFgStructure(data);
-    console.log(this.entryFg, this.entryFgStruct)
+    console.log(this.data, this.entryFgStruct)
+  }
+
+  ngOnInit() {
+    this.entryFg.valueChanges.subscribe((res) => {
+      console.log(this.entryFg.getRawValue());
+    })
   }
 
   createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {
@@ -39,16 +46,17 @@ export class NewEntryDialogComponent {
       keys = ['company', 'date', 'amount'];
     }
     for (const key of keys) {
-      let inputType = FormControlType.TEXT_INPUT;
-      if (ENTRY_SELECT_TYPE.indexOf(key) > -1) {
-        inputType = FormControlType.SELECT_INPUT;
+      if (formGroupControlOmit.indexOf(key) < 0) {
+        let inputType = FormControlType.TEXT_INPUT;
+        if (ENTRY_SELECT_TYPE.indexOf(key) > -1) {
+          inputType = FormControlType.SELECT_INPUT;
+        }
+        struc.push({
+          controlName: key,
+          inputType: inputType,
+          value: data[key as keyof SilingEntry]
+        });
       }
-
-      struc.push({
-        controlName: key,
-        inputType: inputType,
-        value: data[key as keyof SilingEntry]
-      });
     }
     return struc;
   }

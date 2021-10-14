@@ -12,12 +12,24 @@
     <form [formGroup]="this.entryFg" fxFlex="50">
       <ng-container *ngFor="let control of entryFgStruct">
         <div>
-          <mat-form-field class="example-full-width"
-            appearance="standard">
+          <mat-form-field class="example-full-width" appearance="standard">
             <mat-label>{{control.controlName | titlecase}}</mat-label>
-            <input type="text" matInput [formControlName]="control.controlName" (focus)="onFocus(control.controlName)"
-            [placeholder]="control.controlName | titlecase">
-            <mat-hint>Hint</mat-hint>
+            <ng-container [ngSwitch]="control.inputType">
+              <ng-container *ngSwitchCase="'TEXT_INPUT'">
+                <input type="text" matInput [formControlName]="control.controlName" (focus)="onFocus(control.controlName)"
+                [placeholder]="control.controlName | titlecase">
+              </ng-container>
+              <ng-container *ngSwitchCase="'SELECT_INPUT'">
+                <mat-select [formControlName]="control.controlName">
+                  <mat-option *ngFor="let opt of this.data.companyOptions" [value]="opt">
+                    {{ opt.name }}
+                  </mat-option>
+                </mat-select>
+              </ng-container>
+            </ng-container>
+
+            <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+
             <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
               Please enter a valid email address
             </mat-error>
