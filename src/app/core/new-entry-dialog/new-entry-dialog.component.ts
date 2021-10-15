@@ -6,6 +6,7 @@ import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/
 import * as fromFormUtils from '../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
+const ENTRY_DATE_TYPE = ['date'];
 const formGroupControlOmit = ['companyLoading', 'companies'];
 
 @Component({
@@ -25,7 +26,7 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
       this.entryFg = this.fb.group(this.createFormGroupObj(data));
       this.entryFgStruct = this.createFgStructure(data);
-      console.log(this.data, this.entryFgStruct)
+      console.log(this.data, this.entryFg)
   }
 
   ngOnInit() {
@@ -38,7 +39,7 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {
     return {
       company: fromFormUtils.createFormControl2(data?.company, false),
-      date: fromFormUtils.createFormControl2(data?.date, false),
+      date: fromFormUtils.createFormControl2(new Date(data?.date), false),
       amount: fromFormUtils.createFormControl2(data?.amount, false)
     }
   }
@@ -52,9 +53,13 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
     for (const key of keys) {
       if (formGroupControlOmit.indexOf(key) < 0) {
         let inputType = FormControlType.TEXT_INPUT;
+
         if (ENTRY_SELECT_TYPE.indexOf(key) > -1) {
           inputType = FormControlType.SELECT_INPUT;
+        } else if (ENTRY_DATE_TYPE.indexOf(key) > -1) {
+          inputType = FormControlType.DATE_INPUT;
         }
+
         struc.push({
           controlName: key,
           inputType: inputType,

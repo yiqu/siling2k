@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="mfont my-2 big">
+<h1 mat-dialog-title class="mfont my-2" ngClass.gt-sm="big">
   <ng-container *ngIf="this.data.company; else newEntry">
     Editing Existing Entry
   </ng-container>
@@ -8,31 +8,45 @@
 </h1>
 <hr>
 <ng-container *ngIf="((this.data.companyLoading | async) === false); else isLoading">
-  <div mat-dialog-content>
+  <div mat-dialog-content class="content-parent">
     <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between start" class="w-100">
-      <form [formGroup]="this.entryFg" fxFlex="50">
+      <form [formGroup]="this.entryFg" fxFlex.gt-sm="50">
         <ng-container *ngFor="let control of entryFgStruct">
           <div>
-            <mat-form-field class="example-full-width" appearance="standard">
-              <mat-label>{{control.controlName | titlecase}}</mat-label>
-              <ng-container [ngSwitch]="control.inputType">
-                <ng-container *ngSwitchCase="'TEXT_INPUT'">
+            <ng-container [ngSwitch]="control.inputType">
+              <ng-container *ngSwitchCase="'TEXT_INPUT'">
+                <mat-form-field class="w-100" appearance="standard">
+                  <mat-label>{{control.controlName | titlecase}}</mat-label>
                   <input type="text" matInput [formControlName]="control.controlName" (focus)="onFocus(control.controlName)"
                   [placeholder]="control.controlName | titlecase">
-                </ng-container>
-                <ng-container *ngSwitchCase="'SELECT_INPUT'">
+                  <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+                </mat-form-field>
+
+              </ng-container>
+              <ng-container *ngSwitchCase="'SELECT_INPUT'">
+                <mat-form-field class="w-100" appearance="standard">
+                  <mat-label>{{control.controlName | titlecase}}</mat-label>
                   <ng-container *ngIf="(this.data.companies | async) as companyOptions">
-                    <mat-select [formControlName]="control.controlName">
+                    <mat-select [formControlName]="control.controlName" (focus)="onFocus(control.controlName)">
                       <mat-option *ngFor="let opt of companyOptions" [value]="opt">
                         {{ opt.name }}
                       </mat-option>
                     </mat-select>
                   </ng-container>
-
-                </ng-container>
+                  <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+                </mat-form-field>
               </ng-container>
+              <ng-container *ngSwitchCase="'DATE_INPUT'">
+                <mat-form-field class="w-100" appearance="standard">
+                  <mat-label>{{control.controlName | titlecase}}</mat-label>
+                  <input matInput [matDatepicker]="picker" [formControlName]="control.controlName">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+                </mat-form-field>
 
-              <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+              </ng-container>
+            </ng-container>
 
               <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                 Please enter a valid email address
@@ -40,17 +54,26 @@
               <mat-error *ngIf="emailFormControl.hasError('required')">
                 Email is <strong>required</strong>
               </mat-error> -->
-            </mat-form-field>
+            <!-- </mat-form-field> -->
           </div>
         </ng-container>
       </form>
-      <div fxFlex="50" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" fxHide fxShow.gt-sm>
-        <div class="font-weight-bold subtitle">
-          {{currentFocusControl | titlecase}}
-        </div>
-        <div>
-          {{currentFocusControl}}
-        </div>
+
+      <div fxFlex="50" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" fxHide fxShow.gt-sm
+        class="tooltip-parent">
+        <ng-container *ngIf="currentFocusControl; else noTooltip">
+          <div class="font-weight-bold subtitle">
+            {{currentFocusControl | titlecase}}
+          </div>
+          <div>
+            {{currentFocusControl}}
+          </div>
+        </ng-container>
+        <ng-template #noTooltip>
+          <div>
+            Select a company and enter the $ amount to add.
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

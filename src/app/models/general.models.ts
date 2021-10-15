@@ -11,7 +11,8 @@ export interface SilingEntry {
 
 export enum FormControlType {
   TEXT_INPUT = "TEXT_INPUT",
-  SELECT_INPUT = "SELECT_INPUT"
+  SELECT_INPUT = "SELECT_INPUT",
+  DATE_INPUT = "DATE_INPUT"
 }
 
 export interface SilingEntryStruct {
