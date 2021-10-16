@@ -22,7 +22,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     DialogConfirmComponent,
     FlexLayoutModule,
-    MaterialModuleBundle
+    MaterialModuleBundle,
+    PipeBundleModule
   ],
 
   declarations: [

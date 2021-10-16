@@ -5,6 +5,7 @@ import { DateDisplayPipe } from './time-utils.pipe';
 import { UserDisplayPipe } from './user.pipe';
 import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
+import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe';
 
 @NgModule({
   imports: [],
@@ -17,6 +18,8 @@ import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
     CapitalizeFirstLetterPipe,
     TableColumnDisplayPipe,
     TableDataDisplayPipe,
+    SilingEntryTooltipDisplay,
+    SilingCompanyDisplay
   ],
 
   declarations: [
@@ -27,6 +30,8 @@ import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
     CapitalizeFirstLetterPipe,
     TableColumnDisplayPipe,
     TableDataDisplayPipe,
+    SilingEntryTooltipDisplay,
+    SilingCompanyDisplay
   ],
 
   providers: [

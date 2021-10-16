@@ -1,8 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
+import { customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
 import * as fromFormUtils from '../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
@@ -30,17 +31,13 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.entryFg.valueChanges.subscribe((res) => {
-      console.log(this.entryFg.getRawValue());
-    });
-
   }
 
   createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {
     return {
-      company: fromFormUtils.createFormControl2(data?.company, false),
-      date: fromFormUtils.createFormControl2(new Date(data?.date), false),
-      amount: fromFormUtils.createFormControl2(data?.amount, false)
+      company: fromFormUtils.createFormControl2(data?.company, false, [Validators.required]),
+      date: fromFormUtils.createFormControl2(new Date(data?.date), false, [Validators.required]),
+      amount: fromFormUtils.createFormControl2(data?.amount, false, [customOnlyNumbersAndDecimalsValidator])
     }
   }
 
@@ -83,7 +80,6 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
   }
 
 

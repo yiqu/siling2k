@@ -1,50 +1,73 @@
-<h1 mat-dialog-title class="mfont my-2" ngClass.gt-sm="big">
-  <ng-container *ngIf="this.data.company; else newEntry">
-    Editing Existing Entry
-  </ng-container>
-  <ng-template #newEntry>
-    New Siling1k Entry
-  </ng-template>
+<h1 mat-dialog-title class="mfont my-2" ngClass.gt-sm="big" fxLayout="row"
+  fxLayoutGap="10px" fxLayoutAlign="space-between start">
+  <div>
+    <ng-container *ngIf="this.data.company; else newEntry">
+      Editing Existing Entry
+    </ng-container>
+    <ng-template #newEntry>
+      New Siling1k Entry
+    </ng-template>
+  </div>
+  <div *ngIf="this.entryFg.touched && this.entryFg.invalid" class="text-danger err-header">
+    Fix invalid inputs before saving.
+  </div>
 </h1>
 <hr>
 <ng-container *ngIf="((this.data.companyLoading | async) === false); else isLoading">
   <div mat-dialog-content class="content-parent">
-    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between start" class="w-100">
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" class="w-100">
       <form [formGroup]="this.entryFg" fxFlex.gt-sm="50">
         <ng-container *ngFor="let control of entryFgStruct">
           <div>
             <ng-container [ngSwitch]="control.inputType">
+
               <ng-container *ngSwitchCase="'TEXT_INPUT'">
                 <mat-form-field class="w-100" appearance="standard">
                   <mat-label>{{control.controlName | titlecase}}</mat-label>
                   <input type="text" matInput [formControlName]="control.controlName" (focus)="onFocus(control.controlName)"
-                  [placeholder]="control.controlName | titlecase">
-                  <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+                    [placeholder]="control.controlName | titlecase">
+                  <span matPrefix *ngIf="control.controlName === 'amount'">$&nbsp;</span>
+                  <mat-hint [id]="$any(null)">{{control.controlName | silingEntryTooltip:true}}</mat-hint>
+                  <mat-error *ngIf="this.entryFg.get(control.controlName)?.hasError('decimalAndNumbersOnly')">
+                    Invalid input
+                  </mat-error>
                 </mat-form-field>
-
               </ng-container>
+
               <ng-container *ngSwitchCase="'SELECT_INPUT'">
                 <mat-form-field class="w-100" appearance="standard">
                   <mat-label>{{control.controlName | titlecase}}</mat-label>
                   <ng-container *ngIf="(this.data.companies | async) as companyOptions">
                     <mat-select [formControlName]="control.controlName" (focus)="onFocus(control.controlName)">
+                      <mat-option>None</mat-option>
                       <mat-option *ngFor="let opt of companyOptions" [value]="opt">
-                        {{ opt.name }}
+                        <mat-icon>account_balance</mat-icon>
+                        {{ opt.name | silingCompanyDisplay}}
                       </mat-option>
+
+                      <mat-select-trigger>
+                        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start end">
+                          <mat-icon>account_balance</mat-icon>
+                          <div>
+                            {{ this.entryFg.get('company')?.value?.name | silingCompanyDisplay}}
+                          </div>
+                        </div>
+                     </mat-select-trigger>
+
                     </mat-select>
                   </ng-container>
-                  <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+                  <mat-hint [id]="$any(null)">{{control.controlName | silingEntryTooltip:true}}</mat-hint>
                 </mat-form-field>
               </ng-container>
+
               <ng-container *ngSwitchCase="'DATE_INPUT'">
                 <mat-form-field class="w-100" appearance="standard">
                   <mat-label>{{control.controlName | titlecase}}</mat-label>
-                  <input matInput [matDatepicker]="picker" [formControlName]="control.controlName">
+                  <input matInput [matDatepicker]="picker" [formControlName]="control.controlName" (focus)="onFocus(control.controlName)">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-hint [id]="$any(null)">{{control.controlName}}</mat-hint>
+                  <mat-hint [id]="$any(null)">{{control.controlName | silingEntryTooltip:true}}</mat-hint>
                 </mat-form-field>
-
               </ng-container>
             </ng-container>
 
@@ -59,19 +82,19 @@
         </ng-container>
       </form>
 
-      <div fxFlex="50" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" fxHide fxShow.gt-sm
+      <div fxFlex="50" fxHide fxShow.gt-sm
         class="tooltip-parent">
         <ng-container *ngIf="currentFocusControl; else noTooltip">
-          <div class="font-weight-bold subtitle">
+          <div class="font-weight-bold subtitle mfont mb-2" fxLayout="row" fxLayoutAlign="start center">
             {{currentFocusControl | titlecase}}
           </div>
-          <div>
-            {{currentFocusControl}}
+          <div class="roboto" fxLayout="row" fxLayoutAlign="start center">
+            {{currentFocusControl | silingEntryTooltip}}
           </div>
         </ng-container>
         <ng-template #noTooltip>
-          <div>
-            Select a company and enter the $ amount to add.
+          <div fxLayout="column" fxLayoutAlign="center center">
+            Enter the dollar amount for its institution.
           </div>
         </ng-template>
       </div>
@@ -81,7 +104,7 @@
 
 <hr>
 <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center" >
-  <button mat-flat-button (click)="onSave()">Save</button>
+  <button mat-flat-button (click)="onSave()" [disabled]="this.entryFg.invalid">Save</button>
   <button mat-flat-button (click)="onNoClick()">Cancel</button>
 </div>
 
