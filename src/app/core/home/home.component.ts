@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
-import { SilingData, SilingEntry } from 'src/app/models/general.models';
+import { SilingData, SilingEntry, SilingEntryDialogData } from 'src/app/models/general.models';
 import { RestService } from 'src/app/shared/services/rest.service';
+import { SilingCoreService } from '../core.service';
 import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   compDest$: Subject<void> = new Subject<void>();
 
-  constructor(private neds: NewEntryDialogService, public as: AdminService, private rs: RestService) {
+  constructor(private neds: NewEntryDialogService, public as: AdminService, private cs: SilingCoreService) {
   }
 
   ngOnInit() {
@@ -33,16 +34,17 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.neds.getDialog(newEntryInfo);
 
-    dialogRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res: SilingEntryDialogData) => {
       console.log('closed', res);
-      const dataToSave: SilingData = {
-        amount: res.amount,
-        company: res.company.id,
-        date: new Date(res.date).getTime(),
-        id: undefined
+      if (res && res.amount && res.company && res.date) {
+        const dataToSave: SilingData = {
+          amount: res.amount,
+          company: res.company.id,
+          date: res.date.getTime(),
+          id: undefined
+        }
+        this.cs.saveSilingEntry(dataToSave);
       }
-      this.rs.addToCollection(dataToSave);
-
     })
   }
 

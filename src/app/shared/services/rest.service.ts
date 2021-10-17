@@ -4,6 +4,7 @@ import { Firestore, doc, onSnapshot, DocumentReference, docSnapshots, collection
   CollectionReference, DocumentData, FieldPath } from '@angular/fire/firestore';
 import { collection } from '@angular/fire/firestore';
 import { setDoc, addDoc, documentId , getDoc} from '@angular/fire/firestore';
+import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
 import { SilingData } from 'src/app/models/general.models';
 
 @Injectable({
@@ -11,20 +12,20 @@ import { SilingData } from 'src/app/models/general.models';
 })
 export class RestService {
 
-  public silingCollection?: CollectionReference<DocumentData>;
-
   constructor(private firestore: Firestore) {
-
   }
 
-  addToCollection(entry: SilingData) {
+  addEntryToCollection(entry: SilingData): FirebaseDocObsAndId {
     const collectionDoc = doc(collection(this.firestore, 'siling/' + entry.company + '/all'));
     const id: string = collectionDoc.id;
     const dataToSave = {
       ...entry,
       id
     }
-    setDoc(collectionDoc, dataToSave);
+    return {
+      operationObs: setDoc(collectionDoc, dataToSave),
+      id: id
+    };
   }
 
 }

@@ -27,3 +27,9 @@ export interface SilingData {
   company: string;
   date: number;
 }
+
+export interface SilingEntryDialogData {
+  amount: number;
+  company: SilingCompany;
+  date: Date;
+}
