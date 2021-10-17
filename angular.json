@@ -112,6 +112,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "siling2k:build:production",
+            "firebaseProject": "siling1k",
+            "firebaseHostingSite": "siling1k"
+          }
         }
       }
     }

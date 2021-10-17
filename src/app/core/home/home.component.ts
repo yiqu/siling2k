@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
-import { SilingEntry } from 'src/app/models/general.models';
+import { SilingData, SilingEntry } from 'src/app/models/general.models';
+import { RestService } from 'src/app/shared/services/rest.service';
 import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   compDest$: Subject<void> = new Subject<void>();
 
-  constructor(private neds: NewEntryDialogService, public as: AdminService) {
+  constructor(private neds: NewEntryDialogService, public as: AdminService, private rs: RestService) {
   }
 
   ngOnInit() {
@@ -31,8 +32,17 @@ export class SummaryComponent implements OnInit, OnDestroy {
     };
 
     const dialogRef = this.neds.getDialog(newEntryInfo);
+
     dialogRef.afterClosed().subscribe((res) => {
-      console.log('closed', res)
+      console.log('closed', res);
+      const dataToSave: SilingData = {
+        amount: res.amount,
+        company: res.company.id,
+        date: new Date(res.date).getTime(),
+        id: undefined
+      }
+      this.rs.addToCollection(dataToSave);
+
     })
   }
 

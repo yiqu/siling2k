@@ -18,7 +18,7 @@
     "@angular/common": "~12.0.0",
     "@angular/compiler": "~12.0.0",
     "@angular/core": "~12.0.0",
-    "@angular/fire": "~6.1.5",
+    "@angular/fire": "~7.1.0",
     "@angular/flex-layout": "~12.0.0-beta.34",
     "@angular/forms": "~12.0.0",
     "@angular/material": "~12.0.0",
@@ -32,7 +32,7 @@
     "@ngrx/store": "~12.3.0",
     "@ngrx/component": "~12.3.0",
     "bootstrap": "~4.5.3",
-    "firebase": "~8.8.1",
+    "firebase": "~9.1.3",
     "immutable": "~3.8.2",
     "jquery": ">=3.5.0",
     "lodash": "~4.17.20",
@@ -44,7 +44,8 @@
     "ngx-smart-popover": "~1.4.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "rxfire": "^6.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.0.0",
@@ -63,7 +64,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "typescript": "~4.2.3",
-    "firebase-tools": "^8.0.0",
+    "firebase-tools": "^9.20.0",
     "fuzzy": "^0.1.3",
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.0.1",

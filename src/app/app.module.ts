@@ -20,6 +20,11 @@ import { FooterModule } from './footer/footer.module';
 import { SideNavModule } from './side-nav/side-nav.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { providePerformance,getPerformance } from '@angular/fire/performance';
 
 
 @NgModule({
@@ -63,11 +68,20 @@ import { AdminModule } from './admin/admin.module';
         warning: 'toast-warning'
       }
     }),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => {
+      return getFirestore();
+    }),
     SharedBudleModule,
     AdminModule,
-    AppRoutingModule
+    AppRoutingModule,
+    provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
+    providePerformance(() => getPerformance())
   ],
-  providers: [],
+  providers: [
+    ScreenTrackingService,UserTrackingService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

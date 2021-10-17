@@ -20,3 +20,10 @@ export interface SilingEntryStruct {
   value: any;
   inputType: FormControlType
 }
+
+export interface SilingData {
+  id?: string;
+  amount: number;
+  company: string;
+  date: number;
+}

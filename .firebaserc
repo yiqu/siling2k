@@ -1,9 +1,16 @@
 {
   "projects": {
-    "default": "ngrx-qu"
+    "default": "siling1k"
   },
   "targets": {
     "ngrx-qu": {
+      "hosting": {
+        "siling2k": [
+          "siling1k"
+        ]
+      }
+    },
+    "siling1k": {
       "hosting": {
         "siling2k": [
           "siling1k"
