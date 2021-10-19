@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
-import { customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
+import { customNumberWithOptionalCommaAndSingleDecimal, customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
 import * as fromFormUtils from '../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
@@ -37,7 +37,7 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
     return {
       company: fromFormUtils.createFormControl2(data?.company, false, [Validators.required]),
       date: fromFormUtils.createFormControl2(new Date(data?.date), false, [Validators.required]),
-      amount: fromFormUtils.createFormControl2(data?.amount, false, [customOnlyNumbersAndDecimalsValidator])
+      amount: fromFormUtils.createFormControl2(data?.amount, false, [customNumberWithOptionalCommaAndSingleDecimal])
     }
   }
 

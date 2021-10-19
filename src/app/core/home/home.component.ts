@@ -3,6 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { SilingData, SilingEntry, SilingEntryDialogData } from 'src/app/models/general.models';
+import { convertCommaDecimalNumberToNumber } from 'src/app/shared/general.utils';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { SilingCoreService } from '../core.service';
 import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.service';
@@ -35,10 +36,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
     const dialogRef = this.neds.getDialog(newEntryInfo);
 
     dialogRef.afterClosed().subscribe((res: SilingEntryDialogData) => {
-      console.log('closed', res);
       if (res && res.amount && res.company && res.date) {
+        const amountInt: number = convertCommaDecimalNumberToNumber(res.amount);
+        console.log(res.amount, amountInt)
         const dataToSave: SilingData = {
-          amount: res.amount,
+          amount: amountInt,
           company: res.company.id,
           date: res.date.getTime(),
           id: undefined

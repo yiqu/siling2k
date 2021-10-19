@@ -23,20 +23,22 @@
 
               <ng-container *ngSwitchCase="'TEXT_INPUT'">
                 <mat-form-field class="w-100" appearance="standard">
-                  <mat-label>{{control.controlName | titlecase}}</mat-label>
-                  <input type="text" matInput [formControlName]="control.controlName" (focus)="onFocus(control.controlName)"
-                    [placeholder]="control.controlName | titlecase">
+                  <mat-label>{{control.controlName | silingEntryTooltip:true}}</mat-label>
+                  <input type="text" matInput [formControlName]="control.controlName"
+                    (focus)="onFocus(control.controlName)">
                   <span matPrefix *ngIf="control.controlName === 'amount'">$&nbsp;</span>
-                  <mat-hint [id]="$any(null)">{{control.controlName | silingEntryTooltip:true}}</mat-hint>
-                  <mat-error *ngIf="this.entryFg.get(control.controlName)?.hasError('decimalAndNumbersOnly')">
-                    Invalid input
+                  <mat-hint *ngIf="currentFocusControl === control.controlName" [id]="$any(null)">
+                    {{control.controlName | silingEntryTooltip:true}}
+                  </mat-hint>
+                  <mat-error *ngIf="this.entryFg.get(control.controlName)?.hasError('optionalCommaSingleDecimalNumberOnly')">
+                    Please enter a valid number!
                   </mat-error>
                 </mat-form-field>
               </ng-container>
 
               <ng-container *ngSwitchCase="'SELECT_INPUT'">
                 <mat-form-field class="w-100" appearance="standard">
-                  <mat-label>{{control.controlName | titlecase}}</mat-label>
+                  <mat-label>{{control.controlName | silingEntryTooltip:true}}</mat-label>
                   <ng-container *ngIf="(this.data.companies | async) as companyOptions">
                     <mat-select [formControlName]="control.controlName" (focus)="onFocus(control.controlName)">
                       <mat-option>None</mat-option>
@@ -56,17 +58,22 @@
 
                     </mat-select>
                   </ng-container>
-                  <mat-hint [id]="$any(null)">{{control.controlName | silingEntryTooltip:true}}</mat-hint>
+                  <mat-hint *ngIf="currentFocusControl === control.controlName" [id]="$any(null)">
+                    {{control.controlName | silingEntryTooltip:true}}
+                  </mat-hint>
                 </mat-form-field>
               </ng-container>
 
               <ng-container *ngSwitchCase="'DATE_INPUT'">
                 <mat-form-field class="w-100" appearance="standard">
-                  <mat-label>{{control.controlName | titlecase}}</mat-label>
-                  <input matInput [matDatepicker]="picker" [formControlName]="control.controlName" (focus)="onFocus(control.controlName)">
+                  <mat-label>{{control.controlName | silingEntryTooltip:true}}</mat-label>
+                  <input matInput [matDatepicker]="picker" [formControlName]="control.controlName"
+                    (focus)="onFocus(control.controlName)">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-hint [id]="$any(null)">{{control.controlName | silingEntryTooltip:true}}</mat-hint>
+                  <mat-hint *ngIf="currentFocusControl === control.controlName" [id]="$any(null)">
+                    {{control.controlName | silingEntryTooltip:true}}
+                  </mat-hint>
                 </mat-form-field>
               </ng-container>
             </ng-container>

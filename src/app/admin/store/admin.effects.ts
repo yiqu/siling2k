@@ -11,6 +11,8 @@ import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromAdminActions from './admin.actions';
 import { SilingCompany } from './admin.state';
+import { environment } from 'src/environments/environment';
+
 
 
 const mockCompanies: SilingCompany[] = [
@@ -41,6 +43,13 @@ const mockCompanies: SilingCompany[] = [
 export class AdminEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService) {
+    if (!environment.production) {
+      mockCompanies.push({
+        dateAdded: 0,
+        id: 'test',
+        name: 'test'
+      })
+    }
   }
 
   // ngrxOnInitEffects(): Action {
@@ -53,7 +62,6 @@ export class AdminEffects {
       ofType(fromAdminActions.getComapniesStart),
       switchMap(() => {
         return of(mockCompanies).pipe(
-          delay(500),
           map((res: SilingCompany[]) => {
             return fromAdminActions.getComapniesSuccess({companies: res, date: new Date().getTime()});
           }),

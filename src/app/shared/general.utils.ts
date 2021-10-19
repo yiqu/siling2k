@@ -17,7 +17,7 @@ export function createFormControl2(value: any, disabled: boolean, validators: an
 }
 
 
-export function scrollToElementById(id: string) {
+export function scrollToElementById(id: string): void {
   let top = document.getElementById(id);
   if (top) {
     setTimeout(() => {
@@ -27,3 +27,9 @@ export function scrollToElementById(id: string) {
   }
 }
 
+export function convertCommaDecimalNumberToNumber(num: string): number {
+  if (num) {
+    return parseFloat(num.replace(/,/g, ''));
+  }
+  return NaN;
+}

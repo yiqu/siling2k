@@ -47,6 +47,17 @@ export function customOnlyNumbersAndDecimalsValidator(control: FormControl): {[s
   return {"decimalAndNumbersOnly": true};
 }
 
+export function customNumberWithOptionalCommaAndSingleDecimal(control: FormControl): {[s: string]: boolean} | undefined {
+  //const num: RegExp = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;
+  const num: RegExp = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;
+  // convert to string first
+  const val = control.value + "";
+  if (control.value && val.match(num)) {
+    return undefined;
+  }
+  return {"optionalCommaSingleDecimalNumberOnly": true};
+}
+
 /**
  * Regex for allowing alphanumeric,-,_ and space
  * @param control
