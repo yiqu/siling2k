@@ -13,6 +13,8 @@ before_script:
 
 script:
   - echo "Building for PROD"
+  - echo "Using node legacy openssl provider"
+  - export NODE_OPTIONS=--openssl-legacy-provider
   - ng build --prod --base-href=/siling2k/
 
 after_success:
