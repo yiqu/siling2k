@@ -5,6 +5,7 @@ import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { SilingData, SilingEntry, SilingEntryDialogData } from 'src/app/models/general.models';
 import { convertCommaDecimalNumberToNumber } from 'src/app/shared/general.utils';
 import { RestService } from 'src/app/shared/services/rest.service';
+import { environment } from 'src/environments/environment';
 import { SilingCoreService } from '../core.service';
 import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.service';
 
@@ -21,6 +22,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.cs.getSilingDataByInsName(environment.defaultSilingInsToLoad);
   }
 
   onNewEntryClick() {

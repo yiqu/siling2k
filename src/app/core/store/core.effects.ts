@@ -5,7 +5,7 @@ import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, delay
 import { ToasterService } from 'src/app/shared/services/toaster.service';
 import * as fromFirebaseUtils from '../../shared/services/firebase.utils';
 import { Update } from '@ngrx/entity';
-import { of, throwError } from 'rxjs';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromCoreActions from './core.actions';
@@ -13,6 +13,7 @@ import { SilingData } from 'src/app/models/general.models';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { FirebaseOptions } from '@firebase/app';
 import { FirebaseDocObsAndId } from './core.state';
+import { QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 
 
 @Injectable()
@@ -22,7 +23,7 @@ export class SilingDashboardEffects {
   }
 
   // ngrxOnInitEffects(): Action {
-  //   return fromAdminActions.getComapniesStart();
+  //   return fromCoreActions
   // }
 
   saveSilingEntry$ = createEffect(() => {
@@ -35,7 +36,6 @@ export class SilingDashboardEffects {
           ...entryData,
           id: operation.id
         }
-        console.log(entryDataWithId)
         return operation.operationObs.then(
           (result) => {
             this.ts.getSuccess('Entry was successfully saved.');
@@ -45,6 +45,29 @@ export class SilingDashboardEffects {
           (err) => {
             return fromCoreActions.saveSilingEntryFailure({errMsg: err});
           }
+        )
+      })
+    );
+  });
+
+  getSilingDataByNames$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCoreActions.getSilingDataByNameStart),
+      switchMap((res) => {
+        const silingDataNames: string[] = res.names;
+        const forkObs: {[key: string] : Observable<SilingData[]>} = {};
+        silingDataNames.forEach((res) => {
+          forkObs[res] = this.rs.getDataByCollectionName(res);
+        });
+        return forkJoin(forkObs).pipe(
+          map((allData) => {
+            console.log(allData)
+
+            return fromCoreActions.getSilingDataByNameSuccess({payload: allData, date: new Date().getTime()});
+          }),
+          catchError((res) => {
+            return of(fromCoreActions.getSilingDataByNameFailure({errMsg: res}));
+          })
         )
       })
     );

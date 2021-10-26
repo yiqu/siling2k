@@ -21,4 +21,10 @@ export class SilingCoreService {
     this.store.dispatch(fromCoreActions.saveSilingEntryStart({payload: entry}));
   }
 
+  public getSilingDataByInsName(names: string[]) {
+    if (names && names.length > 0) {
+      this.store.dispatch(fromCoreActions.getSilingDataByNameStart({names: names}));
+    }
+  }
+
 }
