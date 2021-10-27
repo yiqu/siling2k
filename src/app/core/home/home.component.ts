@@ -22,7 +22,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.cs.getSilingDataByInsName(environment.defaultSilingInsToLoad);
+    //this.cs.getSilingDataByInsName(environment.defaultSilingInsToLoad);
   }
 
   onNewEntryClick() {

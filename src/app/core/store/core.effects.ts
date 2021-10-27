@@ -12,7 +12,7 @@ import * as fromCoreActions from './core.actions';
 import { SilingData } from 'src/app/models/general.models';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { FirebaseOptions } from '@firebase/app';
-import { FirebaseDocObsAndId } from './core.state';
+import { FirebaseDocObsAndId, SilingDataCollection } from './core.state';
 import { QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 
 
@@ -60,9 +60,7 @@ export class SilingDashboardEffects {
           forkObs[res] = this.rs.getDataByCollectionName(res);
         });
         return forkJoin(forkObs).pipe(
-          map((allData) => {
-            console.log(allData)
-
+          map((allData: SilingDataCollection) => {
             return fromCoreActions.getSilingDataByNameSuccess({payload: allData, date: new Date().getTime()});
           }),
           catchError((res) => {

@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { SilingData } from 'src/app/models/general.models';
+import { SilingDataCollection } from './core.state';
 
 const SAVE_SILING_ENTRY_START: string = "[Siling/API] Save entry start";
 const SAVE_SILING_ENTRY_SUCCESS: string = "[Siling/API] Save entry successful";
@@ -31,7 +32,7 @@ export const getSilingDataByNameStart = createAction(
 
 export const getSilingDataByNameSuccess = createAction(
   GET_SILING_DATA_BY_NAME_SUCCESS,
-  props<{payload: any, date: number}>()
+  props<{payload: SilingDataCollection, date: number}>()
 )
 
 export const getSilingDataByNameFailure = createAction(

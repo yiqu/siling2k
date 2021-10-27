@@ -8,6 +8,10 @@ const initialState: SilingDashboardState = {
   entryApiErr: false,
   entryToSave: undefined,
   entryApiErrMsg: undefined,
+  silingDataBeingFetchedNames: [],
+  silingDataErr: false,
+  silingDataLoading: false,
+  silingData: undefined
 }
 
 export const silingDashboardReducer = createReducer(
@@ -37,5 +41,30 @@ export const silingDashboardReducer = createReducer(
       entryApiErrMsg: errMsg,
       entrySaveLoading: false
     }
-  })
+  }),
+
+  on(fromCoreActions.getSilingDataByNameStart, (state, { names }) => {
+    return {
+      ...state,
+      silingDataBeingFetchedNames: names,
+      silingDataLoading: true
+    }
+  }),
+
+  on(fromCoreActions.getSilingDataByNameSuccess, (state, { payload, date }) => {
+    return {
+      ...state,
+      silingDataLoading: false,
+      silingData: payload
+    }
+  }),
+
+  on(fromCoreActions.getSilingDataByNameFailure, (state, { errMsg }) => {
+    return {
+      ...state,
+      silingDataLoading: false,
+      silingDataErrMsg: errMsg,
+      silingDataErr: true
+    }
+  }),
 )
