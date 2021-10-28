@@ -25,6 +25,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
     AppRoutingModule,
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
-    providePerformance(() => getPerformance())
+    providePerformance(() => getPerformance()),
+    NgbModule
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

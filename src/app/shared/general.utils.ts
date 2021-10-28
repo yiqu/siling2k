@@ -29,7 +29,8 @@ export function scrollToElementById(id: string): void {
 
 export function convertCommaDecimalNumberToNumber(num: string): number {
   if (num) {
-    return parseFloat(num.replace(/,/g, ''));
+    const stripped = num.trim();
+    return parseFloat(stripped.replace(/,/g, ''));
   }
   return NaN;
 }

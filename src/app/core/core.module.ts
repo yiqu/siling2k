@@ -10,6 +10,7 @@ import { NewEntryDialogComponent } from './new-entry-dialog/new-entry-dialog.com
 import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
 import { dashboardEffects } from './store/core.effects';
 import { silingDashboardReducer } from './store/core.reducer';
+import { dashboardUiReducer } from './store/dashboard.reducer';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { silingDashboardReducer } from './store/core.reducer';
     SharedBudleModule,
     EffectsModule.forFeature(dashboardEffects),
     StoreModule.forFeature('dashboard', silingDashboardReducer),
+    StoreModule.forFeature('dashboardUI', dashboardUiReducer),
     CoreRoutingModule,
   ],
 

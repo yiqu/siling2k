@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
+import { distinctUntilChanged, pluck } from 'rxjs/operators';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
 import { customNumberWithOptionalCommaAndSingleDecimal, customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
 import * as fromFormUtils from '../../shared/general.utils';
@@ -22,15 +23,26 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   currentFocusControl: string | undefined;
   compDest$: Subject<void> = new Subject<void>();
 
+  get amountFc(): FormControl {
+    return <FormControl>this.entryFg.get('amount');
+  }
 
   constructor(public dialogRef: MatDialogRef<NewEntryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
       this.entryFg = this.fb.group(this.createFormGroupObj(data));
       this.entryFgStruct = this.createFgStructure(data);
-      console.log(this.data, this.entryFg)
   }
 
   ngOnInit() {
+    this.entryFg.valueChanges.pipe(
+      pluck('amount'),
+      //distinctUntilChanged()
+    ).subscribe((res) => {
+      if (res) {
+        const amountRes = res + '';
+        this.amountFc.setValue(amountRes.trim(), {emitEvent: false});
+      }
+    })
   }
 
   createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {

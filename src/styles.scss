@@ -236,3 +236,6 @@ mat-list-item mat-icon {
 mat-list-option.mat-list-item {
   width: 3rem !important;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

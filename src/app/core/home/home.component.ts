@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { SilingData, SilingEntry, SilingEntryDialogData } from 'src/app/models/general.models';
@@ -40,7 +40,6 @@ export class SummaryComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((res: SilingEntryDialogData) => {
       if (res && res.amount && res.company && res.date) {
         const amountInt: number = convertCommaDecimalNumberToNumber(res.amount);
-        console.log(res.amount, amountInt)
         const dataToSave: SilingData = {
           amount: amountInt,
           company: res.company.id,

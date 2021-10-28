@@ -4,7 +4,8 @@ import { Firestore, doc, onSnapshot, DocumentReference, docSnapshots, collection
   CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { collection } from '@angular/fire/firestore';
 import { setDoc, addDoc, documentId , getDoc} from '@angular/fire/firestore';
-import { catchError, map, Observable, of, take, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, take } from 'rxjs/operators';
 import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
 import { SilingData } from 'src/app/models/general.models';
 
