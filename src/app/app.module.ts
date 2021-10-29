@@ -39,7 +39,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterModule,
     SideNavModule,
     StoreModule.forRoot(appReducers, {
-      metaReducers: metaReducers
+      metaReducers: metaReducers,
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictStateImmutability: true,
+        strictActionTypeUniqueness: true
+      }
     }),
     EffectsModule.forRoot(appEffects),
     StoreDevtoolsModule.instrument({

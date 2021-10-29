@@ -27,7 +27,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
       new NavHeaderList(new NavHeader("Issues"), [
         new NavHeaderLink("Dashboard", "grid_view", ["/", "home"]),
         new NavHeaderLink("Admin", "admin_panel_settings", ["/", "admin"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Settings", "settings", ["/", "settings"]),
         new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
         new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
         new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),

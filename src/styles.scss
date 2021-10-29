@@ -2,6 +2,9 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nerko+One&family=Roboto:wght@100;400;700&display=swap');
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
 body {
   /* margin: 0;  */
   font-family: 'Roboto', sans-serif !important;
@@ -237,5 +240,10 @@ mat-list-option.mat-list-item {
   width: 3rem !important;
 }
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+
+/**
+H tags
+**/
+h1 {
+  font-size: 20px;
+}

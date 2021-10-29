@@ -4,7 +4,7 @@ import { SilingDashboardUiState } from "./dashboard.state";
 import * as fromDashboardUiActions from './dashboard.actions';
 
 const initialState: SilingDashboardUiState = {
-  silingIdsToHide: ['test']
+  silingIdsToHide: []
 }
 
 export const dashboardUiReducer = createReducer(

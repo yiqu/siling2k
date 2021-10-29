@@ -8,6 +8,9 @@ const routes: Routes = [
   { path: 'home',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
+  { path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+  },
   { path: '**', component: NotFoundComponent}
 ];
 

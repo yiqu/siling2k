@@ -1,5 +1,6 @@
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
+import { LocalStorageConfig, localStorageSync } from 'ngrx-store-localstorage';
 
 
 // Log all Actions from ngrx
@@ -27,5 +28,22 @@ export function logNgRxActions(reducer: ActionReducer<any>): ActionReducer<any> 
   };
 }
 
+// create ngrx local storage config
+export const localStorageSyncConfig: LocalStorageConfig = {
+  keys: [
+    {
+      dashboardUI: ['silingIdsToHide']
+    }
+  ],
+  storageKeySerializer: (key) => {
+    return 'siling1k-' + key;
+  },
+  rehydrate: true
+};
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync(localStorageSyncConfig)(reducer);
+}
+
 export let metaReducers: MetaReducer<any>[] = [];
+metaReducers.push(localStorageSyncReducer);
 
