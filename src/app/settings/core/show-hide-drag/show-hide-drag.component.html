@@ -1,0 +1,17 @@
+<div cdkDropListGroup>
+  <div class="drop-area-container">
+    <h2>Currently Being Displayed</h2>
+
+    <div cdkDropList [cdkDropListData]="todo" class="drop-area-list" (cdkDropListDropped)="drop($event)">
+      <div class="item-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div class="drop-area-container">
+    <h2>Hidden</h2>
+
+    <div cdkDropList [cdkDropListData]="done" class="drop-area-list" (cdkDropListDropped)="drop($event)">
+      <div class="item-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div>
