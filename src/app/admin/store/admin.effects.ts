@@ -14,42 +14,13 @@ import { SilingCompany } from './admin.state';
 import { environment } from 'src/environments/environment';
 
 
-
-const mockCompanies: SilingCompany[] = [
-  {
-    dateAdded: 0,
-    id: 'ascensus',
-    name: 'ascensus'
-  },
-  {
-    dateAdded: 0,
-    id: 'fidelity',
-    name: 'fidelity'
-  },
-  {
-    dateAdded: 0,
-    id: 'empower',
-    name: 'empower'
-  },
-  {
-    dateAdded: 0,
-    id: 'csg',
-    name: 'csg'
-  }
-];
+const mockCompanies: SilingCompany[] = environment.defaultSilingInsToLoad;
 
 
 @Injectable()
 export class AdminEffects implements OnInitEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService) {
-    if (!environment.production) {
-      mockCompanies.push({
-        dateAdded: 0,
-        id: 'test',
-        name: 'test'
-      })
-    }
   }
 
   ngrxOnInitEffects(): Action {

@@ -35,7 +35,8 @@ export class SilingSettingsEffects {
         const list: ShowHideCompanyList = res.showHideData;
         return this.ss.saveShowHideList(list).then(
           (res) => {
-            return fromSettingsActions.showHideListUpdateSuccess({showHideData: list});
+            return fromSettingsActions.showHideListUpdateSuccess({showHideData: list,
+              successMsg: 'Updated Show/Hide list successfully.'});
           }
         ).catch(
           (err) => {
@@ -45,6 +46,35 @@ export class SilingSettingsEffects {
       })
     );
   });
+
+  getShowHideList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromSettingsActions.getShowHideListStart),
+      switchMap((res) => {
+        return this.ss.fetchShowHideList<ShowHideCompanyList>().pipe(
+          map((list: ShowHideCompanyList) => {
+            return fromSettingsActions.getShowHideListSuccess({ payload: list,
+              successMsg: 'Fetched Show/Hide list successfully.' });
+          }),
+          catchError((err) => {
+            return of(fromSettingsActions.getShowHideListFailure({ errMsg: err }));
+          })
+        )
+      })
+    );
+  });
+
+  successOperationToast$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(...[fromSettingsActions.getShowHideListSuccess,
+        fromSettingsActions.showHideListUpdateSuccess]),
+      tap((data) => {
+        const msg = data.successMsg ?? 'Operation success.';
+        this.ts.getSuccess(msg);
+      })
+    );
+  }, {dispatch: false});
+
 
 }
 

@@ -25,4 +25,11 @@ export class SettingsService {
     return this.rs.createDocument<ShowHideCompanyList>(listData, 'settings/kqpro/showHideList');
   }
 
+  fetchShowHideList<T>(): Observable<T> {
+    return this.rs.getDocument<T>('settings/kqpro/showHideList');
+  }
+
+  getShowHideList(): void {
+    this.store.dispatch(fromSettingsActions.getShowHideListStart());
+  }
 }

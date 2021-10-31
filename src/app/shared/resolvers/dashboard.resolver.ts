@@ -15,8 +15,13 @@ export class DashboardLoadDataFireResolver implements Resolve<any> {
     return of(true).pipe(
       take(1),
       tap((res) => {
-        console.log("resolver fire", res);
-        this.cs.getSilingDataByInsName(environment.defaultSilingInsToLoad);
+        console.log("resolver for comapany list", res);
+        const companyIds = environment.defaultSilingInsToLoad.map(
+          (res) => {
+            return res.id;
+          }
+        )
+        this.cs.getSilingDataByInsName(companyIds);
       })
     );
   }

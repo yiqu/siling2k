@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Firestore, doc, onSnapshot, DocumentReference, docSnapshots, collectionSnapshots,
-  CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot } from '@angular/fire/firestore';
+  CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 import { collection } from '@angular/fire/firestore';
 import { setDoc, addDoc, documentId , getDoc} from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
@@ -20,6 +20,24 @@ export class RestService {
   createDocument<T>(data: T, url: string): Promise<void> {
     const dataDoc = doc(this.firestore, 'siling/' + url);
     return setDoc(dataDoc, data);
+  }
+
+  getDocument<T>(url: string): Observable<T> {
+    const dataDoc = doc(this.firestore, 'siling/' + url);
+    return docSnapshots(dataDoc).pipe(
+      take(1),
+      map((res: DocumentSnapshot<DocumentData>) => {
+        return res.data() as T;
+      }),
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => {
+          const error: any = new Error(err);
+          error.timestamp = Date.now();
+          return error;
+        });
+      })
+    );
   }
 
   addEntryToCollection(entry: SilingData): FirebaseDocObsAndId {

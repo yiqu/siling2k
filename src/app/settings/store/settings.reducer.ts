@@ -26,7 +26,9 @@ export const settingsReducer = createReducer(
     return {
       ...state,
       showHideLoading: false,
-      showHideLists: showHideData
+      showHideLists: showHideData,
+      err: false,
+      errMsg: undefined
     }
   }),
 
@@ -34,6 +36,34 @@ export const settingsReducer = createReducer(
     return {
       ...state,
       showHideLoading: false,
+      err: true,
+      errMsg: errMsg
+    }
+  }),
+
+  on(fromSettingsAction.getShowHideListStart, (state) => {
+    return {
+      ...state,
+      showHideLoading: true,
+    }
+  }),
+
+  on(fromSettingsAction.getShowHideListSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      showHideLoading: false,
+      showHideLists: payload,
+      err: false,
+      errMsg: undefined
+    }
+  }),
+
+  on(fromSettingsAction.getShowHideListFailure, (state, { errMsg }) => {
+    return {
+      ...state,
+      showHideLoading: false,
+      err: true,
+      errMsg: errMsg
     }
   }),
 

@@ -14,10 +14,10 @@ export class SettingsCoreComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.ss.getShowHideList();
   }
 
-  onShowHideChange(showHideUpdates: ShowHideCompanyList) {
+  onShowHideChange(showHideUpdates: ShowHideCompanyList): void {
     this.ss.updateShowHideList(showHideUpdates);
   }
 }

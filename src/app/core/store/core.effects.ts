@@ -38,7 +38,7 @@ export class SilingDashboardEffects {
         }
         return operation.operationObs.then(
           (result) => {
-            this.ts.getSuccess('Entry was successfully saved.');
+            this.ts.getSuccess('Entry added successfully.');
             return fromCoreActions.saveSilingEntrySuccess({payload: entryDataWithId, date: new Date().getTime()});
           }
         ).catch(
