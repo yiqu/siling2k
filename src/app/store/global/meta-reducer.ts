@@ -32,7 +32,7 @@ export function logNgRxActions(reducer: ActionReducer<any>): ActionReducer<any> 
 export const localStorageSyncConfig: LocalStorageConfig = {
   keys: [
     {
-      dashboardUI: ['silingIdsToHide']
+      settings: [{showHideLists: ['hiding']}]
     }
   ],
   storageKeySerializer: (key) => {

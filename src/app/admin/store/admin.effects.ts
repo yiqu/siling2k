@@ -40,7 +40,7 @@ const mockCompanies: SilingCompany[] = [
 
 
 @Injectable()
-export class AdminEffects {
+export class AdminEffects implements OnInitEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService) {
     if (!environment.production) {
@@ -52,9 +52,9 @@ export class AdminEffects {
     }
   }
 
-  // ngrxOnInitEffects(): Action {
-  //   return fromAdminActions.getComapniesStart();
-  // }
+  ngrxOnInitEffects(): Action {
+    return fromAdminActions.getComapniesStart();
+  }
 
 
   getSilingCompanies$ = createEffect(() => {

@@ -17,6 +17,11 @@ export class RestService {
   constructor(private firestore: Firestore) {
   }
 
+  createDocument<T>(data: T, url: string): Promise<void> {
+    const dataDoc = doc(this.firestore, 'siling/' + url);
+    return setDoc(dataDoc, data);
+  }
+
   addEntryToCollection(entry: SilingData): FirebaseDocObsAndId {
     const collectionDoc = doc(collection(this.firestore, 'siling/' + entry.company + '/all'));
     const id: string = collectionDoc.id;

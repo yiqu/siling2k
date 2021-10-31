@@ -1,17 +1,18 @@
-<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="25px">
   <section fxLayout="row" fxLayoutAlign="center center" class="if">
     <h1>Settings</h1>
   </section>
 
-  <section fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-100">
-    <div>
+  <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="w-100">
+    <div fxLayout="row" fxLayoutAlign="start center">
       <h2 class="if">
         Show / Hide Siling Data on Dashboard
       </h2>
     </div>
 
     <div>
-      <app-settings-core-show-hide></app-settings-core-show-hide>
+      <app-settings-core-show-hide [showHideData]="(this.ss.showHideList$ | async)!"
+        (onShowHideChange)="onShowHideChange($event)"></app-settings-core-show-hide>
     </div>
 
   </section>

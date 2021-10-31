@@ -80,11 +80,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     SharedBudleModule,
     AdminModule,
-    AppRoutingModule,
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     providePerformance(() => getPerformance()),
-    NgbModule
+    NgbModule,
+
+    AppRoutingModule
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
