@@ -23,7 +23,6 @@ export const getShowHideList = createSelector(
     const hideList: SilingCompany[] = [];
 
     allCompanies.forEach((co: SilingCompany) => {
-      console.log(co)
       const existInHidden = hiddenList.find((comapnyId: SilingCompany) => {
         return co.id === comapnyId.id;
       });

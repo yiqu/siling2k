@@ -1,20 +1,28 @@
 <div cdkDropListGroup>
-  <div class="drop-area-container">
+  <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
+    ngClass.lt-sm="mobile-width">
     <h2 class="mb-2 if">Currently Being Displayed</h2>
 
     <div cdkDropList [cdkDropListData]="showList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
-      <div class="item-box" *ngFor="let company of showList" cdkDrag>
+      <div class="item-box left roboto" *ngFor="let company of showList" cdkDrag>
+        <mat-icon class="mr-2">account_balance</mat-icon>
         {{company.name | silingCompanyDisplay}}
+        <img *cdkDragPreview [src]="'assets/banner/' + company.id + '.jpg'" [alt]="company.name + ' logo'"
+          class="drop-logo">
       </div>
     </div>
   </div>
 
-  <div class="drop-area-container">
+  <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
+    ngClass.lt-sm="mobile-width">
     <h2 class="mb-2 if">Hidden</h2>
 
     <div cdkDropList [cdkDropListData]="hideList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
-      <div class="item-box" *ngFor="let company of hideList" cdkDrag>
+      <div class="item-box right roboto" *ngFor="let company of hideList" cdkDrag>
+        <mat-icon class="mr-2">hide_source</mat-icon>
         {{company.name | silingCompanyDisplay}}
+        <img *cdkDragPreview [src]="'assets/banner/' + company.id + '.jpg'" [alt]="company.name + ' logo'"
+          class="drop-logo">
       </div>
     </div>
   </div>

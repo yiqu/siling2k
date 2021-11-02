@@ -59,7 +59,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NotFoundComponentModule,
     MaterialModuleBundle,
     ToastrModule.forRoot({
-      timeOut: 3000,
+      timeOut: 6000,
       extendedTimeOut: 1000,
       positionClass: 'toast-top-right',
       preventDuplicates: false,
