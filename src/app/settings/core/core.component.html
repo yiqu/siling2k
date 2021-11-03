@@ -1,7 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="25px">
-  <section fxLayout="row" fxLayoutAlign="center center" class="if underline">
-    <h1>Settings</h1>
-  </section>
 
   <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="40px" class="w-100">
     <div fxLayout="row" fxLayoutAlign="start center">
@@ -12,7 +9,8 @@
 
     <div>
       <app-settings-core-show-hide [showHideData]="(this.ss.showHideList$ | async)!"
-        (onShowHideChange)="onShowHideChange($event)"></app-settings-core-show-hide>
+        (onShowHideChange)="onShowHideChange($event)">
+      </app-settings-core-show-hide>
     </div>
 
   </section>

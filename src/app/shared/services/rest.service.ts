@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, doc, onSnapshot, DocumentReference, docSnapshots, collectionSnapshots,
   CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 import { collection } from '@angular/fire/firestore';
-import { setDoc, addDoc, documentId , getDoc} from '@angular/fire/firestore';
+import { setDoc, addDoc, documentId , getDoc, updateDoc} from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
@@ -20,6 +20,19 @@ export class RestService {
   createDocument<T>(data: T, url: string): Promise<void> {
     const dataDoc = doc(this.firestore, 'siling/' + url);
     return setDoc(dataDoc, data);
+  }
+
+  addDocumentToCollection<T>(data: T, url: string): FirebaseDocObsAndId {
+    const dataDoc = doc(collection(this.firestore, 'siling/' + url));
+    const id: string = dataDoc.id;
+    const datawithId = {
+      ...data,
+      id: id
+    }
+    return {
+      operationObs: setDoc(dataDoc, datawithId),
+      id: id
+    };
   }
 
   getDocument<T>(url: string): Observable<T> {

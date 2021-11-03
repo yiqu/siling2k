@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/admin/admin.service';
 import { SettingsService } from '../settings.service';
 import { ShowHideCompanyList } from '../store/settings.state';
 
@@ -9,7 +10,7 @@ import { ShowHideCompanyList } from '../store/settings.state';
 })
 export class SettingsCoreComponent implements OnInit {
 
-  constructor(public ss: SettingsService) {
+  constructor(public ss: SettingsService, private as: AdminService) {
 
   }
 

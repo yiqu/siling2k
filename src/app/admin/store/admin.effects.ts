@@ -12,6 +12,8 @@ import { Action } from '@ngrx/store';
 import * as fromAdminActions from './admin.actions';
 import { SilingCompany } from './admin.state';
 import { environment } from 'src/environments/environment';
+import { AdminService } from '../admin.service';
+import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
 
 
 const mockCompanies: SilingCompany[] = environment.defaultSilingInsToLoad;
@@ -20,7 +22,7 @@ const mockCompanies: SilingCompany[] = environment.defaultSilingInsToLoad;
 @Injectable()
 export class AdminEffects implements OnInitEffects {
 
-  constructor(public actions$: Actions, public ts: ToasterService) {
+  constructor(public actions$: Actions, public ts: ToasterService, private as: AdminService) {
   }
 
   ngrxOnInitEffects(): Action {
@@ -40,6 +42,32 @@ export class AdminEffects implements OnInitEffects {
             return of(fromAdminActions.getComapniesFailure({errMsg: err}));
           })
         )
+      })
+    );
+  });
+
+  addSilingCompany$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAdminActions.addCompanyStart),
+      concatMap((res) => {
+        const company: SilingCompany = res.company;
+        const restOperation: FirebaseDocObsAndId = this.as.addSilingCompany(company);
+        const obs$: Promise<void> = restOperation.operationObs;
+        const id: string = restOperation.id;
+        return obs$.then(
+          (res) => {
+            const comapnyWithId = {
+              ...company,
+              id: id
+            }
+            return fromAdminActions.addCompanySuccess({
+              company: comapnyWithId,
+              date: new Date().getTime()
+            });
+          }
+        ).catch((err) => {
+          return fromAdminActions.addCompanyFailure({errMsg: err});
+        })
       })
     );
   });

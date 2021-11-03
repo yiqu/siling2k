@@ -34,7 +34,6 @@ export class ShowHideComponent implements OnInit, OnChanges {
       this.showList = this.showHideData.showing;
       this.hideList = this.showHideData.hiding;
     }
-    console.log(this.showHideData)
   }
 
   ngOnInit() {

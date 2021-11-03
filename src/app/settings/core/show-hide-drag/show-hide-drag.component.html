@@ -1,7 +1,7 @@
 <div cdkDropListGroup>
   <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
     ngClass.lt-sm="mobile-width">
-    <h2 class="mb-2 if">Currently Being Displayed</h2>
+    <h2 class="mb-3 if">Currently Being Displayed</h2>
 
     <div cdkDropList [cdkDropListData]="showList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
       <div class="item-box left roboto" *ngFor="let company of showList" cdkDrag>
@@ -15,7 +15,7 @@
 
   <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
     ngClass.lt-sm="mobile-width">
-    <h2 class="mb-2 if">Hidden</h2>
+    <h2 class="mb-3 if">Hidden</h2>
 
     <div cdkDropList [cdkDropListData]="hideList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
       <div class="item-box right roboto" *ngFor="let company of hideList" cdkDrag>
