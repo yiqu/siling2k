@@ -1,0 +1,43 @@
+<ng-container *ngIf="entryFg; else noFg">
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" ngClass.gt-sm="big">
+    <mat-icon class="">account_balance</mat-icon>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <h1 class="mb-0">
+        Add new Siling1k institution
+      </h1>
+    </div>
+  </div>
+
+  <hr>
+
+  <div mat-dialog-content>
+    <form [formGroup]="entryFg">
+      <mat-form-field class="w-100" appearance="standard">
+        <mat-label>Institution name</mat-label>
+        <input type="text" matInput [formControlName]="'name'">
+        <button *ngIf="entryFg.get('name')?.value" matSuffix mat-icon-button aria-label="Clear"
+          (click)="this.resetNameValue()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="standard">
+        <mat-label>Created date</mat-label>
+        <input type="text" matInput [formControlName]="'dateAdded'">
+      </mat-form-field>
+    </form>
+  </div>
+
+  <hr>
+
+  <div mat-dialog-actions fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center">
+    <button mat-button (click)="onSave()" [disabled]="this.entryFg.invalid">Save</button>
+    <button mat-button (click)="onCancel()">Cancel</button>
+  </div>
+</ng-container>
+
+<ng-template #noFg>
+  <div>
+    Loading...
+  </div>
+</ng-template>

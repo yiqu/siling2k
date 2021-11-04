@@ -3,7 +3,7 @@
   <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="40px" class="w-100">
     <div fxLayout="row" fxLayoutAlign="start center">
       <h2 class="roboto">
-        Show / Hide Siling Data on Dashboard
+        Show or hide Siling institutions on dashboard
       </h2>
     </div>
 
@@ -13,6 +13,24 @@
       </app-settings-core-show-hide>
     </div>
 
+  </section>
+
+  <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="40px" class="w-100">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <h2 class="roboto">
+        Add new Siling institution
+      </h2>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button mat-flat-button color="primary" (click)="onAddNewIns()">
+        <mat-icon>add</mat-icon>
+        <span class="mx-1">
+          New
+        </span>
+        <mat-icon class="">account_balance</mat-icon>
+      </button>
+    </div>
   </section>
 </div>
 
