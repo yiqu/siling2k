@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -30,7 +31,8 @@ import { settingsReducer } from './store/settings.reducer';
   ],
 
   providers: [
-    NewSilingInsDialogService
+    NewSilingInsDialogService,
+    TitleCasePipe
   ],
 })
 export class SettingsModule { }

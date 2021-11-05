@@ -61,6 +61,7 @@ export class SilingDashboardEffects {
         });
         return forkJoin(forkObs).pipe(
           map((allData: SilingDataCollection) => {
+            this.ts.getSuccess('Loaded Siling data successfully.');
             return fromCoreActions.getSilingDataByNameSuccess({payload: allData, date: new Date().getTime()});
           }),
           catchError((res) => {

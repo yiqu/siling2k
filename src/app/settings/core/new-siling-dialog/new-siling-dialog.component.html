@@ -11,12 +11,12 @@
   <hr>
 
   <div mat-dialog-content>
-    <form [formGroup]="entryFg">
+    <form [formGroup]="entryFg" onsu>
       <mat-form-field class="w-100" appearance="standard">
         <mat-label>Institution name</mat-label>
-        <input type="text" matInput [formControlName]="'name'">
+        <input type="text" matInput [formControlName]="'name'" (keyup.enter)="onSave()">
         <button *ngIf="entryFg.get('name')?.value" matSuffix mat-icon-button aria-label="Clear"
-          (click)="this.resetNameValue()">
+          (click)="this.resetNameValue()" type="button">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
@@ -31,8 +31,8 @@
   <hr>
 
   <div mat-dialog-actions fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center">
-    <button mat-button (click)="onSave()" [disabled]="this.entryFg.invalid">Save</button>
-    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onSave()" [disabled]="this.entryFg.invalid" type="submit">Save</button>
+    <button mat-button (click)="onCancel()" type="button">Cancel</button>
   </div>
 </ng-container>
 

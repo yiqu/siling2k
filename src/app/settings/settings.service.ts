@@ -6,6 +6,9 @@ import * as fromSettingsActions from './store/settings.actions';
 import { Observable } from 'rxjs';
 import * as fromSettingsSelectors from './store/settings.selectors';
 import { RestService } from '../shared/services/rest.service';
+import * as fromAdminActions from '../admin/store/admin.actions';
+import { SilingCompany } from '../admin/store/admin.state';
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +34,9 @@ export class SettingsService {
 
   getShowHideList(): void {
     this.store.dispatch(fromSettingsActions.getShowHideListStart());
+  }
+
+  addNewSilingCompany(company: SilingCompany) {
+    this.store.dispatch(fromAdminActions.addCompanyStart({company}))
   }
 }

@@ -15,7 +15,7 @@ export const getComapniesStart = createAction(
 
 export const getComapniesSuccess = createAction(
   GET_COMPANIES_SUCCESS,
-  props<{companies: SilingCompany[], date: number}>()
+  props<{companies: SilingCompany[], date: number, successMsg: string}>()
 )
 
 export const getComapniesFailure = createAction(
@@ -30,7 +30,7 @@ export const addCompanyStart = createAction(
 
 export const addCompanySuccess = createAction(
   ADD_COMPANY_SUCCESS,
-  props<{company: SilingCompany, date: number}>()
+  props<{company: SilingCompany, date: number, successMsg: string}>()
 )
 
 export const addCompanyFailure = createAction(

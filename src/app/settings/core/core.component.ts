@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
@@ -12,7 +13,8 @@ import { NewSilingInsDialogService } from './new-siling-dialog.service';
 })
 export class SettingsCoreComponent implements OnInit {
 
-  constructor(public ss: SettingsService, private as: AdminService, private nsd: NewSilingInsDialogService) {
+  constructor(public ss: SettingsService, private as: AdminService, private nsd: NewSilingInsDialogService,
+    private tcp: TitleCasePipe) {
 
   }
 
@@ -29,8 +31,13 @@ export class SettingsCoreComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((res: SilingCompany) => {
       if (res && res.name && res.dateAdded) {
-        console.log(res)
-        //this.cs.saveSilingEntry(dataToSave);
+        const company: SilingCompany = {
+          dateAdded: new Date(res.dateAdded).getTime(),
+          id: '',
+          name: res.name ? this.tcp.transform(res.name) : 'Invalid Name',
+          hidden: false
+        }
+        this.ss.addNewSilingCompany(company);
       }
     })
   }

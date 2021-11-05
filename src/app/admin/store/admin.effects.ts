@@ -36,7 +36,10 @@ export class AdminEffects implements OnInitEffects {
       switchMap(() => {
         return of(mockCompanies).pipe(
           map((res: SilingCompany[]) => {
-            return fromAdminActions.getComapniesSuccess({companies: res, date: new Date().getTime()});
+            return fromAdminActions.getComapniesSuccess({companies: res,
+              date: new Date().getTime(),
+              successMsg: 'Loaded Siling institution successfully.'
+            });
           }),
           catchError((err) => {
             return of(fromAdminActions.getComapniesFailure({errMsg: err}));
@@ -56,13 +59,14 @@ export class AdminEffects implements OnInitEffects {
         const id: string = restOperation.id;
         return obs$.then(
           (res) => {
-            const comapnyWithId = {
+            const institutionWithId = {
               ...company,
               id: id
             }
             return fromAdminActions.addCompanySuccess({
-              company: comapnyWithId,
-              date: new Date().getTime()
+              company: institutionWithId,
+              date: new Date().getTime(),
+              successMsg: 'Siling institution added successfully.'
             });
           }
         ).catch((err) => {
@@ -71,6 +75,17 @@ export class AdminEffects implements OnInitEffects {
       })
     );
   });
+
+  successOperationToast$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(...[fromAdminActions.getComapniesSuccess,
+        fromAdminActions.addCompanySuccess]),
+      tap((data) => {
+        const msg = data.successMsg ?? 'Operation success.';
+        this.ts.getSuccess(msg);
+      })
+    );
+  }, {dispatch: false});
 
 
 }
