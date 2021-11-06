@@ -7,11 +7,14 @@
       </h2>
     </div>
 
-    <div>
-      <app-settings-core-show-hide [showHideData]="(this.ss.showHideList$ | async)!"
-        (onShowHideChange)="onShowHideChange($event)">
-      </app-settings-core-show-hide>
-    </div>
+    <ng-container *ngIf="((this.as.getSilingCompanyLoading$ | async) === false); else loading">
+      <div>
+        <app-settings-core-show-hide [showHideData]="(this.ss.showHideList$ | async)!"
+          (onShowHideChange)="onShowHideChange($event)"
+          [apiLoading]="(this.ss.showHideApiLoading$ | async)!">
+        </app-settings-core-show-hide>
+      </div>
+    </ng-container>
 
   </section>
 
@@ -29,3 +32,8 @@
   </section>
 </div>
 
+<ng-template #loading>
+  <div class="my-5">
+    <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>

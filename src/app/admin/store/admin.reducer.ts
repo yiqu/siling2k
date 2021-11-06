@@ -12,14 +12,14 @@ const initialState: AdminState = {
 
 export const adminInfoReducer = createReducer(
   initialState,
-  on(fromAdminActions.getComapniesStart, (state) => {
+  on(fromAdminActions.getCompaniesStart, (state) => {
     return {
       ...state,
       apiLoading: true
     }
   }),
 
-  on(fromAdminActions.getComapniesSuccess, (state, {companies, date}) => {
+  on(fromAdminActions.getCompaniesSuccess, (state, {companies, date}) => {
     return {
       ...state,
       companies,
@@ -29,7 +29,7 @@ export const adminInfoReducer = createReducer(
     }
   }),
 
-  on(fromAdminActions.getComapniesFailure, (state, {errMsg}) => {
+  on(fromAdminActions.getCompaniesFailure, (state, {errMsg}) => {
     return {
       ...state,
       apiLoading: false,

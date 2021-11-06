@@ -20,7 +20,11 @@ export class AdminService {
   }
 
   fetchSilingCompanies(): void {
-    this.store.dispatch(fromAdminActions.getComapniesStart());
+    this.store.dispatch(fromAdminActions.getCompaniesStart());
+  }
+
+  getSilingCompanies(): Observable<SilingCompany[]> {
+    return this.rs.getCollection<SilingCompany>('settings/kqpro/companies/all');
   }
 
   callAddSilingCompany(company: SilingCompany): void {
@@ -28,7 +32,7 @@ export class AdminService {
   }
 
   addSilingCompany(company: SilingCompany): FirebaseDocObsAndId {
-    return this.rs.addDocumentToCollection(company, 'settings/kqpro/comapnies/all');
+    return this.rs.addDocumentToCollection(company, 'settings/kqpro/companies/all');
   }
 
 }

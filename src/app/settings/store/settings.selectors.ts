@@ -14,6 +14,13 @@ export const hiddenList = createSelector(
   }
 );
 
+export const getApiLoading = createSelector(
+  selectSettingsFeatureState,
+  (state): boolean => {
+    return state.showHideLoading;
+  }
+);
+
 export const getShowHideList = createSelector(
   fromAdminSelectors.getSilingCompanies,
   hiddenList,

@@ -2,6 +2,7 @@ import { TitleCasePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { LoadingModule } from '../shared/loading/loading.module';
 import { SharedBudleModule } from '../shared/shared.module';
 import { SettingsCoreComponent } from './core/core.component';
 import { NewSilingInsDialogService } from './core/new-siling-dialog.service';
@@ -16,6 +17,7 @@ import { settingsReducer } from './store/settings.reducer';
 @NgModule({
   imports: [
     SharedBudleModule,
+    LoadingModule,
     SettingsRoutingModule,
     EffectsModule.forFeature(settingsEffects),
     StoreModule.forFeature('settings', settingsReducer),

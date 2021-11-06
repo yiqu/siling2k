@@ -16,6 +16,9 @@ export class ShowHideComponent implements OnInit, OnChanges {
   @Input()
   showHideData: ShowHideCompanyList;
 
+  @Input()
+  apiLoading: boolean = false;
+
   @Output()
   onShowHideChange: EventEmitter<ShowHideCompanyList> = new EventEmitter<ShowHideCompanyList>();
 

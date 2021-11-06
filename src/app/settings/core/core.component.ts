@@ -13,7 +13,7 @@ import { NewSilingInsDialogService } from './new-siling-dialog.service';
 })
 export class SettingsCoreComponent implements OnInit {
 
-  constructor(public ss: SettingsService, private as: AdminService, private nsd: NewSilingInsDialogService,
+  constructor(public ss: SettingsService, public as: AdminService, private nsd: NewSilingInsDialogService,
     private tcp: TitleCasePipe) {
 
   }

@@ -16,6 +16,8 @@ import { SilingCompany } from '../admin/store/admin.state';
 export class SettingsService {
 
   showHideList$: Observable<ShowHideCompanyList> = this.store.select(fromSettingsSelectors.getShowHideList);
+  showHideApiLoading$: Observable<boolean> = this.store.select(fromSettingsSelectors.getApiLoading);
+
 
   constructor(private store: Store<AppState>, private rs: RestService) {
   }

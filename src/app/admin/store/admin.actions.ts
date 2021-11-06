@@ -9,16 +9,16 @@ const ADD_COMPANY_START: string = "[Admin/API] Add Siling company start";
 const ADD_COMPANY_SUCCESS: string = "[Admin/API] Add Siling company success";
 const ADD_COMPANY_FAILED: string = "[Admin/API] Add Siling company failure";
 
-export const getComapniesStart = createAction(
+export const getCompaniesStart = createAction(
   GET_COMPANIES_START,
 )
 
-export const getComapniesSuccess = createAction(
+export const getCompaniesSuccess = createAction(
   GET_COMPANIES_SUCCESS,
   props<{companies: SilingCompany[], date: number, successMsg: string}>()
 )
 
-export const getComapniesFailure = createAction(
+export const getCompaniesFailure = createAction(
   GET_COMPANIES_FAILED,
   props<{errMsg: string}>()
 )

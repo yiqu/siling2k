@@ -26,23 +26,23 @@ export class AdminEffects implements OnInitEffects {
   }
 
   ngrxOnInitEffects(): Action {
-    return fromAdminActions.getComapniesStart();
+    return fromAdminActions.getCompaniesStart();
   }
 
 
   getSilingCompanies$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromAdminActions.getComapniesStart),
+      ofType(fromAdminActions.getCompaniesStart),
       switchMap(() => {
-        return of(mockCompanies).pipe(
+        return this.as.getSilingCompanies().pipe(
           map((res: SilingCompany[]) => {
-            return fromAdminActions.getComapniesSuccess({companies: res,
+            return fromAdminActions.getCompaniesSuccess({companies: res,
               date: new Date().getTime(),
               successMsg: 'Loaded Siling institution successfully.'
             });
           }),
           catchError((err) => {
-            return of(fromAdminActions.getComapniesFailure({errMsg: err}));
+            return of(fromAdminActions.getCompaniesFailure({errMsg: err}));
           })
         )
       })
@@ -78,7 +78,7 @@ export class AdminEffects implements OnInitEffects {
 
   successOperationToast$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(...[fromAdminActions.getComapniesSuccess,
+      ofType(...[fromAdminActions.getCompaniesSuccess,
         fromAdminActions.addCompanySuccess]),
       tap((data) => {
         const msg = data.successMsg ?? 'Operation success.';
