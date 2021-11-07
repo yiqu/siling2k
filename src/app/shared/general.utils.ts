@@ -34,3 +34,9 @@ export function convertCommaDecimalNumberToNumber(num: string): number {
   }
   return NaN;
 }
+
+export function insertIntoArrayAtIndex<T>(arr: T[], index: number, item: T): T[] {
+  const arrCopy: T[] = JSON.parse(JSON.stringify(arr));
+  arrCopy.splice(index, 0, item);
+  return arrCopy;
+}

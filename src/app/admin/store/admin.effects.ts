@@ -16,9 +16,6 @@ import { AdminService } from '../admin.service';
 import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
 
 
-const mockCompanies: SilingCompany[] = environment.defaultSilingInsToLoad;
-
-
 @Injectable()
 export class AdminEffects implements OnInitEffects {
 
@@ -28,7 +25,6 @@ export class AdminEffects implements OnInitEffects {
   ngrxOnInitEffects(): Action {
     return fromAdminActions.getCompaniesStart();
   }
-
 
   getSilingCompanies$ = createEffect(() => {
     return this.actions$.pipe(
@@ -72,6 +68,15 @@ export class AdminEffects implements OnInitEffects {
         ).catch((err) => {
           return fromAdminActions.addCompanyFailure({errMsg: err});
         })
+      })
+    );
+  });
+
+  refreshSilingCompanies$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAdminActions.addCompanySuccess),
+      map(() => {
+        return fromAdminActions.getCompaniesStart();
       })
     );
   });

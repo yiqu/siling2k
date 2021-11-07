@@ -14,6 +14,13 @@ export const hiddenList = createSelector(
   }
 );
 
+export const shownList = createSelector(
+  selectSettingsFeatureState,
+  (state): SilingCompany[] => {
+    return state.showHideLists ? state.showHideLists.showing : [];
+  }
+);
+
 export const getApiLoading = createSelector(
   selectSettingsFeatureState,
   (state): boolean => {
@@ -24,7 +31,9 @@ export const getApiLoading = createSelector(
 export const getShowHideList = createSelector(
   fromAdminSelectors.getSilingCompanies,
   hiddenList,
-  (allCompanies: SilingCompany[], hiddenList: SilingCompany[]): ShowHideCompanyList => {
+  shownList,
+  (allCompanies: SilingCompany[], hiddenList: SilingCompany[],
+    shownList: SilingCompany[]): ShowHideCompanyList => {
 
     const showList: SilingCompany[] = [];
     const hideList: SilingCompany[] = [];
@@ -40,9 +49,34 @@ export const getShowHideList = createSelector(
       }
     });
 
+    if (hiddenList && shownList) {
+      hideList.sort((x: SilingCompany, y: SilingCompany) => {
+        const xIndex = hiddenList.findIndex((co) => {
+          return co.id === x.id;
+        });
+        const yIndex = hiddenList.findIndex((co) => {
+          return co.id === y.id;
+        });
+
+        return xIndex > yIndex ? 1 : -1;
+      });
+
+      showList.sort((x: SilingCompany, y: SilingCompany) => {
+        const xIndex = shownList.findIndex((co) => {
+          return co.id === x.id;
+        });
+        const yIndex = shownList.findIndex((co) => {
+          return co.id === y.id;
+        });
+
+        return xIndex > yIndex ? 1 : -1;
+      });
+    }
+
     return {
       hiding: hideList,
       showing: showList
     };
   }
 );
+
