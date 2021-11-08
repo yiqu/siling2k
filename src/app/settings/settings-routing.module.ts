@@ -4,7 +4,7 @@ import { SettingsComponent } from './settings.component';
 import { SettingsCoreComponent } from './core/core.component';
 
 export const routes: Routes = [
-  { path: "", component: SettingsComponent,
+  { path: "settings", component: SettingsComponent,
     children: [
       { path: '', redirectTo: 'all', pathMatch: 'full' },
       { path: 'all', component:  SettingsCoreComponent },

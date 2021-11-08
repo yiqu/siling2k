@@ -26,6 +26,7 @@ import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsModule } from './settings/settings.module';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     SharedBudleModule,
     AdminModule,
+    SettingsModule,
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     providePerformance(() => getPerformance()),

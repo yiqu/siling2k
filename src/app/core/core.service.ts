@@ -13,6 +13,7 @@ export class SilingCoreService {
 
   public isEntrySaveLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.getSaveIsLoading);
 
+
   constructor(private store: Store<AppState>) {
 
   }

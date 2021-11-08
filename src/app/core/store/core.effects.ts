@@ -50,6 +50,11 @@ export class SilingDashboardEffects {
     );
   });
 
+  /**
+   * Get siling data from a list of company names
+   *
+   * forkJoin()
+   */
   getSilingDataByNames$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromCoreActions.getSilingDataByNameStart),

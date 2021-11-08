@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { SilingCoreService } from 'src/app/core/core.service';
+import { SettingsService } from 'src/app/settings/settings.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardLoadDataFireResolver implements Resolve<any> {
-  constructor(private cs: SilingCoreService) {}
+  constructor(private cs: SilingCoreService, private ss: SettingsService) {}
+
+  // need to call both show hide list, and all company list
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    return of(true).pipe(
+    return this.ss.showHideList$.pipe(
       take(1),
       tap((res) => {
         console.log("resolver for comapany list", res);

@@ -24,9 +24,9 @@ export class SilingSettingsEffects {
   constructor(public actions$: Actions, public ts: ToasterService, public ss: SettingsService) {
   }
 
-  // ngrxOnInitEffects(): Action {
-  //   return fromCoreActions
-  // }
+  ngrxOnInitEffects(): Action {
+    return fromSettingsActions.getShowHideListStart();
+  }
 
   updateShowHideList$ = createEffect(() => {
     return this.actions$.pipe(

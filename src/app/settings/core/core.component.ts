@@ -19,7 +19,6 @@ export class SettingsCoreComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ss.getShowHideList();
   }
 
   onShowHideChange(showHideUpdates: ShowHideCompanyList): void {

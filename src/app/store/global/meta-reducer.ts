@@ -45,5 +45,5 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 }
 
 export let metaReducers: MetaReducer<any>[] = [];
-metaReducers.push(localStorageSyncReducer);
+//metaReducers.push(localStorageSyncReducer);
 
