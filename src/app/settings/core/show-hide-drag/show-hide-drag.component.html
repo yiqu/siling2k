@@ -9,7 +9,7 @@
     <div cdkDropList [cdkDropListData]="showList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
       <div class="item-box left roboto" *ngFor="let company of showList" cdkDrag>
         <mat-icon class="mr-2">account_balance</mat-icon>
-        {{company.name | silingCompanyDisplay}}
+        {{company.name| silingCompanyDisplay}}
         <img *cdkDragPreview [src]="'assets/banner/' + (company.name | lowercase) + '.jpg'"
           [alt]="company.name + ' logo'" class="drop-logo">
       </div>

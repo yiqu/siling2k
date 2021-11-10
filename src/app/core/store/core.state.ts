@@ -21,3 +21,8 @@ export interface FirebaseDocObsAndId {
 export interface SilingDataCollection {
   [key: string]: SilingData[]
 }
+
+export interface SilingDashboardData {
+  keys: string[];
+  data: SilingDataCollection;
+}

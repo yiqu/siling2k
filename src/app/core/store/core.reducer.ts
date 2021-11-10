@@ -11,7 +11,7 @@ const initialState: SilingDashboardState = {
   silingDataBeingFetchedNames: [],
   silingDataErr: false,
   silingDataLoading: false,
-  silingData: undefined
+  silingData: undefined,
 }
 
 export const silingDashboardReducer = createReducer(
@@ -55,7 +55,9 @@ export const silingDashboardReducer = createReducer(
     return {
       ...state,
       silingDataLoading: false,
-      silingData: payload
+      silingData: payload,
+      silingDataErrMsg: undefined,
+      silingDataErr: false
     }
   }),
 

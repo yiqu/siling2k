@@ -18,7 +18,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   compDest$: Subject<void> = new Subject<void>();
 
-  constructor(private neds: NewEntryDialogService, public as: AdminService, private cs: SilingCoreService) {
+  constructor(private neds: NewEntryDialogService, public as: AdminService, public cs: SilingCoreService) {
   }
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
         const amountInt: number = convertCommaDecimalNumberToNumber(res.amount);
         const dataToSave: SilingData = {
           amount: amountInt,
-          company: res.company.id,
+          company: res.company.name.toLowerCase(),
           date: res.date.getTime(),
           id: undefined
         }

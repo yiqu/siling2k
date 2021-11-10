@@ -8,6 +8,7 @@ import { RestService } from '../shared/services/rest.service';
 import { AppState } from '../store/global/app.reducer';
 import * as fromCoreActions from './store/core.actions';
 import * as fromCoreSelectors from './store/core.selectors';
+import { SilingDashboardData } from './store/core.state';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ import * as fromCoreSelectors from './store/core.selectors';
 export class SilingCoreService {
 
   public isEntrySaveLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.getSaveIsLoading);
+  public isDashboardDataLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.isDashboardDataLoading);
+  public dashboardData$: Observable<SilingDashboardData> = this.store.select(fromCoreSelectors.getSilingDashboardData);
 
 
   constructor(private store: Store<AppState>, private rs: RestService) {
