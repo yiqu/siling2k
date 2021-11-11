@@ -33,3 +33,8 @@ export interface SilingEntryDialogData {
   company: SilingCompany;
   date: Date;
 }
+
+export interface SilingDataDetail extends SilingData {
+  profitPercent: number;
+  profit: number;
+}

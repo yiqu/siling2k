@@ -1,4 +1,4 @@
-import { SilingData } from "src/app/models/general.models";
+import { SilingData, SilingDataDetail } from "src/app/models/general.models";
 
 export interface SilingDashboardState {
   entrySaveLoading: boolean;
@@ -20,6 +20,10 @@ export interface FirebaseDocObsAndId {
 
 export interface SilingDataCollection {
   [key: string]: SilingData[]
+}
+
+export interface SilingDataDetailCollection {
+  [key: string]: SilingDataDetail[]
 }
 
 export interface SilingDashboardData {
