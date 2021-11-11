@@ -42,19 +42,32 @@ export const getSilingDashboardData = createSelector(
     const allSilingInsKeys: string[] = Object.keys(data);
     const resultData: SilingDataDetailCollection = {};
 
-    allSilingInsKeys.forEach((key: string) => {
+    allSilingInsKeys.forEach((key: string, index: number) => {
       const arrCopy = JSON.parse(JSON.stringify(data[key]));
       const sortedByDate: SilingData[] = arrCopy.sort((a: SilingData, b: SilingData) => {
         return a.date > b.date ? 1 : -1;
       });
 
       const detailArray: SilingDataDetail[] = [];
-      sortedByDate.forEach((detail: SilingData) => {
+
+      sortedByDate.forEach((current: SilingData, index: number, arr: SilingData[]) => {
+        const previous: SilingData = sortedByDate[index - 1];
+        let difference: number = 0;
+        let differencePercent: number = 0;
+        if (previous && current) {
+          difference = current.amount - previous.amount;
+          differencePercent = difference / previous.amount;
+        }
+
+        console.log(key, previous, current)
+
         detailArray.push({
-          ...detail,
-          profit: 0,
-          profitPercent: 0
-        })
+          ...current,
+          profit: difference,
+          profitPercent: differencePercent
+        });
+
+
       });
 
 
