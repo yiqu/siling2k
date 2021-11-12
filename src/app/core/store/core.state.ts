@@ -28,5 +28,6 @@ export interface SilingDataDetailCollection {
 
 export interface SilingDashboardData {
   keys: string[];
-  data: SilingDataCollection;
+  data: SilingDataDetailCollection;
+  flexNumber: number;
 }

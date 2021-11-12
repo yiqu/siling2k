@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { SilingData } from 'src/app/models/general.models';
+import { SilingData, SilingDataDetail } from 'src/app/models/general.models';
 
 @Component({
   selector: 'app-core-siling-column',
@@ -12,7 +12,7 @@ export class SilingColumnComponent implements OnInit, OnChanges {
   silingCompanyId?: string = undefined;
 
   @Input()
-  silingData: SilingData[] = [];
+  silingData: SilingDataDetail[] = [];
 
   constructor() {
 

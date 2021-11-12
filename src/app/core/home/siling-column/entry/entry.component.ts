@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { SilingDataDetail } from 'src/app/models/general.models';
 
 @Component({
   selector: 'app-core-siling-column-entry',
@@ -6,6 +7,9 @@ import { Component, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./entry.component.scss']
 })
 export class SilingColumnEntryComponent implements OnInit, OnChanges {
+
+  @Input()
+  entryDetail?: SilingDataDetail = undefined;
 
   constructor() {
   }

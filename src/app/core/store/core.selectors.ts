@@ -41,6 +41,10 @@ export const getSilingDashboardData = createSelector(
 
     const allSilingInsKeys: string[] = Object.keys(data);
     const resultData: SilingDataDetailCollection = {};
+    let flexPercent = 100;
+    if (allSilingInsKeys.length > 0) {
+      flexPercent = Math.floor(100 / allSilingInsKeys.length);
+    }
 
     allSilingInsKeys.forEach((key: string, index: number) => {
       const arrCopy = JSON.parse(JSON.stringify(data[key]));
@@ -58,31 +62,20 @@ export const getSilingDashboardData = createSelector(
           difference = current.amount - previous.amount;
           differencePercent = difference / previous.amount;
         }
-
-        console.log(key, previous, current)
-
         detailArray.push({
           ...current,
           profit: difference,
           profitPercent: differencePercent
         });
-
-
       });
-
-
       resultData[key] = detailArray;
     });
 
-
-
-
     console.log(resultData)
-
-
     return {
-      data: data,
-      keys: shownNames
+      data: resultData,
+      keys: shownNames,
+      flexNumber: flexPercent
     };
   }
 );

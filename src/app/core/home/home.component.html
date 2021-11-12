@@ -16,14 +16,14 @@
 </section>
 
 <section fxLayout.gt-sm="row" fxLayout="column"
-  fxLayoutAlign.gt-sm="center center" fxLayoutAlign="start center"
+  fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
   fxLayoutGap.gt-sm="10px" fxLayoutGap="5px">
 
   <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading ">
     <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
       <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
         <ng-container *ngFor="let silingKey of dashboardData.keys">
-          <div class="siling-column">
+          <div class="siling-column1" [fxFlex]="dashboardData.flexNumber + '%'">
             <app-core-siling-column
               [silingCompanyId]="silingKey"
               [silingData]="dashboardData.data[silingKey]">

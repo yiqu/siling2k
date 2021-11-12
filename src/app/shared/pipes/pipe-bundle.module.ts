@@ -6,6 +6,7 @@ import { UserDisplayPipe } from './user.pipe';
 import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
 import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe';
+import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, NumberGainClassPipe } from './numbers.pipe';
 
 @NgModule({
   imports: [],
@@ -19,7 +20,12 @@ import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe'
     TableColumnDisplayPipe,
     TableDataDisplayPipe,
     SilingEntryTooltipDisplay,
-    SilingCompanyDisplay
+    SilingCompanyDisplay,
+    ProfitPercentPipe,
+    LocaleNumberPipe,
+    RoundNumberPipe,
+    ProfitPipe,
+    NumberGainClassPipe
   ],
 
   declarations: [
@@ -31,11 +37,18 @@ import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe'
     TableColumnDisplayPipe,
     TableDataDisplayPipe,
     SilingEntryTooltipDisplay,
-    SilingCompanyDisplay
+    SilingCompanyDisplay,
+    ProfitPercentPipe,
+    LocaleNumberPipe,
+    RoundNumberPipe,
+    ProfitPipe,
+    NumberGainClassPipe
   ],
 
   providers: [
-    DateDisplayPipe
+    DateDisplayPipe,
+    RoundNumberPipe,
+    LocaleNumberPipe
   ],
 })
 export class PipeBundleModule { }

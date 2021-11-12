@@ -13,4 +13,20 @@
     </span>
   </div>
 
+  <div>
+    <ng-container *ngIf="(silingData && silingData.length > 0); else noData">
+      <ul class="list-group">
+        <ng-container *ngFor="let entry of (silingData.reverse())">
+          <app-core-siling-column-entry [entryDetail]="entry"></app-core-siling-column-entry>
+        </ng-container>
+      </ul>
+    </ng-container>
+
+    <ng-template #noData>
+      <div>
+        No data found.
+      </div>
+    </ng-template>
+  </div>
+
 </div>

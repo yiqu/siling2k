@@ -1,0 +1,29 @@
+<ng-container *ngIf="entryDetail">
+  <div class="list-group-item roboto" fxLayout="column" fxLayoutAlign="start center">
+
+    <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
+      <p class="mb-1" data-toggle="tooltip" data-html="true" data-placement="top"
+        [title]="'<i>' + entryDetail.date + '</i>'">
+          {{entryDetail.date ? (entryDetail.date ) : 'NO DATE'}}
+      </p>
+      <!-- <small data-toggle="tooltip" data-html="true" data-placement="top"
+        [title]="'<b>' + entryDetail.ageInDays + ' days ago </b>'">{{entryDetail.age}}</small> -->
+    </div>
+
+    <div class="w-100" fxLayout.gt-sm="row" fxLayout="column"
+      fxLayoutAlign.gt-sm="space-between center" fxLayoutAlign="start center">
+
+        <div class="dollar-amount numbers med-number">
+          ${{ entryDetail.amount | localeNumberDisplay }}
+        </div>
+        <div [class]="'gains-rate numbers med-number spacing-half ' + (entryDetail.profitPercent | numberGainClass)">
+          {{ entryDetail.profitPercent | profitPercent }}
+        </div>
+    </div>
+
+    <div class="text-muted numbers small-number w-100" fxLayout="row" fxLayoutAlign="start center">
+      {{ entryDetail.profit | profit }}
+    </div>
+
+  </div>
+</ng-container>

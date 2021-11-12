@@ -8,6 +8,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import { SummaryComponent } from './home/home.component';
 import { SilingColumnComponent } from './home/siling-column/column.component';
+import { SilingColumnEntryComponent } from './home/siling-column/entry/entry.component';
 import { NewEntryDialogComponent } from './new-entry-dialog/new-entry-dialog.component';
 import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
 import { dashboardEffects } from './store/core.effects';
@@ -23,6 +24,7 @@ import { dashboardUiReducer } from './store/dashboard.reducer';
     StoreModule.forFeature('dashboard', silingDashboardReducer),
     StoreModule.forFeature('dashboardUI', dashboardUiReducer),
     CoreRoutingModule,
+    PipeBundleModule
   ],
 
   exports: [],
@@ -31,7 +33,8 @@ import { dashboardUiReducer } from './store/dashboard.reducer';
     CoreComponent,
     SummaryComponent,
     NewEntryDialogComponent,
-    SilingColumnComponent
+    SilingColumnComponent,
+    SilingColumnEntryComponent
   ],
 
   providers: [
