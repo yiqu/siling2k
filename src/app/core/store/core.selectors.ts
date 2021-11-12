@@ -68,7 +68,8 @@ export const getSilingDashboardData = createSelector(
           profitPercent: differencePercent
         });
       });
-      resultData[key] = detailArray;
+      const reversed = JSON.parse(JSON.stringify(detailArray));
+      resultData[key] = reversed.reverse();
     });
 
     console.log(resultData)
