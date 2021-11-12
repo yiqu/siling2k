@@ -16,7 +16,7 @@
   <div>
     <ng-container *ngIf="(silingData && silingData.length > 0); else noData">
       <ul class="list-group">
-        <ng-container *ngFor="let entry of (silingData.reverse())">
+        <ng-container *ngFor="let entry of (silingData)">
           <app-core-siling-column-entry [entryDetail]="entry"></app-core-siling-column-entry>
         </ng-container>
       </ul>
