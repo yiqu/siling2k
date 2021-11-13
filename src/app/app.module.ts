@@ -27,7 +27,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SettingsModule } from './settings/settings.module';
-
+import { PopoverModule } from "ngx-smart-popover";
 
 @NgModule({
   declarations: [
@@ -75,6 +75,7 @@ import { SettingsModule } from './settings/settings.module';
         warning: 'toast-warning'
       }
     }),
+    PopoverModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => {
       return getFirestore();
@@ -86,7 +87,6 @@ import { SettingsModule } from './settings/settings.module';
     provideAuth(() => getAuth()),
     providePerformance(() => getPerformance()),
     NgbModule,
-
     AppRoutingModule
   ],
   providers: [

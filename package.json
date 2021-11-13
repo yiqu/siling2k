@@ -41,7 +41,7 @@
     "memo-decorator": "^2.0.1",
     "moment": "~2.29.1",
     "ngrx-store-localstorage": "^12.0.1",
-    "ngx-smart-popover": "~1.4.0",
+    "ngx-smart-popover": "^1.4.0",
     "ngx-toastr": "^14.0.0",
     "popper.js": "^1.16.1",
     "rxfire": "^6.0.0",

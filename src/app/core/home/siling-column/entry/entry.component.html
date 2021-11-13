@@ -1,13 +1,20 @@
 <ng-container *ngIf="entryDetail">
-  <div class="list-group-item roboto" fxLayout="column" fxLayoutAlign="start center">
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+    [ngClass]="{'border-btn-none':isLast, 'list-group-item roboto':true}"
+    [class]="entryDetail.profitPercent | profitGainBgClass">
 
-    <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
-      <p class="mb-1" data-toggle="tooltip" data-html="true" data-placement="top"
-        [title]="'<i>' + entryDetail.date + '</i>'">
-          {{entryDetail.date ? (entryDetail.date ) : 'NO DATE'}}
-      </p>
-      <!-- <small data-toggle="tooltip" data-html="true" data-placement="top"
-        [title]="'<b>' + entryDetail.ageInDays + ' days ago </b>'">{{entryDetail.age}}</small> -->
+    <div class="w-100 roboto meta-data" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mb-1" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div>
+          {{entryDetail.date ? (entryDetail.date | dateDisplay:'MDY') : 'NO DATE'}}
+        </div>
+        <div>
+          <app-shared-popover [text]="entryDetail.date"></app-shared-popover>
+        </div>
+      </div>
+      <div>
+        {{entryDetail.date | dateFromNow}}
+      </div>
     </div>
 
     <div class="w-100" fxLayout.gt-sm="row" fxLayout="column"

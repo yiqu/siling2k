@@ -40,3 +40,10 @@ export function insertIntoArrayAtIndex<T>(arr: T[], index: number, item: T): T[]
   arrCopy.splice(index, 0, item);
   return arrCopy;
 }
+
+export function isNumeric(val: any): boolean {
+  if (typeof val === 'number') {
+    return true;
+  }
+  return !isNaN(+val) && !isNaN(parseFloat(val + ''));
+}

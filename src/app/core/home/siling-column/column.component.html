@@ -1,6 +1,6 @@
 <div class="card text-left border-secondary">
 
-  <div class="img-center">
+  <div class="img-center fixed-img-height">
     <img class="card-img-top img-fixed-height"
       [src]="'assets/banner/' + silingCompanyId + '.jpg'" alt="SiLing Co. Img"
       [ngStyle]="{'background-color': (silingCompanyId === 'fidelity'?'#67941e':'#fff')}"
@@ -16,15 +16,15 @@
   <div>
     <ng-container *ngIf="(silingData && silingData.length > 0); else noData">
       <ul class="list-group">
-        <ng-container *ngFor="let entry of (silingData)">
-          <app-core-siling-column-entry [entryDetail]="entry"></app-core-siling-column-entry>
+        <ng-container *ngFor="let entry of silingData; last as isLast">
+          <app-core-siling-column-entry [entryDetail]="entry" [isLast]="isLast"></app-core-siling-column-entry>
         </ng-container>
       </ul>
     </ng-container>
 
     <ng-template #noData>
-      <div>
-        No data found.
+      <div class="px-3 py-3" fxLayout="row" fxLayoutAlign="center center">
+        No data returned.
       </div>
     </ng-template>
   </div>

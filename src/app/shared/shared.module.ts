@@ -5,15 +5,23 @@ import { DialogConfirmComponent } from './confirm-dialog/dialog.component';
 import { MaterialModuleBundle } from './material-bundle';
 import { PipeBundleModule } from './pipes/pipe-bundle.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PopoverModule } from "ngx-smart-popover";
+import { PopoverComponent } from './popover/popover.component';
 
 @NgModule({
+  declarations: [
+    DialogConfirmComponent,
+    PopoverComponent
+  ],
+
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleBundle,
     PipeBundleModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PopoverModule
   ],
 
   exports: [
@@ -23,15 +31,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     DialogConfirmComponent,
     FlexLayoutModule,
     MaterialModuleBundle,
-    PipeBundleModule
-  ],
-
-  declarations: [
-    DialogConfirmComponent,
+    PipeBundleModule,
+    PopoverModule,
+    PopoverComponent
   ],
 
   providers: [
-
   ],
 })
 export class SharedBudleModule { }

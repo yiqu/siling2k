@@ -1,0 +1,19 @@
+.popover-tooltip {
+  display: flex;
+  cursor: pointer;
+}
+
+.popover-tooltip:hover, .popover-tooltip:focus {
+  mat-icon.mat-icon {
+    color: #000;
+  }
+}
+
+mat-icon.mat-icon {
+  color: #33333357;
+  font-size: 17px;
+}
+
+.parent {
+  height: 19px;
+}

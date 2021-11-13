@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CountNumberDisplayPipe } from './count-display.pipe';
 import { PluralDisplayPipe } from './plural.pipe';
-import { DateDisplayPipe } from './time-utils.pipe';
+import { DateDisplayPipe, TimeFromNowPipe } from './time-utils.pipe';
 import { UserDisplayPipe } from './user.pipe';
 import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
 import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe';
-import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, NumberGainClassPipe } from './numbers.pipe';
+import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe } from './numbers.pipe';
 
 @NgModule({
   imports: [],
@@ -25,7 +25,9 @@ import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, Numbe
     LocaleNumberPipe,
     RoundNumberPipe,
     ProfitPipe,
-    NumberGainClassPipe
+    ProfitGainClassPipe,
+    TimeFromNowPipe,
+    ProfileGainBgColorPipe
   ],
 
   declarations: [
@@ -42,7 +44,9 @@ import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, Numbe
     LocaleNumberPipe,
     RoundNumberPipe,
     ProfitPipe,
-    NumberGainClassPipe
+    ProfitGainClassPipe,
+    TimeFromNowPipe,
+    ProfileGainBgColorPipe
   ],
 
   providers: [

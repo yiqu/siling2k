@@ -68,10 +68,10 @@ export class ProfitPipe implements PipeTransform {
       result = "No Change"
     }
     else if (value > 0) {
-      result = "+$" + this.lp.transform(value);
+      result = "+ $" + this.lp.transform(value);
     }
     else {
-      result = "-$" + this.lp.transform(Math.abs(value));
+      result = "- $" + this.lp.transform(Math.abs(value));
     }
     return result;
   }
@@ -82,14 +82,43 @@ export class ProfitPipe implements PipeTransform {
   name: 'numberGainClass',
   pure: true
 })
-export class NumberGainClassPipe implements PipeTransform {
+export class ProfitGainClassPipe implements PipeTransform {
 
   @memo()
   transform(value: any): string {
     const num = +value;
+    if (num === 0) {
+      return 'no-change';
+    }
     if (num > 0) {
       return 'positive';
     }
     return 'negative';
   }
 }
+
+@Pipe({
+  name: 'profitGainBgClass',
+  pure: true
+})
+export class ProfileGainBgColorPipe implements PipeTransform {
+
+  @memo()
+  transform(value: any): string {
+    const num = +value * 100;
+    if (num === 0) {
+      return 'no-change-bg';
+    } else if (num < 0 && num > -3) {
+      return 'neg-bg-1';
+    } else if (num <= -3 && num > -5) {
+      return 'neg-bg-2';
+    } else if (num <= -5) {
+      return 'neg-bg-3';
+    } else if (num > 0) {
+      return 'pos-bg';
+    } else {
+      return '';
+    }
+  }
+}
+

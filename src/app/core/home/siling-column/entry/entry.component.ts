@@ -11,6 +11,9 @@ export class SilingColumnEntryComponent implements OnInit, OnChanges {
   @Input()
   entryDetail?: SilingDataDetail = undefined;
 
+  @Input()
+  isLast: boolean = false;
+
   constructor() {
   }
 
