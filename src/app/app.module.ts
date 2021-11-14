@@ -28,6 +28,8 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SettingsModule } from './settings/settings.module';
 import { PopoverModule } from "ngx-smart-popover";
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { PopoverModule } from "ngx-smart-popover";
       }
     }),
     PopoverModule,
+    NgApexchartsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => {
       return getFirestore();

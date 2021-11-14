@@ -7,6 +7,7 @@ import { PipeBundleModule } from './pipes/pipe-bundle.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PopoverModule } from "ngx-smart-popover";
 import { PopoverComponent } from './popover/popover.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PopoverComponent } from './popover/popover.component';
     MaterialModuleBundle,
     PipeBundleModule,
     FlexLayoutModule,
-    PopoverModule
+    PopoverModule,
+    NgApexchartsModule
   ],
 
   exports: [
@@ -33,7 +35,8 @@ import { PopoverComponent } from './popover/popover.component';
     MaterialModuleBundle,
     PipeBundleModule,
     PopoverModule,
-    PopoverComponent
+    PopoverComponent,
+    NgApexchartsModule
   ],
 
   providers: [
