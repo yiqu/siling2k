@@ -8,11 +8,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PopoverModule } from "ngx-smart-popover";
 import { PopoverComponent } from './popover/popover.component';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { ApexLineChartComponent } from './components/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
     DialogConfirmComponent,
-    PopoverComponent
+    PopoverComponent,
+    ApexLineChartComponent
   ],
 
   imports: [
@@ -30,13 +32,14 @@ import { NgApexchartsModule } from "ng-apexcharts";
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DialogConfirmComponent,
     FlexLayoutModule,
     MaterialModuleBundle,
     PipeBundleModule,
     PopoverModule,
     PopoverComponent,
-    NgApexchartsModule
+
+    ApexLineChartComponent,
+    DialogConfirmComponent
   ],
 
   providers: [
