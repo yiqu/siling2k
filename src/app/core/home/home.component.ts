@@ -23,6 +23,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //this.cs.getSilingDataByInsName(environment.defaultSilingInsToLoad);
+    this.cs.chartData$.subscribe((res) => {
+      console.log(res)
+    })
   }
 
   onNewEntryClick() {

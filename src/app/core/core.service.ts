@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SilingCompany } from '../admin/store/admin.state';
 import { SilingData } from '../models/general.models';
 import { ShowHideCompanyList, ShowHideList } from '../settings/store/settings.state';
+import { ApexChartData } from '../shared/components/line-chart/line-chart.model';
 import { RestService } from '../shared/services/rest.service';
 import { AppState } from '../store/global/app.reducer';
 import * as fromCoreActions from './store/core.actions';
@@ -18,7 +19,7 @@ export class SilingCoreService {
   public isEntrySaveLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.getSaveIsLoading);
   public isDashboardDataLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.isDashboardDataLoading);
   public dashboardData$: Observable<SilingDashboardData> = this.store.select(fromCoreSelectors.getSilingDashboardData);
-
+  public chartData$: Observable<ApexChartData | undefined> = this.store.select(fromCoreSelectors.getChartData);
 
   constructor(private store: Store<AppState>, private rs: RestService) {
 

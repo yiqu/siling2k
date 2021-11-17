@@ -1,18 +1,17 @@
-<ng-container *ngIf="series">
+<ng-container *ngIf="this.chartData">
   <apx-chart
-  [series]="series"
-  [chart]="chart!"
-  [dataLabels]="dataLabels!"
-  [markers]="markers!"
-  [title]="title!"
-  [fill]="fill!"
-  [yaxis]="yaxis!"
-  [xaxis]="xaxis!"
-  [tooltip]="tooltip!"
-  [autoUpdateSeries]="true"
-  [legend]="legend!"
-  [grid]="grid!"
-></apx-chart>
+    [series]="this.chartData.series"
+    [chart]="this.chartData.chart"
+    [dataLabels]="this.chartData.dataLabels"
+    [markers]="this.chartData.markers"
+    [title]="this.chartData.title"
+    [fill]="this.chartData.fill"
+    [yaxis]="this.chartData.yaxis"
+    [xaxis]="this.chartData.xaxis"
+    [tooltip]="this.chartData.tooltip"
+    [legend]="this.chartData.legend"
+    [grid]="this.chartData.grid"
+  ></apx-chart>
 </ng-container>
 
 
