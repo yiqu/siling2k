@@ -27,6 +27,7 @@ export class ApexLineChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    console.log("charting", this.chartData)
     this.initChartData();
   }
 

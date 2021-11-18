@@ -12,16 +12,18 @@
 <hr>
 
 <section class="w-100 pt-3 pb-5" fxLayout="row" fxLayoutAlign="center center">
-  <div class="chart-shell" >
-    <app-shared-line-chart [chartData]="(this.cs.chartData$ | async)"></app-shared-line-chart>
-  </div>
+  <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
+    <div class="chart-shell" >
+      <app-shared-line-chart [chartData]="(this.cs.chartData$ | async)"></app-shared-line-chart>
+    </div>
+  </ng-container>
 </section>
 
 <section fxLayout.gt-sm="row" fxLayout="column"
   fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
   fxLayoutGap.gt-sm="10px" fxLayoutGap="5px">
 
-  <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading ">
+  <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
     <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
       <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
         <ng-container *ngFor="let silingKey of dashboardData.keys">

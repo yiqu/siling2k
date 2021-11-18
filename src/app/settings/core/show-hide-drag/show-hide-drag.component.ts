@@ -50,7 +50,6 @@ export class ShowHideComponent implements OnInit, OnChanges {
         event.previousIndex, event.currentIndex);
     }
 
-    console.log(this.showList, this.hideList)
     this.onShowHideChange.emit({
       hiding: this.hideList,
       showing: this.showList

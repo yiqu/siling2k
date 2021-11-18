@@ -109,13 +109,17 @@ export const getChartData = createSelector(
         const detail: SilingDataDetail | undefined = state.data[key].find((res) => {
           return res.date === date;
         });
-        data.push([date,  detail?.amount ?? null]);
+        let value = null;
+        if (detail?.amount) {
+          value = +detail.amount;
+        }
+        data.push(value);
       });
 
       silingSerie.push({
         name,
         data: data
-      })
+      });
     });
 
     return {
@@ -126,7 +130,7 @@ export const getChartData = createSelector(
       title: getTitle(),
       fill: getFill(),
       yaxis: getYAxis(),
-      xaxis: getXAxis(),
+      xaxis: getXAxis(datesArray),
       tooltip: getTooltip(),
       legend: getLegend(),
       grid: getGrid()
@@ -137,7 +141,6 @@ export const getChartData = createSelector(
 export function getChartConfig(): ApexChart {
   return {
     type: "line",
-    stacked: true,
     height: 350,
     zoom: {
       type: "x",
@@ -184,18 +187,19 @@ export function getYAxis(): ApexYAxis {
   return {
     labels: {
       formatter: function(val: number) {
-        return val ? (val).toFixed(0) : val+'';
+        return val ? ('$'+(+val).toLocaleString(undefined)) : val+'';
       }
     },
     title: {
-      text: "Price"
+      text: "$ Amount"
     }
   };
 }
 
-export function getXAxis(): ApexXAxis {
+export function getXAxis(axisData: number[]): ApexXAxis {
   return {
-    type: "datetime"
+    type: "datetime",
+    categories: [...axisData]
   };
 }
 
