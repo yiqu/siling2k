@@ -1,7 +1,9 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid,
+  ApexLegend, ApexMarkers, ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { SilingData, SilingDataDetail } from 'src/app/models/general.models';
 import { ApexChartData } from 'src/app/shared/components/line-chart/line-chart.model';
+import { capitalizeFirstLetter, getLocaleNumber } from 'src/app/shared/general.utils';
 import * as fromCoreActions from './core.actions';
 import { SilingDashboardData, SilingDashboardState, SilingDataCollection, SilingDataDetailCollection } from './core.state';
 
@@ -87,6 +89,7 @@ export const getChartData = createSelector(
   (state: SilingDashboardData): ApexChartData | undefined => {
     const silingSerie: ApexAxisChartSeries = [];
 
+    // get all dates from all siling entries
     const allPossibleDates: number[] = [];
     state.keys.forEach((key: string) => {
       if (state.data && state.data[key]) {
@@ -95,30 +98,48 @@ export const getChartData = createSelector(
         });
       }
     });
+
+    // sort dates by descending
     allPossibleDates.sort((date1, date2) => {
       return date1 > date2 ? 1 : -1;
     });
+
+    // remove duplicated dates, turn back to array
     const uniqueDates: Set<number> = new Set(allPossibleDates);
     const datesArray: number[] = Array.from(uniqueDates);
 
     state.keys.forEach((key: string) => {
-      const name: string = key;
-      const data: any[] = [];
+      const name: string | undefined = capitalizeFirstLetter(key);
 
-      datesArray.forEach((date: number) => {
-        const detail: SilingDataDetail | undefined = state.data[key].find((res) => {
-          return res.date === date;
-        });
-        let value = null;
-        if (detail?.amount) {
-          value = +detail.amount;
+      const collection: SilingDataDetail[] = state.data[key];
+      const collectEntities: {[key: number]: number} = {};
+      collection.forEach((col: SilingDataDetail) => {
+        collectEntities[col.date] = col.amount;
+      });
+      const collectionArr: number[] = [];
+      datesArray.forEach((date: number, index: number) => {
+        if (collectEntities[date] !== undefined) {
+          collectionArr.push(+collectEntities[date]);
+        } else {
+          collectionArr.push(NaN);
         }
-        data.push(value);
+      });
+
+      let resultArr: number[]= [];
+      let previousValue = 0;
+
+      datesArray.forEach((res, index) => {
+        if (isNaN(collectionArr[index])) {
+          resultArr.push(previousValue);
+        } else {
+          previousValue = collectionArr[index];
+          resultArr.push(collectionArr[index]);
+        }
       });
 
       silingSerie.push({
         name,
-        data: data
+        data: resultArr
       });
     });
 
@@ -150,7 +171,7 @@ export function getChartConfig(): ApexChart {
     toolbar: {
       autoSelected: "zoom"
     },
-    width: '100%'
+    width: '100%',
   };
 }
 
@@ -177,9 +198,9 @@ export function getFill(): ApexFill {
   return {
     type: "gradient",
     gradient: {
-      opacityFrom: 0.6,
-      opacityTo: 0.8
-    }
+      opacityFrom: 0.9,
+      opacityTo: 0.9
+    },
   };
 }
 
@@ -207,8 +228,8 @@ export function getTooltip(): ApexTooltip {
   return {
     shared: true,
     y: {
-      formatter: function(val: number) {
-        return val ? (val).toFixed(0) : val+'';
+      formatter: function(val: number, opts) {
+        return val ? '$'+getLocaleNumber(val) : val+'';
       }
     }
   };

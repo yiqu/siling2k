@@ -47,3 +47,14 @@ export function isNumeric(val: any): boolean {
   }
   return !isNaN(+val) && !isNaN(parseFloat(val + ''));
 }
+
+export function capitalizeFirstLetter(str: string): string | undefined {
+  if (str) {
+    return (str.charAt(0).toUpperCase()) + str.slice(1);
+  }
+  return undefined;
+}
+
+export function getLocaleNumber(num: any): string {
+  return (+num).toLocaleString(undefined);
+}
