@@ -23,13 +23,15 @@
         <div class="dollar-amount numbers med-number">
           ${{ entryDetail.amount | localeNumberDisplay }}
         </div>
-        <div [class]="'gains-rate numbers med-number spacing-half ' + (entryDetail.profitPercent | numberGainClass)">
-          {{ entryDetail.profitPercent | profitPercent }}
+        <div [class]="'gains-rate numbers med-number spacing-half ' + (entryDetail.profitPercent | numberGainClass)"
+          [title]="entryDetail.profitPercent">
+            {{ entryDetail.profitPercent | profitPercent }}
         </div>
     </div>
 
-    <div class="text-muted numbers small-number w-100" fxLayout="row" fxLayoutAlign="start center">
-      {{ entryDetail.profit | profit }}
+    <div class="text-muted numbers small-number w-100" fxLayout="row" fxLayoutAlign="start center"
+      [title]="entryDetail.profit">
+        {{ entryDetail.profit | profit }}
     </div>
 
   </div>

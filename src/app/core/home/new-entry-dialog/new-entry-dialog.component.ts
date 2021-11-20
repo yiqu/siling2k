@@ -2,10 +2,10 @@ import { Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { distinctUntilChanged, pluck } from 'rxjs/operators';
+import { distinctUntilChanged, pluck, takeUntil } from 'rxjs/operators';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
 import { customNumberWithOptionalCommaAndSingleDecimal, customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
-import * as fromFormUtils from '../../shared/general.utils';
+import * as fromFormUtils from '../../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
 const ENTRY_DATE_TYPE = ['date'];
@@ -35,6 +35,7 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.entryFg.valueChanges.pipe(
+      takeUntil(this.compDest$),
       pluck('amount'),
       //distinctUntilChanged()
     ).subscribe((res) => {
@@ -92,6 +93,8 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.compDest$.next();
+    this.compDest$.complete();
   }
 
 

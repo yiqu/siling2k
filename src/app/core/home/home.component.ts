@@ -7,7 +7,7 @@ import { convertCommaDecimalNumberToNumber } from 'src/app/shared/general.utils'
 import { RestService } from 'src/app/shared/services/rest.service';
 import { environment } from 'src/environments/environment';
 import { SilingCoreService } from '../core.service';
-import { NewEntryDialogService } from '../new-entry-dialog/new-entry-dialog.service';
+import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
 
 @Component({
   selector: 'app-core-home',

@@ -38,6 +38,9 @@ export const getShowHideList = createSelector(
     const showList: SilingCompany[] = [];
     const hideList: SilingCompany[] = [];
 
+    /**
+     * Create the show & hide list from all comapny array
+     */
     allCompanies.forEach((co: SilingCompany) => {
       const existInHidden = hiddenList.find((institutionId: SilingCompany) => {
         return co.id === institutionId.id;
@@ -49,6 +52,9 @@ export const getShowHideList = createSelector(
       }
     });
 
+    /**
+     * Sort show & hidden based on index values of show/hide database stored position
+     */
     if (hiddenList && shownList) {
       hideList.sort((x: SilingCompany, y: SilingCompany) => {
         const xIndex = hiddenList.findIndex((co) => {
