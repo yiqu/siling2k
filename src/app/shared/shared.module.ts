@@ -9,6 +9,7 @@ import { PopoverModule } from "ngx-smart-popover";
 import { PopoverComponent } from './popover/popover.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { ApexLineChartComponent } from './components/line-chart/line-chart.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ApexLineChartComponent } from './components/line-chart/line-chart.compo
     PipeBundleModule,
     FlexLayoutModule,
     PopoverModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatIconModule
   ],
 
   exports: [
@@ -37,7 +39,6 @@ import { ApexLineChartComponent } from './components/line-chart/line-chart.compo
     PipeBundleModule,
     PopoverModule,
     PopoverComponent,
-
     ApexLineChartComponent,
     DialogConfirmComponent
   ],
