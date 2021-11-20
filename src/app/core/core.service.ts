@@ -9,7 +9,7 @@ import { RestService } from '../shared/services/rest.service';
 import { AppState } from '../store/global/app.reducer';
 import * as fromCoreActions from './store/core.actions';
 import * as fromCoreSelectors from './store/core.selectors';
-import { SilingDashboardData } from './store/core.state';
+import { SilingDashboardData, SummaryData } from './store/core.state';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,8 @@ export class SilingCoreService {
   public isDashboardDataLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.isDashboardDataLoading);
   public dashboardData$: Observable<SilingDashboardData> = this.store.select(fromCoreSelectors.getSilingDashboardData);
   public chartData$: Observable<ApexChartData | undefined> = this.store.select(fromCoreSelectors.getChartData);
+  public summary$: Observable<SummaryData> = this.store.select(fromCoreSelectors.getSummaryData);
+
 
   constructor(private store: Store<AppState>, private rs: RestService) {
 

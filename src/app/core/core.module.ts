@@ -9,6 +9,7 @@ import { CoreComponent } from './core.component';
 import { SummaryComponent } from './home/home.component';
 import { SilingColumnComponent } from './home/siling-column/column.component';
 import { SilingColumnEntryComponent } from './home/siling-column/entry/entry.component';
+import { CoreSummaryComponent } from './home/summary/summary.component';
 import { NewEntryDialogComponent } from './new-entry-dialog/new-entry-dialog.component';
 import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
 import { dashboardEffects } from './store/core.effects';
@@ -34,7 +35,8 @@ import { dashboardUiReducer } from './store/dashboard.reducer';
     SummaryComponent,
     NewEntryDialogComponent,
     SilingColumnComponent,
-    SilingColumnEntryComponent
+    SilingColumnEntryComponent,
+    CoreSummaryComponent
   ],
 
   providers: [

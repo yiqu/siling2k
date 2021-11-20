@@ -159,6 +159,43 @@ export const getChartData = createSelector(
   }
 );
 
+export const getSummaryData = createSelector(
+  getSilingDashboardData,
+  (state: SilingDashboardData) => {
+    let sumAmount: {[key: string]: number} = {};
+    let total: number = 0;
+    let latestDate = 0;
+
+    state.keys.forEach((key: string, index: number) => {
+      if (state.data[key]) {
+        const sorted: SilingDataDetail[] = JSON.parse(JSON.stringify(state.data[key]));
+        sorted.sort((res1, res2) => {
+          return res1.date > res2.date ? 1 : -1;
+        });
+        const recentEntry = sorted[(state.data[key]?.length-1) ?? 0];
+        if (index === 0) {
+          latestDate = recentEntry.date;
+        }
+
+        let latestAmount: number = +(recentEntry?.amount);
+        latestAmount = isNaN(latestAmount) ? 0 : latestAmount;
+        sumAmount[key] = latestAmount;
+        total += latestAmount;
+
+        if (latestDate < recentEntry?.date) {
+          latestDate = recentEntry.date
+        }
+      }
+
+    });
+    return {
+      sumAmount: sumAmount,
+      lastUpdated: latestDate,
+      total
+    }
+  }
+);
+
 export function getChartConfig(): ApexChart {
   return {
     type: "line",

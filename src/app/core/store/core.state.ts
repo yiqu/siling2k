@@ -31,3 +31,9 @@ export interface SilingDashboardData {
   data: SilingDataDetailCollection;
   flexNumber: number;
 }
+
+export interface SummaryData {
+  sumAmount: {[key: string]: number};
+  lastUpdated: number;
+  total: number;
+}

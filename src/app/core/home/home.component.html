@@ -11,7 +11,7 @@
 
 <hr>
 
-<section class="w-100 pt-3 pb-5" fxLayout="row" fxLayoutAlign="center center">
+<section class="w-100 pt-3 pb-3" fxLayout="row" fxLayoutAlign="center center">
   <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
     <div class="chart-shell" >
       <app-shared-line-chart [chartData]="(this.cs.chartData$ | async)"></app-shared-line-chart>
@@ -19,9 +19,18 @@
   </ng-container>
 </section>
 
+<hr>
+
+<section class="pb-3 pt-3">
+  <app-core-summary [summaryData]="(this.cs.summary$ | async)"
+    [loading$]="this.cs.isDashboardDataLoading$"></app-core-summary>
+</section>
+
+<hr>
+
 <section fxLayout.gt-sm="row" fxLayout="column"
   fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
-  fxLayoutGap.gt-sm="10px" fxLayoutGap="5px">
+  fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="pt-3 pb-3">
 
   <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
     <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">

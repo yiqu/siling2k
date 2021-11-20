@@ -1,0 +1,28 @@
+<ng-container *ngIf="loading$">
+  <ng-container *ngIf="((loading$ | async) === false); else loading">
+    <ng-container *ngIf="summaryData">
+      <div class="roboto" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="text-muted">
+          <div>Last updated:</div>
+          <div>
+            {{summaryData.lastUpdated | dateDisplay:'MDYANDFROMNOW' }}
+          </div>
+
+        </div>
+        <div class="total">
+          Total:
+          <span class="green">
+            $ {{summaryData.total | localeNumberDisplay}}
+          </span>
+        </div>
+
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    Calculating summary...
+  </div>
+</ng-template>
