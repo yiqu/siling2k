@@ -4,6 +4,7 @@ export interface AdminState {
   apiError: boolean;
   apiErrMsg?: string;
   companyBeingAdded?: SilingCompany;
+  showHideData?: ShowHideData;
 }
 
 export interface SilingCompany {
@@ -11,4 +12,9 @@ export interface SilingCompany {
   name: string;
   dateAdded: number;
   hidden?: boolean;
+}
+
+export interface ShowHideData {
+  hiding: SilingCompany[];
+  showing: SilingCompany[];
 }

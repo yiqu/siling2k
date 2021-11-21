@@ -10,7 +10,7 @@ import { of, throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromAdminActions from './admin.actions';
-import { SilingCompany } from './admin.state';
+import { ShowHideData, SilingCompany } from './admin.state';
 import { environment } from 'src/environments/environment';
 import { AdminService } from '../admin.service';
 import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
@@ -77,6 +77,23 @@ export class AdminEffects implements OnInitEffects {
       ofType(fromAdminActions.addCompanySuccess),
       map(() => {
         return fromAdminActions.getCompaniesStart();
+      })
+    );
+  });
+
+  getShowHideCompanies$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAdminActions.getShowHideCompaniesStart),
+      switchMap((res) => {
+        return this.as.getShowHideCompanies().pipe(
+          map((payload: ShowHideData) => {
+            return fromAdminActions.getShowHideCompaniesSuccess({payload, date: new Date().getTime(),
+              successMsg: 'Loaded show / hide data successfully.'})
+          }),
+          catchError((err) => {
+            return of(fromAdminActions.getShowHideCompaniesFailure({errMsg: err}));
+          })
+        )
       })
     );
   });

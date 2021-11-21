@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SilingCompany } from './store/admin.state';
+import { ShowHideData, SilingCompany } from './store/admin.state';
 import * as fromAdminSelectors from './store/admin.selectors';
 import { AppState } from '../store/global/app.reducer';
 import * as fromAdminActions from './store/admin.actions';
@@ -33,6 +33,14 @@ export class AdminService {
 
   addSilingCompany(company: SilingCompany): FirebaseDocObsAndId {
     return this.rs.addDocumentToCollection(company, 'settings/kqpro/companies/all');
+  }
+
+  fetchShowHideCompanies(): void {
+    this.store.dispatch(fromAdminActions.getShowHideCompaniesStart());
+  }
+
+  getShowHideCompanies(): Observable<ShowHideData> {
+    return this.rs.getDocument<ShowHideData>('settings/kqpro/showHideList');
   }
 
 }

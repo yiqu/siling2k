@@ -7,7 +7,11 @@ const initialState: AdminState = {
   apiErrMsg: undefined,
   apiError: false,
   companies: [],
-  companyBeingAdded: undefined
+  companyBeingAdded: undefined,
+  showHideData: {
+    showing: [],
+    hiding: []
+  }
 }
 
 export const adminInfoReducer = createReducer(
@@ -61,6 +65,32 @@ export const adminInfoReducer = createReducer(
       apiError: true,
       apiErrMsg: errMsg,
       companyBeingAdded: undefined
+    }
+  }),
+
+  on(fromAdminActions.getShowHideCompaniesStart, (state) => {
+    return {
+      ...state,
+      apiLoading: true
+    }
+  }),
+
+  on(fromAdminActions.getShowHideCompaniesSuccess, (state, {payload, date, successMsg}) => {
+    return {
+      ...state,
+      showHideData: payload,
+      apiLoading: false,
+      apiError: false,
+      apiErrMsg: undefined
+    }
+  }),
+
+  on(fromAdminActions.getShowHideCompaniesFailure, (state, {errMsg}) => {
+    return {
+      ...state,
+      apiLoading: false,
+      apiError: true,
+      apiErrMsg: errMsg
     }
   }),
 )
