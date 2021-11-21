@@ -12,6 +12,8 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.as.fetchShowHideCompanies();
+    // settings effects already gets the show hide list on init()
+
+    //this.as.fetchShowHideCompanies();
   }
 }
