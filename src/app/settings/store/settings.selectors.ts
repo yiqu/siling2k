@@ -14,6 +14,13 @@ export const hiddenList = createSelector(
   }
 );
 
+export const getRawShowHideList = createSelector(
+  selectSettingsFeatureState,
+  (state): ShowHideCompanyList => {
+    return state.showHideLists;
+  }
+);
+
 export const shownList = createSelector(
   selectSettingsFeatureState,
   (state): SilingCompany[] => {

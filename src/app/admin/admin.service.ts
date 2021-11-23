@@ -7,14 +7,20 @@ import { AppState } from '../store/global/app.reducer';
 import * as fromAdminActions from './store/admin.actions';
 import { RestService } from '../shared/services/rest.service';
 import { FirebaseDocObsAndId } from '../core/store/core.state';
+import * as fromSettingSelectors from '../settings/store/settings.selectors';
+import { ShowHideCompanyList } from '../settings/store/settings.state';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  getSilingCompanies$: Observable<SilingCompany[]> = this.store.select(fromAdminSelectors.getSilingCompanies);
-  getSilingCompanyLoading$: Observable<boolean> = this.store.select(fromAdminSelectors.getSilingCompaniesLoading);
+  public getSilingCompanies$: Observable<SilingCompany[]> = this.store.select(fromAdminSelectors.getSilingCompanies);
+  public getSilingCompanyLoading$: Observable<boolean> = this.store.select(fromAdminSelectors.getSilingCompaniesLoading);
+  public getRawShowHideList$: Observable<ShowHideCompanyList> = this.store.select(fromSettingSelectors.getRawShowHideList);
+  public showHideLoading$: Observable<boolean> = this.store.select(fromSettingSelectors.getApiLoading);
+
 
   constructor(private store: Store<AppState>, private rs: RestService) {
   }

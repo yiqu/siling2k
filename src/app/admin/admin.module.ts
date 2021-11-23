@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { LoadingModule } from '../shared/loading/loading.module';
 import { SharedBudleModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -13,6 +14,7 @@ import { adminInfoReducer } from './store/admin.reducer';
     SharedBudleModule,
     EffectsModule.forFeature(adminEffects),
     StoreModule.forFeature('admin', adminInfoReducer),
+    LoadingModule,
     AdminRoutingModule
   ],
 

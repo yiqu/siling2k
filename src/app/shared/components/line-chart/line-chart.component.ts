@@ -23,11 +23,9 @@ export class ApexLineChartComponent implements OnInit, OnChanges {
   chartData: ApexChartData | undefined | null = undefined;
 
   constructor() {
-
   }
 
   ngOnChanges() {
-    console.log("charting", this.chartData)
     this.initChartData();
   }
 

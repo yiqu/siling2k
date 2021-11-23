@@ -1,22 +1,92 @@
-<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="25px">
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="45px">
 
-  <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="40px" class="w-100">
-    <div fxLayout="row" fxLayoutAlign="start center">
+  <section fxLayout="column" fxLayoutAlign="center center" class="w-100">
+    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px" class="mb-2">
       <h2 class="roboto">
         All Companies List
       </h2>
+      <div class="text-muted">
+        The source of truth company list that show/hide list references of
+      </div>
     </div>
 
+    <ng-container *ngIf="((this.as.getSilingCompanyLoading$ | async) === false); else loading">
+      <ng-container *ngIf="(this.as.getSilingCompanies$ | async) as allCompanyList">
+        <div fxLayout="row" fxLayoutAlign="center center" class="roboto header">
+          <span>All</span>
+          <span class="ml-2"> ({{allCompanyList.length}}) </span>
+        </div>
+        <div>
+          <mat-selection-list #allCoList>
+            <mat-list-option *ngFor="let co of allCompanyList">
+              <div>
+                {{ co.name }}
+              </div>
+              <div class="sub-list-desc">
+                {{ co.dateAdded | dateDisplay:'MDYANDFROMNOW' }}
+              </div>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </ng-container>
+    </ng-container>
 
   </section>
 
-  <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="40px" class="w-100">
+  <section fxLayout="column" fxLayoutAlign="center center" class="w-100">
     <div fxLayout="row" fxLayoutAlign="start center">
       <h2 class="roboto">
        Show / Hide List
       </h2>
     </div>
 
+    <ng-container *ngIf="((this.as.showHideLoading$ | async) === false); else loading">
+      <ng-container *ngIf="(this.as.getRawShowHideList$ | async) as showHideList">
+        <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="30px">
+          <div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="roboto header">
+              Showing
+            </div>
+            <div>
+              <mat-selection-list #showList>
+                <mat-list-option *ngFor="let co of showHideList.showing">
+                  <div>
+                    {{ co.name }}
+                  </div>
+                  <div class="sub-list-desc">
+                    {{ co.dateAdded | dateDisplay:'MDYANDFROMNOW' }}
+                  </div>
+                </mat-list-option>
+              </mat-selection-list>
+            </div>
+          </div>
+
+          <div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="if header">
+              Hiding
+            </div>
+            <div>
+              <mat-selection-list #showList>
+                <mat-list-option *ngFor="let co of showHideList.hiding">
+                  <div>
+                    {{ co.name }}
+                  </div>
+                  <div class="sub-list-desc">
+                    {{ co.dateAdded | dateDisplay:'MDYANDFROMNOW' }}
+                  </div>
+                </mat-list-option>
+              </mat-selection-list>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
 
   </section>
 </div>
+
+<ng-template #loading>
+  <div class="w-100">
+    <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>
