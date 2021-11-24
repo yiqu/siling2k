@@ -8,7 +8,11 @@ export const routes: Routes = [
   { path: "", component: CoreComponent,
     children: [
       { path: '', redirectTo: 'summary', pathMatch: 'full' },
-      { path: 'summary', component:  SummaryComponent },
+      { path: 'summary', component:  SummaryComponent,
+        data: {
+          pageTitle: 'Summary'
+        }
+      },
     ],
     resolve: { resolverFired: DashboardLoadDataFireResolver },
     runGuardsAndResolvers: 'always'

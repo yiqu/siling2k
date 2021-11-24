@@ -3,10 +3,10 @@
   <section fxLayout="column" fxLayoutAlign="center center" class="w-100">
     <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px" class="mb-2">
       <h2 class="roboto">
-        All Companies List
+        All Institution List
       </h2>
       <div class="text-muted">
-        The source of truth company list that show/hide list references of
+        The source of truth institution list that show/hide list references of
       </div>
     </div>
 
@@ -17,16 +17,18 @@
           <span class="ml-2"> ({{allCompanyList.length}}) </span>
         </div>
         <div>
-          <mat-selection-list #allCoList>
-            <mat-list-option *ngFor="let co of allCompanyList">
-              <div>
-                {{ co.name }}
+          <mat-action-list #allCoList>
+            <mat-list-item *ngFor="let co of allCompanyList" (click)="onCompanyClick(co)">
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <div>
+                  {{ co.name }}
+                </div>
+                <div class="sub-list-desc">
+                  {{ co.dateAdded | dateDisplay:'MDYANDFROMNOW' }}
+                </div>
               </div>
-              <div class="sub-list-desc">
-                {{ co.dateAdded | dateDisplay:'MDYANDFROMNOW' }}
-              </div>
-            </mat-list-option>
-          </mat-selection-list>
+            </mat-list-item>
+          </mat-action-list>
         </div>
       </ng-container>
     </ng-container>

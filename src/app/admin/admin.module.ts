@@ -5,6 +5,8 @@ import { LoadingModule } from '../shared/loading/loading.module';
 import { SharedBudleModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
+import { CompanyDetailComponent } from './configs/company-detail/company-detail.component';
+import { CompanyDetailActionsComponent } from './configs/company-detail/actions/actions.component';
 import { AdminConfigsComponent } from './configs/configs.component';
 import { adminEffects } from './store/admin.effects';
 import { adminInfoReducer } from './store/admin.reducer';
@@ -23,7 +25,9 @@ import { adminInfoReducer } from './store/admin.reducer';
 
   declarations: [
     AdminComponent,
-    AdminConfigsComponent
+    AdminConfigsComponent,
+    CompanyDetailComponent,
+    CompanyDetailActionsComponent
   ],
 
   providers: [],

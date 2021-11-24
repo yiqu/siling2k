@@ -6,12 +6,19 @@ import { NetworkAwarePreloadStrategy } from './preload-strat';
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: 'home',
-    loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
+    loadChildren: () => import('./core/core.module').then(m => m.CoreModule),
+    data: {
+      pageTitle: 'Dashboard'
+    }
   },
   // { path: 'settings',
   //   loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
   // },
-  { path: '**', component: NotFoundComponent}
+  { path: '**', component: NotFoundComponent,
+    data: {
+      pageTitle: 'Not Found'
+    }
+  }
 ];
 
 @NgModule({

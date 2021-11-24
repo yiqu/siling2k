@@ -8,6 +8,8 @@ import { FormControl } from '@angular/forms';
 import { createFormControl2 } from '../shared/general.utils';
 import { AppMetaService } from '../shared/services/meta.service';
 import { IsMobileService } from '../shared/services/is-mobile.service';
+import { bounce } from 'ng-animate';
+import { trigger, transition, useAnimation } from '@angular/animations';
 
 const defaultProfileImg: string = "assets/user/default-user5.png";
 
@@ -16,18 +18,20 @@ const defaultProfileImg: string = "assets/user/default-user5.png";
   templateUrl: 'top-nav.component.html',
   styleUrls: ['./top-nav.component.css'],
   animations: [
-  ]
+    trigger('bounce', [transition('* => *', useAnimation(bounce))])
+  ],
 })
 export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
 
   headerTitle: string = "Siling1k";
   compDest$: Subject<any> = new Subject<any>();
-  logoShakeState: boolean = false;
+  logoShakeState?: any = null;
   leftNavMenuState: boolean = false;
   swingState: boolean = false;
   userMenuItems: MenuItem[] = [];
   avartarImgSrc: string = defaultProfileImg;
   actionTrackerCtrl: FormControl;
+
 
   @Output()
   navToggle: EventEmitter<any> = new EventEmitter<any>();
@@ -53,6 +57,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onLogoClick() {
     this.logoClick.emit();
+    this.logoShakeState = !!this.logoShakeState;
   }
 
   onMenuClick() {
