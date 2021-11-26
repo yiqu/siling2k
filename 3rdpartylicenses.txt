@@ -138,6 +138,9 @@ Apache-2.0
 @ngrx/effects
 MIT
 
+@ngrx/router-store
+MIT
+
 @ngrx/store
 MIT
 
