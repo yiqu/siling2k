@@ -15,7 +15,6 @@ export class AdminConfigsComponent implements OnInit {
   ngOnInit() { }
 
   onCompanyClick(co: SilingCompany) {
-    console.log(co)
     this.router.navigate(['./', co.id], {relativeTo: this.route});
   }
 }

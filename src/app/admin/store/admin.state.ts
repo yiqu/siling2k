@@ -18,3 +18,8 @@ export interface ShowHideData {
   hiding: SilingCompany[];
   showing: SilingCompany[];
 }
+
+export interface ActionForCompany {
+  company?: SilingCompany;
+  actionId: string;
+}

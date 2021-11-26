@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ShowHideData, SilingCompany } from './store/admin.state';
+import { ActionForCompany, ShowHideData, SilingCompany } from './store/admin.state';
 import * as fromAdminSelectors from './store/admin.selectors';
 import { AppState } from '../store/global/app.reducer';
 import * as fromAdminActions from './store/admin.actions';
@@ -20,6 +20,8 @@ export class AdminService {
   public getSilingCompanyLoading$: Observable<boolean> = this.store.select(fromAdminSelectors.getSilingCompaniesLoading);
   public getRawShowHideList$: Observable<ShowHideCompanyList> = this.store.select(fromSettingSelectors.getRawShowHideList);
   public showHideLoading$: Observable<boolean> = this.store.select(fromSettingSelectors.getApiLoading);
+  public getSilingCompanyByRouteParamId$ = this.store.select(fromAdminSelectors.getSilingCompanyByRouteParam);
+  public companySelectedAndAction$: Observable<ActionForCompany> = this.store.select(fromAdminSelectors.getSilingCompanyActionId);
 
 
   constructor(private store: Store<AppState>, private rs: RestService) {

@@ -1,11 +1,23 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0px">
-  <div>
-    Institution
-    <span class="text-muted">(id: {{companyId}})</span>
-  </div>
-  <div>
-    <button mat-button color="primary" (click)="onEdit()">Edit</button>
-  </div>
+  <ng-container *ngIf="(this.as.getSilingCompanyByRouteParamId$ | async) as silingCo">
+    <div class="title mb-2">
+      {{ silingCo.name }}
+    </div>
+    <div class="text-muted">
+      <span class="label mr-1">ID:</span>
+      <span class="value">{{ silingCo.id }}</span>
+    </div>
+    <div class="text-muted">
+      <span class="label mr-1">Added on:</span>
+      <span class="value">{{ silingCo.dateAdded | dateDisplay:'FROMNOW' }}</span>
+    </div>
+
+    <div class="my-3" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <ng-container *ngFor="let editAction of actionList">
+        <button mat-stroked-button (click)="onActionClick(editAction)"> {{ editAction }} </button>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>
 
 

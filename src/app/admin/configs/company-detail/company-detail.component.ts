@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RouterService } from 'src/app/shared/services/router-service';
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-admin-configs-company-details',
@@ -13,20 +14,17 @@ export class CompanyDetailComponent implements OnInit, OnDestroy {
 
   companyId?: string;
   compDest$ = new Subject<void>();
+  actionList: string[] = [];
 
-  constructor(public rs: RouterService, private router: Router, private route: ActivatedRoute) { }
+  constructor(public rs: RouterService, private router: Router, private route: ActivatedRoute,
+    public as: AdminService) { }
 
   ngOnInit() {
-    this.rs.routeParams$.pipe(
-      takeUntil(this.compDest$)
-    )
-    .subscribe((res) => {
-      this.companyId = res.companyId;
-    });
+    this.actionList.push('Edit', 'Configure', 'Delete')
   }
 
-  onEdit() {
-    this.router.navigate(['./', 'edit'], {relativeTo: this.route});
+  onActionClick(actionID: string) {
+    this.router.navigate(['./', actionID], {relativeTo: this.route});
   }
 
   ngOnDestroy() {

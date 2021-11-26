@@ -19,7 +19,7 @@ export const routes: Routes = [
           pageTitle: 'Institution Detail'
         },
         children: [
-          { path: ':actionId', component: CompanyDetailActionsComponent }
+          { path: ':adminSilingCompanyActionId', component: CompanyDetailActionsComponent }
         ]
       }
     ],
