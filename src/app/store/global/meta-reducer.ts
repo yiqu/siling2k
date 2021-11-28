@@ -32,7 +32,8 @@ export function logNgRxActions(reducer: ActionReducer<any>): ActionReducer<any> 
 export const localStorageSyncConfig: LocalStorageConfig = {
   keys: [
     {
-      settings: [{showHideLists: ['hiding']}]
+      //settings: [{showHideLists: ['hiding']}],
+      dashboardUI: ['allTabSelections', 'currentSelection']
     }
   ],
   storageKeySerializer: (key) => {

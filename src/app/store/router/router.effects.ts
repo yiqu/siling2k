@@ -17,7 +17,6 @@ export class AppGlobalRouterEffects {
       ofType(ROUTER_NAVIGATION),
       concatLatestFrom(() => this.rs.routeParams$),
       tap((res) => {
-        console.log("route params", res[1])
       })
     );
   }, {dispatch: false});
@@ -27,7 +26,6 @@ export class AppGlobalRouterEffects {
       ofType(ROUTER_NAVIGATION),
       concatLatestFrom(() => this.rs.currentRoute$),
       tap((res) => {
-        console.log("current route", res[1])
       })
     );
   }, {dispatch: false});
@@ -37,7 +35,6 @@ export class AppGlobalRouterEffects {
       ofType(ROUTER_NAVIGATION),
       concatLatestFrom(() => this.rs.queryParams$),
       tap((res) => {
-        console.log("query params", res[1])
       })
     );
   }, {dispatch: false});
@@ -47,7 +44,6 @@ export class AppGlobalRouterEffects {
       ofType(ROUTER_NAVIGATION),
       concatLatestFrom(() => this.rs.routeData$),
       tap((res) => {
-        console.log("route data", res[1])
       })
     );
   }, {dispatch: false});
@@ -57,7 +53,6 @@ export class AppGlobalRouterEffects {
       ofType(ROUTER_NAVIGATION),
       concatLatestFrom(() => this.rs.nestedRouteParams$),
       tap((res) => {
-        console.log("nested route data", res[1])
       })
     );
   }, {dispatch: false});

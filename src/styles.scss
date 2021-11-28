@@ -132,9 +132,6 @@ Used to sticky button rows, etc
   border: 1px solid;
 }
 
-mat-card-header .mat-card-header-text {
-  width: 100% !important;
-}
 
  /* Extra small devices (phones, 600px and down) */
  @media only screen and (max-width: 600px) {}
@@ -165,30 +162,6 @@ mat-sidenav {
   color: #eee !important;
 }
 
-.prior-low {
-  color: #80d4ff;
-}
-
-.prior-medium {
-  color: #cccc00;
-}
-
-.prior-high {
-  color: #e62e00;
-}
-
-.issue-open {
-  border-left: 2px solid #28a745;
-}
-
-.issue-closed {
-  border-left: 1px solid #d9d9d9;
-}
-
-mat-list-item mat-icon {
-  cursor: default;
-}
-
 .loading-bg {
   background-color: #f3f3f3;
   background-image: linear-gradient(
@@ -208,30 +181,6 @@ mat-list-item mat-icon {
   /*100% {
     background-position: left; it's the default value, no need to define it
   }*/
-}
-
-.mat-radio-button.prior-low .mat-radio-inner-circle {
-  background-color: #80d4ff;
-}
-
-.mat-radio-button.prior-low .mat-radio-outer-circle {
-  border-color: #80d4ff !important;
-}
-
-.mat-radio-button.prior-medium .mat-radio-inner-circle {
-  background-color:  #cccc00;
-}
-
-.mat-radio-button.prior-medium .mat-radio-outer-circle {
-  border-color:  #cccc00 !important;
-}
-
-.mat-radio-button.prior-high .mat-radio-inner-circle {
-  background-color: #e62e00;
-}
-
-.mat-radio-button.prior-high .mat-radio-outer-circle {
-  border-color: #e62e00 !important;
 }
 
 .lg-img {
@@ -271,3 +220,46 @@ h2 {
   border-top: 0px;
 }
 
+/**
+Material override **/
+
+.container-fluid .mat-tab-header {
+  margin-bottom: 15px;
+}
+
+mat-list-item mat-icon {
+  cursor: default;
+}
+
+mat-card-header .mat-card-header-text {
+  width: 100% !important;
+}
+
+.mat-radio-button.prior-low .mat-radio-inner-circle {
+  background-color: #80d4ff;
+}
+
+.mat-radio-button.prior-low .mat-radio-outer-circle {
+  border-color: #80d4ff !important;
+}
+
+.mat-radio-button.prior-medium .mat-radio-inner-circle {
+  background-color:  #cccc00;
+}
+
+.mat-radio-button.prior-medium .mat-radio-outer-circle {
+  border-color:  #cccc00 !important;
+}
+
+.mat-radio-button.prior-high .mat-radio-inner-circle {
+  background-color: #e62e00;
+}
+
+.mat-radio-button.prior-high .mat-radio-outer-circle {
+  border-color: #e62e00 !important;
+}
+
+.siling-tab-group .mat-tab-label-active {
+  color: #6873c9;
+  opacity: 1;
+}

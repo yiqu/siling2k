@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
+import { Effect, EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { LoadingModule } from '../shared/loading/loading.module';
 import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
@@ -15,6 +15,7 @@ import { NewEntryDialogService } from './home/new-entry-dialog/new-entry-dialog.
 import { dashboardEffects } from './store/core.effects';
 import { silingDashboardReducer } from './store/core.reducer';
 import { dashboardUiReducer } from './store/dashboard.reducer';
+import { dashboardUiEffects } from './store/dashboard.effects';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { dashboardUiReducer } from './store/dashboard.reducer';
     SharedBudleModule,
     LoadingModule,
     EffectsModule.forFeature(dashboardEffects),
+    EffectsModule.forFeature(dashboardUiEffects),
     StoreModule.forFeature('dashboard', silingDashboardReducer),
     StoreModule.forFeature('dashboardUI', dashboardUiReducer),
     CoreRoutingModule,

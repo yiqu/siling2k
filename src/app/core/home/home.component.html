@@ -11,7 +11,7 @@
 
 <hr>
 
-<section class="w-100 pt-3 pb-3" fxLayout="row" fxLayoutAlign="center center">
+<section class="w-100 pt-3 pb-3" fxLayout="row" fxLayoutAlign="center center" *ngIf="false">
   <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
     <div class="chart-shell" >
       <app-shared-line-chart [chartData]="(this.cs.chartData$ | async)"></app-shared-line-chart>
@@ -28,25 +28,54 @@
 
 <hr>
 
-<section fxLayout.gt-sm="row" fxLayout="column"
-  fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
-  fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="pt-3 pb-3">
+<mat-tab-group mat-align-tabs="center" #tabGroup [selectedIndex]="(this.cs.selectTabIndex$ | async)"
+  (selectedTabChange)="onTabChange($event)" animationDuration="0ms"
+  class="pb-3 pt-3 siling-tab-group">
 
-  <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
-    <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
-      <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
-        <ng-container *ngFor="let silingKey of dashboardData.keys">
-          <div class="siling-column1" [fxFlex]="dashboardData.flexNumber + '%'">
-            <app-core-siling-column
-              [silingCompanyId]="silingKey"
-              [silingData]="dashboardData.data[silingKey]">
-          </app-core-siling-column>
-          </div>
+  <ng-container *ngFor="let tab of (this.cs.dashboardTabs$ | async)">
+    <mat-tab [label]="tab.display">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon mr-2">{{ tab.tabIcon }}</mat-icon>
+          {{ tab.display }}
+      </ng-template>
+
+      <ng-container [ngSwitch]="tab.id">
+
+        <ng-container *ngSwitchCase="'expandedView'">
+          <section fxLayout.gt-sm="row" fxLayout="column"
+            fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
+            fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="pt-3 pb-3">
+
+            <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
+              <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
+                <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
+                  <ng-container *ngFor="let silingKey of dashboardData.keys">
+                    <div class="siling-column1" [fxFlex]="dashboardData.flexNumber + '%'">
+                      <app-core-siling-column
+                        [silingCompanyId]="silingKey"
+                        [silingData]="dashboardData.data[silingKey]">
+                    </app-core-siling-column>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </section>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'compactView'">
+          Table
         </ng-container>
       </ng-container>
-    </ng-container>
+
+    </mat-tab>
   </ng-container>
-</section>
+
+
+</mat-tab-group>
+
+
+
 
 <ng-template #isLoading>
   <div class="w-100">

@@ -8,7 +8,11 @@ export const selectAdminFeatureState = createFeatureSelector<AdminState>("admin"
 export const getSilingCompanies = createSelector(
   selectAdminFeatureState,
   (state): SilingCompany[] => {
-    return state.companies;
+    const copy = JSON.parse(JSON.stringify(state.companies));
+    copy.sort((co1: SilingCompany, co2: SilingCompany) => {
+      return co1.dateAdded < co2.dateAdded ? 1 : -1;
+    });
+    return copy;
   }
 );
 

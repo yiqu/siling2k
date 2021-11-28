@@ -1,4 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
@@ -14,14 +16,23 @@ import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.servi
   templateUrl: 'home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class SummaryComponent implements OnInit, OnDestroy {
+export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  @ViewChild('tabGroup')
+  viewTabGroup?: MatTabGroup;
+
 
   compDest$: Subject<void> = new Subject<void>();
 
-  constructor(private neds: NewEntryDialogService, public as: AdminService, public cs: SilingCoreService) {
+  constructor(private neds: NewEntryDialogService, public as: AdminService, public cs: SilingCoreService,
+    private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    console.log(this.viewTabGroup)
   }
 
   onNewEntryClick() {
@@ -48,6 +59,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
         this.cs.saveSilingEntry(dataToSave);
       }
     })
+  }
+
+  onTabChange(tabChange: MatTabChangeEvent) {
+    const position: number | null = tabChange.index ?? 0;
+    this.router.navigate(['./'], {queryParams: {tabIndex: position}});
   }
 
   ngOnDestroy() {

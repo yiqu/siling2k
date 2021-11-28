@@ -10,6 +10,10 @@ import { AppState } from '../store/global/app.reducer';
 import * as fromCoreActions from './store/core.actions';
 import * as fromCoreSelectors from './store/core.selectors';
 import { SilingDashboardData, SummaryData } from './store/core.state';
+import * as fromDashboardSelectors from './store/dashboard.selectors';
+import { DashboardTab } from './store/dashboard.state';
+import * as fromDashboardActions from './store/dashboard.actions';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +25,8 @@ export class SilingCoreService {
   public dashboardData$: Observable<SilingDashboardData> = this.store.select(fromCoreSelectors.getSilingDashboardData);
   public chartData$: Observable<ApexChartData | undefined> = this.store.select(fromCoreSelectors.getChartData);
   public summary$: Observable<SummaryData> = this.store.select(fromCoreSelectors.getSummaryData);
-
+  public selectTabIndex$: Observable<number> = this.store.select(fromDashboardSelectors.getSelectedTabIndex);
+  public dashboardTabs$: Observable<DashboardTab[]> = this.store.select(fromDashboardSelectors.getAllTabs);
 
   constructor(private store: Store<AppState>, private rs: RestService) {
 
@@ -43,6 +48,10 @@ export class SilingCoreService {
 
   public fetchShowHideList(): Observable<ShowHideCompanyList> {
     return this.rs.getDocument('settings/kqpro/showHideList');
+  }
+
+  public setTab(tabIndex: string) {
+    this.store.dispatch(fromDashboardActions.setDashboardTabSelection({tabIndex}));
   }
 
 }
