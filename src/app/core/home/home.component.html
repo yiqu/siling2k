@@ -50,7 +50,7 @@
               <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
                 <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
                   <ng-container *ngFor="let silingKey of dashboardData.keys">
-                    <div class="siling-column1" [fxFlex]="dashboardData.flexNumber + '%'">
+                    <div class="" [fxFlex]="dashboardData.flexNumber + '%'">
                       <app-core-siling-column
                         [silingCompanyId]="silingKey"
                         [silingData]="dashboardData.data[silingKey]">
