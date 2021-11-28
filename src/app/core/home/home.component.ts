@@ -21,7 +21,7 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('tabGroup')
   viewTabGroup?: MatTabGroup;
 
-
+  showGraph = environment.showGraph;
   compDest$: Subject<void> = new Subject<void>();
 
   constructor(private neds: NewEntryDialogService, public as: AdminService, public cs: SilingCoreService,

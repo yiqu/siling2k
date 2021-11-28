@@ -13,43 +13,8 @@ export const environment = {
     messagingSenderId: "976277853968",
     appId: "1:976277853968:web:0072d044a8b7197ef07795"
   },
-  defaultSilingInsToLoad: [
-    {
-      dateAdded: 0,
-      id: 'ascensus',
-      name: 'ascensus'
-    },
-    {
-      dateAdded: 0,
-      id: 'fidelity',
-      name: 'fidelity'
-    },
-    {
-      dateAdded: 0,
-      id: 'empower',
-      name: 'empower'
-    },
-    {
-      dateAdded: 0,
-      id: 'csg',
-      name: 'csg'
-    },
-    {
-      dateAdded: 0,
-      id: 'kqpro2',
-      name: 'Kqpro2'
-    },
-    {
-      dateAdded: 0,
-      id: 'kqpro3',
-      name: 'Kqpro3'
-    },
-    {
-      dateAdded: 0,
-      id: 'test',
-      name: 'Test'
-    }
-  ],
+  showGraph: false
+
 
 };
 

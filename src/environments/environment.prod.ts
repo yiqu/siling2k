@@ -9,36 +9,5 @@ export const environment = {
     messagingSenderId: "976277853968",
     appId: "1:976277853968:web:0072d044a8b7197ef07795"
   },
-  defaultSilingInsToLoad: [
-    {
-      dateAdded: 0,
-      id: 'ascensus',
-      name: 'ascensus'
-    },
-    {
-      dateAdded: 0,
-      id: 'fidelity',
-      name: 'fidelity'
-    },
-    {
-      dateAdded: 0,
-      id: 'empower',
-      name: 'empower'
-    },
-    {
-      dateAdded: 0,
-      id: 'csg',
-      name: 'csg'
-    },
-    {
-      dateAdded: 0,
-      id: 'kqpro',
-      name: 'Kqpro'
-    },
-    {
-      dateAdded: 0,
-      id: 'test',
-      name: 'Test'
-    }
-  ]
+  showGraph: true
 };
