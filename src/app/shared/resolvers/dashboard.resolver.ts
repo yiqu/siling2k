@@ -19,8 +19,10 @@ export class DashboardLoadDataFireResolver implements Resolve<any> {
   })
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+    console.log('resolver to get company data fired');
     return this.getCompaniesBeingDisplayed$.pipe(
       take(1),
+      // filter - only run following logic to fetch new data if it is fist time loading
       tap((res) => {
         const allCompanies: SilingCompany[] = res.allCompanies;
         const comapnyToShow: SilingCompany[] = [];

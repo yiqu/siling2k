@@ -12,6 +12,7 @@ const initialState: SilingDashboardState = {
   silingDataErr: false,
   silingDataLoading: false,
   silingData: undefined,
+  firstTimeLoading: true
 }
 
 export const silingDashboardReducer = createReducer(
@@ -20,7 +21,7 @@ export const silingDashboardReducer = createReducer(
     return {
       ...state,
       entrySaveLoading: true,
-      entryToSave: payload
+      entryToSave: payload,
     }
   }),
 
@@ -39,7 +40,7 @@ export const silingDashboardReducer = createReducer(
       ...state,
       entryApiErr: true,
       entryApiErrMsg: errMsg,
-      entrySaveLoading: false
+      entrySaveLoading: false,
     }
   }),
 
@@ -47,7 +48,7 @@ export const silingDashboardReducer = createReducer(
     return {
       ...state,
       silingDataBeingFetchedNames: names,
-      silingDataLoading: true
+      silingDataLoading: true,
     }
   }),
 
@@ -57,7 +58,8 @@ export const silingDashboardReducer = createReducer(
       silingDataLoading: false,
       silingData: payload,
       silingDataErrMsg: undefined,
-      silingDataErr: false
+      silingDataErr: false,
+      firstTimeLoading: false
     }
   }),
 
@@ -66,7 +68,8 @@ export const silingDashboardReducer = createReducer(
       ...state,
       silingDataLoading: false,
       silingDataErrMsg: errMsg,
-      silingDataErr: true
+      silingDataErr: true,
+      firstTimeLoading: true
     }
   }),
 )
