@@ -16,7 +16,7 @@ const defaultProfileImg: string = "assets/user/default-user5.png";
 @Component({
   selector: 'app-top-nav',
   templateUrl: 'top-nav.component.html',
-  styleUrls: ['./top-nav.component.css'],
+  styleUrls: ['./top-nav.component.scss'],
   animations: [
     trigger('bounce', [transition('* => *', useAnimation(bounce))])
   ],
@@ -57,7 +57,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onLogoClick() {
     this.logoClick.emit();
-    this.logoShakeState = !!this.logoShakeState;
+    this.logoShakeState = !this.logoShakeState;
   }
 
   onMenuClick() {

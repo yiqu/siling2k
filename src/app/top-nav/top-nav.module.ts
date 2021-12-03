@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
 import { CapitalizeFirstLetterPipe } from '../shared/pipes/letters.pipe';
 import { MaterialModuleBundle } from '../shared/material-bundle';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MaterialModuleBundle } from '../shared/material-bundle';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    PipeBundleModule
+    PipeBundleModule,
+    FlexLayoutModule
   ],
 
   exports: [

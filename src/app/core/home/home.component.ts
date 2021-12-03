@@ -32,7 +32,6 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.viewTabGroup)
   }
 
   onNewEntryClick() {

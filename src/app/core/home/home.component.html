@@ -11,9 +11,14 @@
 
 <hr>
 
-<section class="w-100 pt-3 pb-3" fxLayout="row" fxLayoutAlign="center center" *ngIf="showGraph">
-  <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
-    <div class="chart-shell" >
+<section class="w-100 pt-3 pb-3" fxLayout="column" fxLayoutAlign="start center" *ngIf="showGraph">
+  <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
+    <div class="chart-shell">
+      <div class="load-parent">
+        <ng-container *ngIf="(this.cs.isDataLoading$ | async)">
+          <shared-loading-bar></shared-loading-bar>
+        </ng-container>
+      </div>
       <app-shared-line-chart [chartData]="(this.cs.chartData$ | async)"></app-shared-line-chart>
     </div>
   </ng-container>
@@ -23,7 +28,7 @@
 
 <section class="pb-3 pt-3">
   <app-core-summary [summaryData]="(this.cs.summary$ | async)"
-    [loading$]="this.cs.isDashboardDataLoading$"></app-core-summary>
+    [loading$]="this.cs.isDataLoading$"></app-core-summary>
 </section>
 
 <hr>
@@ -46,7 +51,7 @@
             fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
             fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="pt-3 pb-3">
 
-            <ng-container *ngIf="((this.cs.isDashboardDataLoading$ | async) === false); else isLoading">
+            <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
               <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
                 <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
                   <ng-container *ngFor="let silingKey of dashboardData.keys">

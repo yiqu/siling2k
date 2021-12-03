@@ -17,7 +17,14 @@ export const getSaveIsLoading = createSelector(
   }
 );
 
-export const isDashboardDataLoading = createSelector(
+export const isDashboardDataFirstTimeLoading = createSelector(
+  selectCoreFeatureState,
+  (state): boolean => {
+    return state.firstTimeLoading && state.silingDataLoading;
+  }
+);
+
+export const isDataLoading = createSelector(
   selectCoreFeatureState,
   (state): boolean => {
     return state.silingDataLoading;

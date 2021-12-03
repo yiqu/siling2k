@@ -1,16 +1,18 @@
-<ng-container *ngIf="this.chartData">
+<ng-container *ngIf="this.apexSeries && this.apexXAxis && this.apexChart && this.apexDataLabels && this.apexMarkers
+  && this.apexTooltip && this.apexTitle && this.apexFill && this.apexYAxis && this.apexLegend
+  && this.apexGrid">
   <apx-chart #chart
-    [series]="this.chartData.series"
-    [chart]="this.chartData.chart"
-    [dataLabels]="this.chartData.dataLabels"
-    [markers]="this.chartData.markers"
-    [title]="this.chartData.title"
-    [fill]="this.chartData.fill"
-    [yaxis]="this.chartData.yaxis"
-    [xaxis]="this.chartData.xaxis"
-    [tooltip]="this.chartData.tooltip"
-    [legend]="this.chartData.legend"
-    [grid]="this.chartData.grid"
+    [series]="this.apexSeries"
+    [chart]="this.apexChart"
+    [dataLabels]="this.apexDataLabels"
+    [markers]="this.apexMarkers"
+    [title]="this.apexTitle"
+    [fill]="this.apexFill"
+    [yaxis]="this.apexYAxis"
+    [xaxis]="this.apexXAxis"
+    [tooltip]="this.apexTooltip"
+    [legend]="this.apexLegend"
+    [grid]="this.apexGrid"
   ></apx-chart>
 </ng-container>
 

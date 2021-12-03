@@ -15,7 +15,7 @@ export const routes: Routes = [
       },
     ],
     resolve: { resolverFired: DashboardLoadDataFireResolver },
-    //runGuardsAndResolvers: 'always'
+    runGuardsAndResolvers: 'always'
   }
 ]
 

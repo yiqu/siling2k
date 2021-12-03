@@ -1,3 +1,7 @@
 .chart-shell {
   width: calc(100% - 10rem);
+
+  .load-parent {
+    height: 5px;
+  }
 }

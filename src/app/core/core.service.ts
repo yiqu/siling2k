@@ -21,7 +21,8 @@ import * as fromDashboardActions from './store/dashboard.actions';
 export class SilingCoreService {
 
   public isEntrySaveLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.getSaveIsLoading);
-  public isDashboardDataLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.isDashboardDataLoading);
+  public isDashboardDataFirstTimeLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.isDashboardDataFirstTimeLoading);
+  public isDataLoading$: Observable<boolean> = this.store.select(fromCoreSelectors.isDataLoading);
   public dashboardData$: Observable<SilingDashboardData> = this.store.select(fromCoreSelectors.getSilingDashboardData);
   public chartData$: Observable<ApexChartData | undefined> = this.store.select(fromCoreSelectors.getChartData);
   public summary$: Observable<SummaryData> = this.store.select(fromCoreSelectors.getSummaryData);
