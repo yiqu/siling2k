@@ -32,7 +32,7 @@ export class ToasterService {
     this.ts.info(msg, "Info");
   }
 
-  getSnackbar(msg: string, dur?: number) {
+  getSnackbar(msg: string, dur: number = 3000) {
     if (msg.slice(-1) !== ".") {
       msg = msg + ".";
     }

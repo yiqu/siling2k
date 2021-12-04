@@ -9,7 +9,7 @@ import { RestService } from '../shared/services/rest.service';
 import { AppState } from '../store/global/app.reducer';
 import * as fromCoreActions from './store/core.actions';
 import * as fromCoreSelectors from './store/core.selectors';
-import { SilingDashboardData, SummaryData } from './store/core.state';
+import { SilingDashboardData, SilingDataCollection, SummaryData } from './store/core.state';
 import * as fromDashboardSelectors from './store/dashboard.selectors';
 import { DashboardTab } from './store/dashboard.state';
 import * as fromDashboardActions from './store/dashboard.actions';
@@ -28,16 +28,19 @@ export class SilingCoreService {
   public summary$: Observable<SummaryData> = this.store.select(fromCoreSelectors.getSummaryData);
   public selectTabIndex$: Observable<number> = this.store.select(fromDashboardSelectors.getSelectedTabIndex);
   public dashboardTabs$: Observable<DashboardTab[]> = this.store.select(fromDashboardSelectors.getAllTabs);
+  public silingData$: Observable<SilingDataCollection> = this.store.select(fromCoreSelectors.getSilingData);
+  public dataLastFetched$: Observable<number | undefined> = this.store.select(fromCoreSelectors.dataLastFetched);
+  public companiesShown$: Observable<string[]> = this.store.select(fromCoreSelectors.getSilingDataShownNames);
+
 
   constructor(private store: Store<AppState>, private rs: RestService) {
-
   }
 
   public saveSilingEntry(entry: SilingData): void {
     this.store.dispatch(fromCoreActions.saveSilingEntryStart({payload: entry}));
   }
 
-  public getSilingDataByInsName(names: string[]) {
+  public getSilingDataByInsName(names: string[]): void {
     if (names && names.length > 0) {
       this.store.dispatch(fromCoreActions.getSilingDataByNameStart({names: names}));
     }
@@ -53,6 +56,10 @@ export class SilingCoreService {
 
   public setTab(tabIndex: string) {
     this.store.dispatch(fromDashboardActions.setDashboardTabSelection({tabIndex}));
+  }
+
+  public refreshData(): void {
+    this.store.dispatch(fromCoreActions.refreshData());
   }
 
 }

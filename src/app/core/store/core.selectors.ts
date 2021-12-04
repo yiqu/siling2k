@@ -31,6 +31,13 @@ export const isDataLoading = createSelector(
   }
 );
 
+export const dataLastFetched = createSelector(
+  selectCoreFeatureState,
+  (state): number | undefined => {
+    return state.silingDataLastFetched;
+  }
+);
+
 export const getSilingData = createSelector(
   selectCoreFeatureState,
   (state): SilingDataCollection => {

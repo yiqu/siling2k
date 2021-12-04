@@ -1,4 +1,4 @@
-<section>
+<section fxLayout="row" fxLayoutAlign="space-between center">
   <div class="">
     <button mat-button color="primary" (click)="onNewEntryClick()">
       <mat-icon>add</mat-icon>
@@ -6,6 +6,17 @@
         New
       </span>
     </button>
+    <button mat-button color="primary" (click)="onRefresh()">
+      <mat-icon>refresh</mat-icon>
+      <span>Refresh</span>
+    </button>
+  </div>
+  <div>
+    <ng-container *ngIf="(this.cs.dataLastFetched$ | async) as lastFetched">
+      <div class="if">
+        Last fetched: {{lastFetched | dateDisplay:'FULLDATE'}}
+      </div>
+    </ng-container>
   </div>
 </section>
 

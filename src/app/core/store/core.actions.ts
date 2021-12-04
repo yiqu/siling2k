@@ -10,6 +10,8 @@ const GET_SILING_DATA_BY_NAME_START: string = "[Siling/API] Get siling data by i
 const GET_SILING_DATA_BY_NAME_SUCCESS: string = "[Siling/API] Get siling data by ins. name successful";
 const GET_SILING_DATA_BY_NAME_FAILURE: string = "[Siling/API] Get siling data by ins. name failure";
 
+const REFRESH_SILING_DATA: string = "[Siling/API] Refetch data";
+
 export const saveSilingEntryStart = createAction(
   SAVE_SILING_ENTRY_START,
   props<{payload: SilingData}>()
@@ -38,4 +40,8 @@ export const getSilingDataByNameSuccess = createAction(
 export const getSilingDataByNameFailure = createAction(
   GET_SILING_DATA_BY_NAME_FAILURE,
   props<{errMsg: string}>()
+)
+
+export const refreshData = createAction(
+  REFRESH_SILING_DATA,
 )

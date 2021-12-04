@@ -12,6 +12,7 @@ export interface SilingDashboardState {
   silingDataErrMsg?: string;
   silingData?: SilingDataCollection;
   firstTimeLoading: boolean;
+  silingDataLastFetched?: number;
 }
 
 export interface FirebaseDocObsAndId {

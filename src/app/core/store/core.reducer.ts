@@ -12,7 +12,8 @@ const initialState: SilingDashboardState = {
   silingDataErr: false,
   silingDataLoading: false,
   silingData: undefined,
-  firstTimeLoading: true
+  firstTimeLoading: true,
+  silingDataLastFetched: undefined
 }
 
 export const silingDashboardReducer = createReducer(
@@ -59,7 +60,8 @@ export const silingDashboardReducer = createReducer(
       silingData: payload,
       silingDataErrMsg: undefined,
       silingDataErr: false,
-      firstTimeLoading: false
+      firstTimeLoading: false,
+      silingDataLastFetched: date
     }
   }),
 

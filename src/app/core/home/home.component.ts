@@ -65,6 +65,10 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate(['./'], {queryParams: {tabIndex: position}});
   }
 
+  onRefresh() {
+    this.cs.refreshData();
+  }
+
   ngOnDestroy() {
     this.compDest$.next();
     this.compDest$.complete();
