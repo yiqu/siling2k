@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -39,10 +39,15 @@ export class ApexLineChartComponent implements OnInit, OnChanges {
   apexLegend?: ApexLegend;
   apexGrid?: ApexGrid;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
   }
 
   ngOnChanges() {
+    // will not trigger angular detection changes
+    // this.ngZone.runOutsideAngular(() => {
+    //   this.initChartData();
+    // });
+
     this.initChartData();
   }
 

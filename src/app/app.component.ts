@@ -26,27 +26,14 @@ export class AppComponent implements OnInit {
   @ViewChild("snav")
   sideNav!: MatSidenav;
 
-  mobileQuery!: MediaQueryList;
-  private _mobileQueryListener!: () => void;
 
   constructor(public changeDetectorRef: ChangeDetectorRef, public ims: IsMobileService, public media: MediaMatcher,
     private store: Store<AppState>, public ms: AppMetaService, private rs: RestService) {
-    this.setMobileDetection();
   }
 
   ngOnInit() {
-
   }
 
-    /**
-   * Detect if deive is mobile size, then re-run detection change
-   */
-  setMobileDetection() {
-    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
-    this.ims.mediaQList = this.mobileQuery;
-  }
 
   /**
    * Initialize Firebase.
