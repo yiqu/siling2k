@@ -15,6 +15,9 @@ export class LoadingComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   wholePage: boolean = false;
 
+  @Input()
+  message?: string;
+
   loading: boolean = true;
   logoShakeState: boolean = false;
   parentClass: string | undefined;

@@ -1,16 +1,13 @@
 <ng-container *ngIf="loading$">
   <ng-container *ngIf="((loading$ | async) === false); else loading">
     <ng-container *ngIf="summaryData">
-      <div class="roboto" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <div class="roboto" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="text-muted">
-          <div>Last updated:</div>
-          <div>
+          <div [title]="'Last entry updated'">
             {{summaryData.lastUpdated | dateDisplay:'MDYANDFROMNOW' }}
           </div>
-
         </div>
-        <div class="total">
-          Total:
+        <div class="total" [title]="summaryData.total">
           <span class="green">
             $ {{summaryData.total | localeNumberDisplay}}
           </span>

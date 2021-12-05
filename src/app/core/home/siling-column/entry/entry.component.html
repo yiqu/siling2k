@@ -1,10 +1,10 @@
 <ng-container *ngIf="entryDetail">
-  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px"
     [ngClass]="{'border-btn-none':isLast, 'list-group-item roboto':true}"
     [class]="entryDetail.profitPercent | profitGainBgClass">
 
-    <div class="w-100 roboto meta-data" fxLayout="row" fxLayoutAlign="space-between center">
-      <div class="mb-1" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+    <div class="w-100 roboto small-number text-muted" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <div>
           {{entryDetail.date ? (entryDetail.date | dateDisplay:'MDY') : 'NO DATE'}}
         </div>
@@ -24,8 +24,13 @@
           ${{ entryDetail.amount | localeNumberDisplay }}
         </div>
         <div [class]="'gains-rate numbers med-number spacing-half ' + (entryDetail.profitPercent | numberGainClass)"
-          [title]="entryDetail.profitPercent">
+          [title]="entryDetail.profitPercent" fxLayout="row" fxLayoutAlign="start center">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="med-number">{{ entryDetail.profitPercent | profitPercentIconClass }}</mat-icon>
+          </div>
+          <div>
             {{ entryDetail.profitPercent | profitPercent }}
+          </div>
         </div>
     </div>
 

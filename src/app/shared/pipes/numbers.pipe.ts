@@ -40,10 +40,31 @@ export class ProfitPercentPipe implements PipeTransform {
     let percent: number = (value * 100);
     if (isNaN(percent)) {
       return "N/A";
-    } else if (percent < 0) {
-      result = this.rnp.transform(percent, 1) + "%";
     } else {
-      result = "+" + this.rnp.transform(percent, 1) + "%";
+      result = this.rnp.transform(Math.abs(percent), 1) + "%";
+    }
+    return result;
+  }
+}
+
+@Pipe({
+  name: 'profitPercentIconClass',
+  pure: true
+})
+export class ProfitPercentIconClassPipe implements PipeTransform {
+
+  constructor(private rnp: RoundNumberPipe) {
+  }
+
+  transform(value: number): string | null {
+    let result;
+    let percent: number = (value * 100);
+    if (isNaN(percent) || percent === 0) {
+      return null;
+    } else if (percent < 0) {
+      result = 'arrow_downward';
+    } else {
+      result = 'arrow_upward';
     }
     return result;
   }

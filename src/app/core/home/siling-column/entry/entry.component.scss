@@ -9,7 +9,11 @@
 }
 
 .med-number {
-  font-size: 25px;
+  font-size: 20px;
+}
+
+.small-number {
+  font-size: 14px;
 }
 
 .spacing-half {
@@ -19,10 +23,6 @@
 .numbers {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-}
-
-.small-number {
-  font-size: 16px;
 }
 
 .positive {
@@ -55,10 +55,6 @@
 
 .no-change-bg {
   background-color: #cccccc0f;
-}
-
-.meta-data {
-  font-size: 14px;
 }
 
 .border-btn-none {

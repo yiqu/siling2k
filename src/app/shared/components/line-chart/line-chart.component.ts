@@ -47,7 +47,6 @@ export class ApexLineChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-
   }
 
   initChartData() {

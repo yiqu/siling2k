@@ -241,7 +241,10 @@ export function getMarkers(): ApexMarkers {
 export function getTitle(): ApexTitleSubtitle {
   return {
     text: "Siling Growth by Date",
-    align: "left"
+    align: "left",
+    style: {
+      fontFamily: 'Roboto'
+    }
   };
 }
 

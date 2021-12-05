@@ -22,8 +22,15 @@
 
 <hr>
 
-<section class="w-100 pt-3 pb-3" fxLayout="column" fxLayoutAlign="start center" *ngIf="showGraph">
-  <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
+<section class="">
+  <app-core-summary [summaryData]="(this.cs.summary$ | async)" [loading$]="this.cs.isDataLoading$">
+  </app-core-summary>
+</section>
+
+<hr>
+
+<section class="w-100" fxLayout="column" fxLayoutAlign="start center" *ngIf="showGraph">
+  <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isChartLoading">
     <div class="chart-shell">
       <div class="load-parent">
         <ng-container *ngIf="(this.cs.isDataLoading$ | async)">
@@ -37,16 +44,9 @@
 
 <hr>
 
-<section class="pb-3 pt-3">
-  <app-core-summary [summaryData]="(this.cs.summary$ | async)"
-    [loading$]="this.cs.isDataLoading$"></app-core-summary>
-</section>
-
-<hr>
-
 <mat-tab-group mat-align-tabs="center" #tabGroup [selectedIndex]="(this.cs.selectTabIndex$ | async)"
   (selectedTabChange)="onTabChange($event)" animationDuration="0ms"
-  class="pb-3 pt-3 siling-tab-group">
+  class="pb-3 siling-tab-group">
 
   <ng-container *ngFor="let tab of (this.cs.dashboardTabs$ | async)">
     <mat-tab [label]="tab.display">
@@ -60,7 +60,7 @@
         <ng-container *ngSwitchCase="'expandedView'">
           <section fxLayout.gt-sm="row" fxLayout="column"
             fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
-            fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="pt-3 pb-3">
+            fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="">
 
             <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
               <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
@@ -83,11 +83,8 @@
           Table
         </ng-container>
       </ng-container>
-
     </mat-tab>
   </ng-container>
-
-
 </mat-tab-group>
 
 
@@ -96,6 +93,12 @@
 <ng-template #isLoading>
   <div class="w-100">
     <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>
+
+<ng-template #isChartLoading>
+  <div class="w-100">
+    <app-shared-loading [message]="'Graph'"></app-shared-loading>
   </div>
 </ng-template>
 

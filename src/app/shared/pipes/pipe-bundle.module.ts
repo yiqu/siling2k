@@ -6,7 +6,7 @@ import { UserDisplayPipe } from './user.pipe';
 import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
 import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe';
-import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe } from './numbers.pipe';
+import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe, ProfitPercentIconClassPipe } from './numbers.pipe';
 
 @NgModule({
   imports: [],
@@ -27,7 +27,8 @@ import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, Profi
     ProfitPipe,
     ProfitGainClassPipe,
     TimeFromNowPipe,
-    ProfileGainBgColorPipe
+    ProfileGainBgColorPipe,
+    ProfitPercentIconClassPipe
   ],
 
   declarations: [
@@ -46,7 +47,8 @@ import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, Profi
     ProfitPipe,
     ProfitGainClassPipe,
     TimeFromNowPipe,
-    ProfileGainBgColorPipe
+    ProfileGainBgColorPipe,
+    ProfitPercentIconClassPipe
   ],
 
   providers: [
