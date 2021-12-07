@@ -3,7 +3,7 @@
     [ngClass]="{'border-btn-none':isLast, 'list-group-item roboto':true}"
     [class]="entryDetail.profitPercent | profitGainBgClass">
 
-    <div class="w-100 roboto small-number text-muted" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="w-100 roboto small-number text-muted date-info" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <div>
           {{entryDetail.date ? (entryDetail.date | dateDisplay:'MDY') : 'NO DATE'}}
@@ -12,7 +12,7 @@
           <app-shared-popover [text]="entryDetail.date"></app-shared-popover>
         </div>
       </div>
-      <div>
+      <div class="from-now">
         {{entryDetail.date | dateFromNow}}
       </div>
     </div>

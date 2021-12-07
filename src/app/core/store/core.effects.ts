@@ -15,6 +15,7 @@ import { FirebaseOptions } from '@firebase/app';
 import { FirebaseDocObsAndId, SilingDataCollection } from './core.state';
 import { QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 import { SilingCoreService } from '../core.service';
+import { SilingCompany } from 'src/app/admin/store/admin.state';
 
 
 @Injectable()
@@ -47,6 +48,25 @@ export class SilingDashboardEffects {
           (err) => {
             return fromCoreActions.saveSilingEntryFailure({errMsg: err});
           }
+        )
+      })
+    );
+  });
+
+  /**
+   * Updat the siling data being fetched name list, and dispatch call to get all siling data
+   */
+  getSilingToShowIds$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCoreActions.updateSilingToShowIdsStart),
+      switchMap((res) => {
+        return this.cs.getSilingShownIdsObs().pipe(
+          map((idsToShow: string[]) => {
+            return fromCoreActions.getSilingDataByNameStart({names: idsToShow});
+          }),
+          catchError((err) => {
+            return of(fromCoreActions.updateSilingToShowIdsFailure({ errMsg: err}));
+          })
         )
       })
     );
@@ -89,9 +109,6 @@ export class SilingDashboardEffects {
       })
     );
   });
-
-
-
 }
 
 

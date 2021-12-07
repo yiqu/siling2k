@@ -8,6 +8,16 @@
   letter-spacing: 0.5px;
 }
 
+.date-info {
+  height: 21px;
+
+  .from-now {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
 .med-number {
   font-size: 20px;
 }

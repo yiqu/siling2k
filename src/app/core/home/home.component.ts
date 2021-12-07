@@ -66,7 +66,7 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onRefresh() {
-    this.cs.refreshData();
+    this.cs.getSilingShowList();
   }
 
   ngOnDestroy() {

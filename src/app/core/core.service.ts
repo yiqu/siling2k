@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { SilingCompany } from '../admin/store/admin.state';
 import { SilingData } from '../models/general.models';
 import { ShowHideCompanyList, ShowHideList } from '../settings/store/settings.state';
@@ -13,6 +13,7 @@ import { SilingDashboardData, SilingDataCollection, SummaryData } from './store/
 import * as fromDashboardSelectors from './store/dashboard.selectors';
 import { DashboardTab } from './store/dashboard.state';
 import * as fromDashboardActions from './store/dashboard.actions';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -46,6 +47,10 @@ export class SilingCoreService {
     }
   }
 
+  public getSilingShowList(): void {
+    this.store.dispatch(fromCoreActions.updateSilingToShowIdsStart());
+  }
+
   public fetchSilingCompanies(): Observable<SilingCompany[]> {
     return this.rs.getCollection<SilingCompany>('settings/kqpro/companies/all');
   }
@@ -60,6 +65,54 @@ export class SilingCoreService {
 
   public refreshData(): void {
     this.store.dispatch(fromCoreActions.refreshData());
+  }
+
+  public getSilingShownIdsObs(): Observable<string[]> {
+    return forkJoin({
+      allCompanies: this.fetchSilingCompanies(),
+      showHideList: this.fetchShowHideList()
+    }).pipe(
+      map((res) => {
+        const allCompanies: SilingCompany[] = res.allCompanies;
+        const comapnyToShow: SilingCompany[] = [];
+        let companiesHidden: SilingCompany[] = [];
+        let companiesShown: SilingCompany[] = [];
+
+        if (res.showHideList && res.showHideList.hiding && res.showHideList.hiding.length > -1) {
+          companiesHidden = res.showHideList.hiding;
+        }
+
+        if (res.showHideList && res.showHideList.showing && res.showHideList.showing.length > -1) {
+          companiesShown = res.showHideList.showing;
+        }
+
+        allCompanies.forEach((res: SilingCompany) => {
+          const excludeIndex: number = companiesHidden.findIndex((co) => {
+            return co.name === res.name;
+          });
+          if (excludeIndex < 0) {
+            comapnyToShow.push(res);
+          }
+        });
+
+        comapnyToShow.sort((x: SilingCompany, y: SilingCompany) => {
+          const xIndex = companiesShown.findIndex((co) => {
+            return co.id === x.id;
+          });
+          const yIndex = companiesShown.findIndex((co) => {
+            return co.id === y.id;
+          });
+
+          return xIndex > yIndex ? 1 : -1;
+        });
+
+        const companiesToShowIds = comapnyToShow.map((showCo) => {
+          return showCo.name.toLowerCase();
+        });
+
+        return companiesToShowIds;
+      })
+    )
   }
 
 }

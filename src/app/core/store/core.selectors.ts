@@ -126,18 +126,21 @@ export const getChartData = createSelector(
       const name: string | undefined = capitalizeFirstLetter(key);
 
       const collection: SilingDataDetail[] = state.data[key];
-      const collectEntities: {[key: number]: number} = {};
-      collection.forEach((col: SilingDataDetail) => {
-        collectEntities[col.date] = col.amount;
-      });
-      const collectionArr: number[] = [];
-      datesArray.forEach((date: number, index: number) => {
-        if (collectEntities[date] !== undefined) {
-          collectionArr.push(+collectEntities[date]);
-        } else {
-          collectionArr.push(NaN);
-        }
-      });
+      let collectionArr: number[] = [];
+      if (collection) {
+        const collectEntities: {[key: number]: number} = {};
+        collection.forEach((col: SilingDataDetail) => {
+          collectEntities[col.date] = col.amount;
+        });
+        datesArray.forEach((date: number, index: number) => {
+          if (collectEntities[date] !== undefined) {
+            collectionArr.push(+collectEntities[date]);
+          } else {
+            collectionArr.push(NaN);
+          }
+        });
+      }
+
 
       let resultArr: number[]= [];
       let previousValue = 0;
@@ -187,7 +190,7 @@ export const getSummaryData = createSelector(
           return res1.date > res2.date ? 1 : -1;
         });
         const recentEntry = sorted[(state.data[key]?.length-1) ?? 0];
-        if (index === 0) {
+        if (index === 0 && recentEntry) {
           latestDate = recentEntry.date;
         }
 
