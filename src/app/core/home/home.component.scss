@@ -9,3 +9,9 @@
 button mat-icon {
   margin-right: 5px;
 }
+
+.sticky-top.dashboard {
+  z-index: 20;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}

@@ -1,14 +1,16 @@
-<section fxLayout="row" fxLayoutAlign="space-between center">
+<section fxLayout="row" fxLayoutAlign="space-between center" class="sticky-top dashboard">
   <div class="">
     <button mat-button color="primary" (click)="onNewEntryClick()">
       <mat-icon>add</mat-icon>
-      <span>
-        New
-      </span>
+      <span>New entry</span>
     </button>
     <button mat-button color="primary" (click)="onRefresh()">
       <mat-icon>refresh</mat-icon>
       <span>Refresh</span>
+    </button>
+    <button mat-button color="primary" (click)="onOpenFilters()">
+      <mat-icon>filter_list</mat-icon>
+      <span>Filters</span>
     </button>
   </div>
   <div>
@@ -19,8 +21,6 @@
     </ng-container>
   </div>
 </section>
-
-<hr>
 
 <section class="">
   <app-core-summary [summaryData]="(this.cs.summary$ | async)" [loading$]="this.cs.isDataLoading$">

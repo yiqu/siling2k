@@ -16,6 +16,7 @@ import { dashboardEffects } from './store/core.effects';
 import { silingDashboardReducer } from './store/core.reducer';
 import { dashboardUiReducer } from './store/dashboard.reducer';
 import { dashboardUiEffects } from './store/dashboard.effects';
+import { FilterDialogComponent } from './home/filter-dialog/filter-dialog.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { dashboardUiEffects } from './store/dashboard.effects';
     NewEntryDialogComponent,
     SilingColumnComponent,
     SilingColumnEntryComponent,
-    CoreSummaryComponent
+    CoreSummaryComponent,
+    FilterDialogComponent
   ],
 
   providers: [

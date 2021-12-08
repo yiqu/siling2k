@@ -285,3 +285,11 @@ app-core-siling-column-entry .list-group-item {
 app-core-siling-column .card-header {
   padding: 0.35rem .25rem;
 }
+
+
+/**
+Filter dialog
+**/
+.filter-dialog-container mat-dialog-container.mat-dialog-container {
+  padding: 0px;
+}

@@ -25,11 +25,12 @@ export class DashboardLoadDataFireResolver implements Resolve<any> {
     console.log('Running resolver...');
     return this.cs.silingData$.pipe(
       take(1),
-      map((res) => {
+      map((res: SilingDataCollection) => {
         if (Object.keys(res).length > 0) {
           console.log('Using existing data.')
           return res;
         }
+        console.log('Fetching data.')
         return undefined;
       }),
       switchMap((data?: SilingDataCollection) => {

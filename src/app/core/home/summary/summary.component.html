@@ -1,7 +1,7 @@
 <ng-container *ngIf="loading$">
   <ng-container *ngIf="((loading$ | async) === false); else loading">
     <ng-container *ngIf="summaryData">
-      <div class="roboto" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <div class="roboto summary" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="text-muted">
           <div [title]="'Last entry updated'">
             {{summaryData.lastUpdated | dateDisplay:'MDYANDFROMNOW' }}
@@ -19,7 +19,7 @@
 </ng-container>
 
 <ng-template #loading>
-  <div fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center" class="summary">
     Calculating summary...
   </div>
 </ng-template>

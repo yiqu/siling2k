@@ -2,6 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChil
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { SilingData, SilingEntry, SilingEntryDialogData } from 'src/app/models/general.models';
@@ -9,6 +10,7 @@ import { convertCommaDecimalNumberToNumber } from 'src/app/shared/general.utils'
 import { RestService } from 'src/app/shared/services/rest.service';
 import { environment } from 'src/environments/environment';
 import { SilingCoreService } from '../core.service';
+import { FilterDialogService } from './filter-dialog/filter-dialog.service';
 import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   compDest$: Subject<void> = new Subject<void>();
 
   constructor(private neds: NewEntryDialogService, public as: AdminService, public cs: SilingCoreService,
-    private router: Router, private route: ActivatedRoute) {
+    private router: Router, private route: ActivatedRoute, private fds: FilterDialogService) {
   }
 
   ngOnInit() {
@@ -46,7 +48,10 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const dialogRef = this.neds.getDialog(newEntryInfo);
 
-    dialogRef.afterClosed().subscribe((res: SilingEntryDialogData) => {
+    dialogRef.afterClosed().pipe(
+      takeUntil(this.compDest$)
+    )
+    .subscribe((res: SilingEntryDialogData) => {
       if (res && res.amount && res.company && res.date) {
         const amountInt: number = convertCommaDecimalNumberToNumber(res.amount);
         const dataToSave: SilingData = {
@@ -57,7 +62,7 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         this.cs.saveSilingEntry(dataToSave);
       }
-    })
+    });
   }
 
   onTabChange(tabChange: MatTabChangeEvent) {
@@ -67,6 +72,16 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onRefresh() {
     this.cs.getSilingShowList();
+  }
+
+  onOpenFilters() {
+    const dialogRef = this.fds.getDialog(null);
+
+    dialogRef.afterClosed().pipe(
+      takeUntil(this.compDest$)
+    ).subscribe((res: any) => {
+      console.log(res);
+    });
   }
 
   ngOnDestroy() {
