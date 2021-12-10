@@ -21,7 +21,7 @@ export class FilterDialogService {
       hasBackdrop: true,
       autoFocus: false,
       disableClose: true,
-      width: 'calc(100% - 10rem)',
+      width: 'calc(100% - 30rem)',
       height: 'calc(100% - 15rem)',
     });
 

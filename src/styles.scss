@@ -120,6 +120,10 @@ p {
   text-decoration: underline;
 }
 
+.logo-img {
+  height: 35px;
+}
+
 /**
 Used to sticky button rows, etc
 **/
@@ -237,6 +241,8 @@ h2 {
 /**
 Material override **/
 
+
+
 .container-fluid .mat-tab-header {
   margin-bottom: 15px;
 }
@@ -290,6 +296,10 @@ app-core-siling-column .card-header {
 /**
 Filter dialog
 **/
-.filter-dialog-container mat-dialog-container.mat-dialog-container {
+mat-dialog-container.mat-dialog-container {
   padding: 0px;
+}
+section.title {
+  padding: 15px;
+  font-size: 18px;
 }

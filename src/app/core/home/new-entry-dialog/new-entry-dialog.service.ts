@@ -20,8 +20,10 @@ export class NewEntryDialogService {
       },
       panelClass: 'new-siling1k-entry',
       hasBackdrop: true,
-      autoFocus: true,
+      autoFocus: false,
       disableClose: true,
+      width: 'calc(100% - 30rem)',
+      height: 'calc(100% - 15rem)',
     });
 
     return this.dialogRef;

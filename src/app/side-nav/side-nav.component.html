@@ -1,9 +1,15 @@
 <mat-nav-list class="pb-5">
-  <div class="nav-title-container if">
-    <div class="nav-title" (click)="onTitleClick()">
-      {{navTitle}}
+  <div class="nav-title-container if" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="nav-title" (click)="onTitleClick()" fxLayout="row" fxLayoutAlign="start center"
+      fxLayoutGap="5px">
+      <div>
+        <img src="assets/banner/money.png" class="logo-img" alt="logo">
+      </div>
+      <div>
+        {{navTitle}}
+      </div>
     </div>
-    <div class="button-container">
+    <div class="">
       <button mat-icon-button class="mat-elevation-z0" (click)="onNavClose()">
         <mat-icon>clear</mat-icon>
       </button>
@@ -16,7 +22,7 @@
       <a class="fs-13" mat-line [routerLink]="hlc.url" (click)="onNavItemClick()">
         <mat-list-item [routerLinkActive]="'link-active'">
           <mat-icon mat-list-icon>{{hlc.iconName}}</mat-icon>
-          <div class="fs-13" mat-line>{{hlc.display}}</div>
+          <div class="fs-13 selection-text" mat-line>{{hlc.display}}</div>
         </mat-list-item>
       </a>
     </ng-container>

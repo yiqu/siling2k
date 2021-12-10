@@ -1,20 +1,28 @@
-<h1 mat-dialog-title class="mfont my-2" ngClass.gt-sm="big" fxLayout="row"
-  fxLayoutGap="10px" fxLayoutAlign="space-between start">
-  <div>
-    <ng-container *ngIf="this.data.company; else newEntry">
-      Editing Existing Entry
-    </ng-container>
-    <ng-template #newEntry>
-      New Siling1k Entry
-    </ng-template>
-  </div>
-  <div *ngIf="this.entryFg.touched && this.entryFg.invalid" class="text-danger err-header">
-    Fix invalid inputs before saving.
-  </div>
-</h1>
-<hr>
+<div class="w-100" ngClass.gt-sm="big">
+  <section class="if title-bar-bg title w-100" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+      <div>
+        <ng-container *ngIf="this.data.company; else newEntry">
+          Editing Existing Entry
+        </ng-container>
+        <ng-template #newEntry>
+          New Siling1k Entry
+        </ng-template>
+      </div>
+
+      <div *ngIf="this.entryFg.touched && this.entryFg.invalid" class="text-danger err-header">
+        Fix invalid inputs before saving.
+      </div>
+    </div>
+    <div>
+      <button mat-icon-button color="warn" (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </section>
+</div>
 <ng-container *ngIf="((this.data.companyLoading | async) === false); else isLoading">
-  <div mat-dialog-content class="content-parent">
+  <div class="container pt-3">
     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" class="w-100">
       <form [formGroup]="this.entryFg" fxFlex.gt-sm="50">
         <ng-container *ngFor="let control of entryFgStruct">
@@ -103,9 +111,9 @@
 </ng-container>
 
 <hr>
-<div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center" >
-  <button mat-flat-button (click)="onSave()" [disabled]="this.entryFg.invalid">Save</button>
-  <button mat-flat-button (click)="onNoClick()">Cancel</button>
+<div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center" class="action-bar mx-3">
+  <button mat-stroked-button (click)="onNoClick()" color="warn">Cancel</button>
+  <button mat-stroked-button (click)="onSave()" [disabled]="this.entryFg.invalid">Save</button>
 </div>
 
 <ng-template #isLoading>
