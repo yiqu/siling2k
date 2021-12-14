@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 export function createFormControl(value: any, disabled: boolean, validators: any[] = [], asyncValids: any[] = []): FormControl {
   let fc = new FormControl({
@@ -73,3 +73,47 @@ export function arraysEqual(a1: any[], a2: any[]): boolean {
   return false;
 }
 
+/**
+ * Calculates all form errors recursively
+ * @param form
+ * @returns
+ */
+export function calculateNestedFormErrors(form: FormGroup | FormArray, removeDuplicate: boolean = true) {
+  let errors: AllValidationErrors[] = [];
+  Object.keys(form.controls).forEach(field => {
+    const control = form.get(field);
+    if (control instanceof FormGroup || control instanceof FormArray) {
+      errors = errors.concat(calculateNestedFormErrors(control));
+      return;
+    }
+
+    const controlErrors: ValidationErrors | undefined | null = control?.errors;
+    if (controlErrors) {
+      Object.keys(controlErrors).forEach(keyError => {
+        errors.push({
+          controlName: field,
+          errorName: keyError,
+          errorValue: controlErrors[keyError]
+        });
+      });
+    }
+  });
+  // This removes duplicates
+  if (removeDuplicate) {
+    errors = errors.filter((error, index, self) => self.findIndex(t => {
+      return t.controlName === error.controlName && t.errorName === error.errorName;
+    }) === index);
+  }
+  return errors;
+}
+
+export interface AllValidationErrors {
+  controlName: string;
+  errorName: string;
+  errorValue: any;
+};
+
+export interface FormValidationErrorDisplay {
+  summary: string;
+  errors: AllValidationErrors[];
+}

@@ -27,9 +27,53 @@ export function customOnlyLettersValidator(control: FormControl): {[s: string]: 
   return {"lettersOnly": true};
 }
 
+/**
+ * This includes numbers like 0, 1, 0.0, 0.1, 1.0, 99999.000001, 5.10, -0, -1, -0.0, -0.1, -99999.000001, 5.10.
+ * @param control
+ * @returns
+ */
 export function numbersOnlyValidator(control: FormControl): {[s: string]: boolean} | undefined {
-  const nums: RegExp = /^\d+$/;
-  if (control.value && control.value.trim().match(nums)) {
+  const nums: RegExp = /^-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)$/;
+  if (control.value && (control.value + '').trim().match(nums)) {
+    return undefined;
+  }
+  return {"numbersOnly": true};
+}
+
+/**
+ * This includes numbers like 0, 1 and 99999.
+ * @param control
+ * @returns
+ */
+export function wholePositiveNumbersOnlyValidator(control: FormControl): {[s: string]: boolean} | undefined {
+  const nums: RegExp = /^(0|[1-9]\d*)$/;
+  if (control.value && (control.value + '').trim().match(nums)) {
+    return undefined;
+  }
+  return {"numbersOnly": true};
+}
+
+/**
+ * This includes numbers like 0, 1, 99999, -99999, -1 and -0.
+ * @param control
+ * @returns
+ */
+export function wholePositiveAndNegativeNumbersOnlyValidator(control: FormControl): {[s: string]: boolean} | undefined {
+  const nums: RegExp = /^-?(0|[1-9]\d*)$/;
+  if (control.value && (control.value + '').trim().match(nums)) {
+    return undefined;
+  }
+  return {"numbersOnly": true};
+}
+
+/**
+ * This includes numbers like 0, 1, 0.0, 0.1, 1.0, 99999.000001, 5.10.
+ * @param control
+ * @returns
+ */
+export function fractionPositiveNumbersOnlyValidator(control: FormControl): {[s: string]: boolean} | undefined {
+  const nums: RegExp = /^(0|[1-9]\d*)?(\.\d+)?(?<=\d)$/;
+  if (control.value && (control.value + '').trim().match(nums)) {
     return undefined;
   }
   return {"numbersOnly": true};

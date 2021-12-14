@@ -2,3 +2,23 @@ section.title {
   padding: 15px;
   font-size: 18px;
 }
+
+form.form-parent {
+  .count {
+    font-family: 'Quicksand';
+    font-weight: 700;
+    color: #2a2961;
+  }
+}
+
+.errors {
+  font-size: 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.tt {
+  font-size: 14px;
+}

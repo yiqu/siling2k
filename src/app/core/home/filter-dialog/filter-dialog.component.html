@@ -10,8 +10,115 @@
     </div>
   </section>
   <section class="w-100">
-    <div class="container">
-      Fil
-    </div>
+    <ng-container *ngIf="this.isLoading$; else loading">
+      <div class="container">
+        <ng-container *ngIf="((isLoading$ | async) === false) else loading">
+          <section fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <button mat-stroked-button color="primary" (click)="onAddNew()"
+                [disabled]="this.filterFg.invalid">Add new filter</button>
+              <div *ngIf="this.filterFg.touched && this.filterFg.invalid" class="text-muted ml-2 tt">
+                Please validate all filters before adding another.
+              </div>
+            </div>
+            <div>
+              <button mat-stroked-button color="warn" (click)="onRemoveAll()">Remove all</button>
+            </div>
+          </section>
+          <hr>
+
+          <section *ngIf="this.filterFg" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <form [formGroup]="this.filterFg" class="w-100 form-parent">
+                <div [formArrayName]="'filters'">
+                  <ng-container *ngFor="let filterFg of this.filterArray.controls; index as i; last as isLast;
+                    first as isFirst; count as theCount">
+                    <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                      <div fxFlex="8" fxLayout="row" fxLayoutAlign="start end" class="count">
+                        Filter {{ i+1 }}:
+                      </div>
+                      <mat-form-field appearance="standard" fxFlex="30">
+                        <mat-label>Filter</mat-label>
+                        <mat-select [formControlName]="'filterType'" (selectionChange)="onFilterTypeChange(i)">
+                          <mat-option *ngFor="let opt of this.data.options" [value]="opt">
+                            {{ opt | tableColumnDisplay }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <ng-container *ngIf="($any(this.filterArray.at(i).get('filterType')).value) as selectionValue; else selectFilter">
+                        <ng-container [ngSwitch]="selectionValue">
+                          <div fxFlex="50">
+                            <ng-container *ngSwitchCase="'company'">
+                              <mat-form-field appearance="standard">
+                                <mat-label>{{selectionValue | filterLabelDisplay}}</mat-label>
+                                <mat-select [formControlName]="'filterValue'">
+                                  <mat-option *ngFor="let opt of ((selectionValue | filterValueSelections) | async)" [value]="opt">
+                                    {{ opt.name }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'date'">
+
+                            </ng-container>
+
+                            <ng-container *ngSwitchDefault>
+                              <mat-form-field class="" appearance="standard">
+                                <mat-label>
+                                  {{selectionValue | filterLabelDisplay}}
+                                </mat-label>
+                                <span matPrefix>$ &nbsp;</span>
+                                <input matInput type="text" [formControlName]="'filterValue'">
+                              </mat-form-field>
+                            </ng-container>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </div>
+            </form>
+          </section>
+          <hr class="w-100">
+          <section fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+            <ng-container *ngIf="this.filterFg.touched">
+              <div class="errors text-danger">
+                <ng-container *ngIf="(allErrors | formErrorDisplay) as errorDisplay">
+                  <div>
+                    {{errorDisplay.summary}} in filters:
+                  </div>
+                  <ul>
+                    <li *ngFor="let err of errorDisplay.errors">
+                      {{ err.errorName }}
+                    </li>
+                  </ul>
+                </ng-container>
+              </div>
+            </ng-container>
+
+            <div>
+              <button mat-stroked-button color="primary" (click)="onClose(true)"
+                [disabled]="this.filterFg.invalid">
+                  Apply
+              </button>
+            </div>
+          </section>
+        </ng-container>
+      </div>
+    </ng-container>
   </section>
 </div>
+
+<ng-template #loading>
+  <div>
+    <app-shared-loading [message]="'filter data'"></app-shared-loading>
+  </div>
+</ng-template>
+
+<ng-template #selectFilter>
+  <div fxFlex="50">
+    &nbsp;
+  </div>
+</ng-template>

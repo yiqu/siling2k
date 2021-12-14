@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FilterDialogComponent } from './filter-dialog.component';
+import { FilterDialogInput } from './filter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class FilterDialogService {
   }
 
 
-  public getDialog(filterData: any) {
+  public getDialog(filterData?: FilterDialogInput): MatDialogRef<FilterDialogComponent, any> {
     this.dialogRef = undefined;
     this.dialogRef = this.dialog.open(FilterDialogComponent, {
       data: filterData,
@@ -22,7 +23,7 @@ export class FilterDialogService {
       autoFocus: false,
       disableClose: true,
       width: 'calc(100% - 30rem)',
-      height: 'calc(100% - 15rem)',
+      height: 'calc(100% - 5rem)',
     });
 
     return this.dialogRef;

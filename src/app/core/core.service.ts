@@ -32,7 +32,7 @@ export class SilingCoreService {
   public silingData$: Observable<SilingDataCollection> = this.store.select(fromCoreSelectors.getSilingData);
   public dataLastFetched$: Observable<number | undefined> = this.store.select(fromCoreSelectors.dataLastFetched);
   public companiesShown$: Observable<string[]> = this.store.select(fromCoreSelectors.getSilingDataShownNames);
-
+  public getAllDates$: Observable<number[]> = this.store.select(fromCoreSelectors.getAllDates);
 
   constructor(private store: Store<AppState>, private rs: RestService) {
   }

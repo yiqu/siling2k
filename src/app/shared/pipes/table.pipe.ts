@@ -21,6 +21,26 @@ export class TableColumnDisplayPipe implements PipeTransform {
         res = "Example";
         break;
       }
+      case "company": {
+        res = "Siling Institution";
+        break;
+      }
+      case "date": {
+        res = "Entry Date";
+        break;
+      }
+      case "gain": {
+        res = "Gain By";
+        break;
+      }
+      case "loss": {
+        res = "Loss By";
+        break;
+      }
+      case "balance": {
+        res = "Current Balance";
+        break;
+      }
     }
     return res;
   }

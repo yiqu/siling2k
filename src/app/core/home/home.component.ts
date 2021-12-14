@@ -11,7 +11,10 @@ import { RestService } from 'src/app/shared/services/rest.service';
 import { environment } from 'src/environments/environment';
 import { SilingCoreService } from '../core.service';
 import { FilterDialogService } from './filter-dialog/filter-dialog.service';
+import { FilterDialogInput } from './filter-dialog/filter.model';
 import { NewEntryDialogService } from './new-entry-dialog/new-entry-dialog.service';
+
+export const FILTER_OPTIONS = ['company', 'date', 'gain', 'loss', 'balance']
 
 @Component({
   selector: 'app-core-home',
@@ -75,7 +78,14 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onOpenFilters() {
-    const dialogRef = this.fds.getDialog(null);
+    const inputData: FilterDialogInput = {
+      companiesLoading: this.as.getSilingCompanyLoading$,
+      silingDataLoading: this.cs.isDataLoading$,
+      options: FILTER_OPTIONS,
+      filterData: []
+    }
+
+    const dialogRef = this.fds.getDialog(inputData);
 
     dialogRef.afterClosed().pipe(
       takeUntil(this.compDest$)

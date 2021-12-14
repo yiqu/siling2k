@@ -213,6 +213,33 @@ export const getSummaryData = createSelector(
   }
 );
 
+
+export const getAllDates = createSelector(
+  getSilingDashboardData,
+  (state: SilingDashboardData): number[] => {
+    // get all dates from all siling entries
+    const allPossibleDates: number[] = [];
+    if (state) {
+      state.keys.forEach((key: string) => {
+        if (state.data && state.data[key]) {
+          state.data[key].forEach((res: SilingDataDetail) => {
+            allPossibleDates.push(res.date);
+          });
+        }
+      });
+    }
+    // sort dates by descending
+    allPossibleDates.sort((date1, date2) => {
+      return date1 > date2 ? 1 : -1;
+    });
+
+    // remove duplicated dates, turn back to array
+    const uniqueDates: Set<number> = new Set(allPossibleDates);
+    const datesArray: number[] = Array.from(uniqueDates);
+    return datesArray;
+  }
+)
+
 export function getChartConfig(): ApexChart {
   return {
     type: "line",

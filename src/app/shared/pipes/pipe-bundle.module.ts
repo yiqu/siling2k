@@ -7,6 +7,8 @@ import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
 import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe';
 import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe, ProfitPercentIconClassPipe } from './numbers.pipe';
+import { FilterLabelDisplayPipe, FilterValueSelectionsPipe, FormArrayValueAtIndexByControlPipe } from './filter.pipe';
+import { FormErrorDisplayPipe } from './form-utils.pipe';
 
 @NgModule({
   imports: [],
@@ -28,7 +30,11 @@ import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, Profi
     ProfitGainClassPipe,
     TimeFromNowPipe,
     ProfileGainBgColorPipe,
-    ProfitPercentIconClassPipe
+    ProfitPercentIconClassPipe,
+    FilterLabelDisplayPipe,
+    FormArrayValueAtIndexByControlPipe,
+    FilterValueSelectionsPipe,
+    FormErrorDisplayPipe
   ],
 
   declarations: [
@@ -48,7 +54,11 @@ import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, Profi
     ProfitGainClassPipe,
     TimeFromNowPipe,
     ProfileGainBgColorPipe,
-    ProfitPercentIconClassPipe
+    ProfitPercentIconClassPipe,
+    FilterLabelDisplayPipe,
+    FormArrayValueAtIndexByControlPipe,
+    FilterValueSelectionsPipe,
+    FormErrorDisplayPipe
   ],
 
   providers: [
