@@ -21,9 +21,8 @@ export class NewEntryDialogService {
       panelClass: 'new-siling1k-entry',
       hasBackdrop: true,
       autoFocus: false,
-      disableClose: true,
+      disableClose: false,
       width: 'calc(100% - 30rem)',
-      height: 'calc(100% - 15rem)',
     });
 
     return this.dialogRef;

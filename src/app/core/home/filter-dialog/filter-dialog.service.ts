@@ -23,7 +23,6 @@ export class FilterDialogService {
       autoFocus: false,
       disableClose: true,
       width: 'calc(100% - 30rem)',
-      height: 'calc(100% - 5rem)',
     });
 
     return this.dialogRef;
