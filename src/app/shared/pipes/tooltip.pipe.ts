@@ -23,6 +23,10 @@ export class SilingEntryTooltipDisplay implements PipeTransform {
         res = compact ? 'Date' : "The entry date. Defaults to today.";
         break;
       }
+      case "updateDate": {
+        res = compact ? 'Use a different date than now' : "Use a different date than now";
+        break;
+      }
     }
     return res;
   }

@@ -1,15 +1,16 @@
 import { Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { distinctUntilChanged, pluck, takeUntil } from 'rxjs/operators';
+import { EMPTY, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, pluck, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
 import { customNumberWithOptionalCommaAndSingleDecimal, customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
 import * as fromFormUtils from '../../../shared/general.utils';
 
 const ENTRY_SELECT_TYPE = ['company'];
 const ENTRY_DATE_TYPE = ['date'];
-const formGroupControlOmit = ['companyLoading', 'companies'];
+const CHECK_TYPE = ['updateDate'];
 
 @Component({
   selector: 'new-siling1k-entry-dialog',
@@ -18,66 +19,117 @@ const formGroupControlOmit = ['companyLoading', 'companies'];
 })
 export class NewEntryDialogComponent implements OnInit, OnDestroy {
 
-  entryFg: FormGroup;
-  entryFgStruct: SilingEntryStruct[] = [];
+  entryFormGroup: FormGroup;
+  entryFormGroupStruct: SilingEntryStruct[] = [];
+
   currentFocusControl: string | undefined;
   compDest$: Subject<void> = new Subject<void>();
 
-  get amountFc(): FormControl {
-    return <FormControl>this.entryFg.get('amount');
+  get amountControl(): FormControl {
+    return <FormControl>this.entryFormGroup.get('amount');
   }
 
   constructor(public dialogRef: MatDialogRef<NewEntryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
-      this.entryFg = this.fb.group(this.createFormGroupObj(data));
-      this.entryFgStruct = this.createFgStructure(data);
+      this.entryFormGroup = this.fb.group(this.createFormGroup(data));
   }
 
   ngOnInit() {
-    this.entryFg.valueChanges.pipe(
+    this.entryFormGroupStruct = [];
+    this.updateFormGroupStruct('amount', true);
+
+    this.entryFormGroup.valueChanges.pipe(
       takeUntil(this.compDest$),
       pluck('amount'),
-      //distinctUntilChanged()
     ).subscribe((res) => {
       if (res) {
         const amountRes = res + '';
-        this.amountFc.setValue(amountRes.trim(), {emitEvent: false});
+        this.amountControl.setValue(amountRes.trim(), {emitEvent: false});
       }
-    })
-  }
+    });
 
-  createFormGroupObj(data: SilingEntry): {[key: string]: FormControl} {
-    return {
-      company: fromFormUtils.createFormControl2(data?.company, false, [Validators.required]),
-      date: fromFormUtils.createFormControl2(new Date(data?.date), false, [Validators.required]),
-      amount: fromFormUtils.createFormControl2(data?.amount, false, [customNumberWithOptionalCommaAndSingleDecimal])
-    }
-  }
-
-  createFgStructure(data: SilingEntry): SilingEntryStruct[] {
-    const struc = [];
-    let keys: string[] = Object.keys(data);
-    if (keys.length < 1) {
-      keys = ['company', 'date', 'amount'];
-    }
-    for (const key of keys) {
-      if (formGroupControlOmit.indexOf(key) < 0) {
-        let inputType = FormControlType.TEXT_INPUT;
-
-        if (ENTRY_SELECT_TYPE.indexOf(key) > -1) {
-          inputType = FormControlType.SELECT_INPUT;
-        } else if (ENTRY_DATE_TYPE.indexOf(key) > -1) {
-          inputType = FormControlType.DATE_INPUT;
+    this.amountControl.valueChanges.pipe(
+      takeUntil(this.compDest$),
+      map((res: string) => {
+        if (res && (res + '').trim() !== '') {
+          if (!this.entryFormGroup.get('company')) {
+            this.entryFormGroup.addControl('company', fromFormUtils.createFormControl2(undefined, false,
+              [Validators.required]), {emitEvent: false});
+            this.updateFormGroupStruct('company', true);
+          }
+          return this.entryFormGroup.get('company')! as FormControl;
         }
+        return false;
+      }),
+      switchMap((companyControl: FormControl | false) => {
+        if (companyControl) {
+          return companyControl.valueChanges.pipe(
+            takeUntil(this.compDest$),
+            map((res: SilingCompany) => {
+              if (res) {
+                if (!this.entryFormGroup.get('updateDate')) {
+                  this.entryFormGroup.addControl('updateDate', fromFormUtils.createFormControl2(false, false), {emitEvent: false});
+                  this.updateFormGroupStruct('updateDate', true);
+                }
+                return this.entryFormGroup.get('updateDate')! as FormControl;
+              }
+              return false;
+            }),
+            switchMap((updateDateControl: FormControl | false) => {
+              if (updateDateControl) {
+                return updateDateControl.valueChanges.pipe(
+                  takeUntil(this.compDest$),
+                  tap((res: boolean) => {
+                    if (res) {
+                      if (!this.entryFormGroup.get('date')) {
+                        this.entryFormGroup.addControl('date', fromFormUtils.createFormControl2(undefined, false,
+                          [Validators.required]));
+                        this.updateFormGroupStruct('date', true);
+                      }
+                    } else {
+                      this.entryFormGroup.removeControl('date', {emitEvent: false});
+                      this.updateFormGroupStruct('date', false);
+                    }
+                  })
+                )
+              }
+              return EMPTY;
+            })
+          )
+        }
+        return EMPTY;
+      })
+    ).subscribe();
 
-        struc.push({
-          controlName: key,
-          inputType: inputType,
-          value: data[key as keyof SilingEntry]
-        });
-      }
+  }
+
+  createFormGroup(data: SilingEntry): {[key: string]: FormControl} {
+    return {
+      amount: fromFormUtils.createFormControl2(data.amount, false, [customNumberWithOptionalCommaAndSingleDecimal])
     }
-    return struc;
+  }
+
+  updateFormGroupStruct(ctrlName: string, toAdd: boolean): void {
+    if (toAdd) {
+      let inputType = FormControlType.TEXT_INPUT;
+      if (ENTRY_SELECT_TYPE.indexOf(ctrlName) > -1) {
+        inputType = FormControlType.SELECT_INPUT;
+      } else if (ENTRY_DATE_TYPE.indexOf(ctrlName) > -1) {
+        inputType = FormControlType.DATE_INPUT;
+      } else if (CHECK_TYPE.indexOf(ctrlName) > -1) {
+        inputType = FormControlType.CHECK_INPUT;
+      }
+      this.entryFormGroupStruct.push({
+        controlName: ctrlName,
+        inputType: inputType,
+        value: this.data[ctrlName as keyof SilingEntry]
+      });
+    } else {
+      const indexToRemove = this.entryFormGroupStruct.findIndex((res) => {
+        return res.controlName === ctrlName;
+      });
+      this.entryFormGroupStruct.splice(indexToRemove, 1);
+    }
   }
 
   onFocus(controlName: string) {
@@ -89,7 +141,14 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.dialogRef.close(this.entryFg.getRawValue());
+    let rawValue = this.entryFormGroup.getRawValue();
+    if (rawValue.updateDate === false || !rawValue.date) {
+      rawValue = {
+        ...rawValue,
+        date: new Date()
+      }
+    }
+    this.dialogRef.close(rawValue);
   }
 
   ngOnDestroy() {

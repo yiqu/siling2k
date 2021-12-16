@@ -9,10 +9,6 @@
           New Siling1k Entry
         </ng-template>
       </div>
-
-      <div *ngIf="this.entryFg.touched && this.entryFg.invalid" class="text-danger err-header">
-        Fix invalid inputs before saving.
-      </div>
     </div>
     <div>
       <button mat-icon-button color="warn" (click)="onNoClick()">
@@ -24,8 +20,8 @@
 <ng-container *ngIf="((this.data.companyLoading | async) === false); else isLoading">
   <div class="container pt-3">
     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" class="w-100">
-      <form [formGroup]="this.entryFg" fxFlex.gt-sm="50">
-        <ng-container *ngFor="let control of entryFgStruct">
+      <form [formGroup]="this.entryFormGroup" fxFlex.gt-sm="50">
+        <ng-container *ngFor="let control of entryFormGroupStruct">
           <div>
             <ng-container [ngSwitch]="control.inputType">
 
@@ -38,10 +34,18 @@
                   <mat-hint *ngIf="currentFocusControl === control.controlName" [id]="$any(null)">
                     {{control.controlName | silingEntryTooltip:true}}
                   </mat-hint>
-                  <mat-error *ngIf="this.entryFg.get(control.controlName)?.hasError('optionalCommaSingleDecimalNumberOnly')">
+                  <mat-error *ngIf="this.entryFormGroup.get(control.controlName)?.hasError('optionalCommaSingleDecimalNumberOnly')">
                     Please enter a valid number!
                   </mat-error>
                 </mat-form-field>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'CHECK_INPUT'">
+                <div class="mt-1">
+                  <mat-checkbox class="" [formControlName]="control.controlName" color="primary">
+                    {{ control.controlName | silingEntryTooltip }}
+                  </mat-checkbox>
+                </div>
               </ng-container>
 
               <ng-container *ngSwitchCase="'SELECT_INPUT'">
@@ -59,7 +63,7 @@
                         <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start end">
                           <mat-icon>account_balance</mat-icon>
                           <div>
-                            {{ this.entryFg.get('company')?.value?.name | silingCompanyDisplay}}
+                            {{ this.entryFormGroup.get('company')?.value?.name | silingCompanyDisplay}}
                           </div>
                         </div>
                      </mat-select-trigger>
@@ -108,16 +112,25 @@
       </div>
     </div>
   </div>
+
+  <hr>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="action-bar mx-3">
+    <div class="error-msg">
+      <div *ngIf="this.entryFormGroup.touched && this.entryFormGroup.invalid" class="text-danger err-header">
+        Fix invalid inputs before saving.
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="15px">
+      <button mat-stroked-button (click)="onNoClick()" color="warn">Cancel</button>
+      <button mat-stroked-button (click)="onSave()" [disabled]="this.entryFormGroup.invalid">Save</button>
+    </div>
+  </div>
 </ng-container>
 
-<hr>
-<div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="end center" class="action-bar mx-3">
-  <button mat-stroked-button (click)="onNoClick()" color="warn">Cancel</button>
-  <button mat-stroked-button (click)="onSave()" [disabled]="this.entryFg.invalid">Save</button>
-</div>
+
 
 <ng-template #isLoading>
-  <div>
-    Loading...
+  <div class="my-3">
+    <app-shared-loading [message]="'institutions'"></app-shared-loading>
   </div>
 </ng-template>
