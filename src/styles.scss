@@ -257,30 +257,6 @@ mat-card-header .mat-card-header-text {
   width: 100% !important;
 }
 
-.mat-radio-button.prior-low .mat-radio-inner-circle {
-  background-color: #80d4ff;
-}
-
-.mat-radio-button.prior-low .mat-radio-outer-circle {
-  border-color: #80d4ff !important;
-}
-
-.mat-radio-button.prior-medium .mat-radio-inner-circle {
-  background-color:  #cccc00;
-}
-
-.mat-radio-button.prior-medium .mat-radio-outer-circle {
-  border-color:  #cccc00 !important;
-}
-
-.mat-radio-button.prior-high .mat-radio-inner-circle {
-  background-color: #e62e00;
-}
-
-.mat-radio-button.prior-high .mat-radio-outer-circle {
-  border-color: #e62e00 !important;
-}
-
 .siling-tab-group .mat-tab-label-active {
   color: #6873c9;
   opacity: 1;
@@ -292,6 +268,10 @@ app-core-siling-column-entry .list-group-item {
 
 app-core-siling-column .card-header {
   padding: 0.35rem .25rem;
+}
+
+button .mat-icon {
+  margin-top: -1px;
 }
 
 
@@ -313,3 +293,4 @@ section.title {
 .cdk-overlay-pane.filter-dialog-container {
   overflow-y: auto;
 }
+

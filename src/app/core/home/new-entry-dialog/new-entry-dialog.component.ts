@@ -5,6 +5,7 @@ import { EMPTY, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, pluck, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { FormControlType, SilingEntry, SilingEntryStruct } from 'src/app/models/general.models';
+import { KeyEvent } from 'src/app/shared/directives/enter-escape.directive.ts/enter-escape.directive';
 import { customNumberWithOptionalCommaAndSingleDecimal, customOnlyNumbersAndDecimalsValidator } from 'src/app/shared/form-validators/general-form.validator';
 import * as fromFormUtils from '../../../shared/general.utils';
 
@@ -21,7 +22,6 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
 
   entryFormGroup: FormGroup;
   entryFormGroupStruct: SilingEntryStruct[] = [];
-
   currentFocusControl: string | undefined;
   compDest$: Subject<void> = new Subject<void>();
 
@@ -151,10 +151,14 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
     this.dialogRef.close(rawValue);
   }
 
+  onKeyEvent(event: KeyEvent) {
+    if (event === KeyEvent.ENTER && this.entryFormGroup.valid) {
+      this.onSave();
+    }
+  }
+
   ngOnDestroy() {
     this.compDest$.next();
     this.compDest$.complete();
   }
-
-
 }

@@ -78,7 +78,7 @@ export const getSilingDashboardData = createSelector(
         let differencePercent: number = 0;
         if (previous && current) {
           difference = current.amount - previous.amount;
-          differencePercent = difference / previous.amount;
+          differencePercent = previous.amount === 0 ? 1 : (difference / previous.amount);
         }
         detailArray.push({
           ...current,

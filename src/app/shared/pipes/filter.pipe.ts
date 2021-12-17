@@ -69,7 +69,6 @@ export class FilterValueSelectionsPipe implements PipeTransform {
 export class FormArrayValueAtIndexByControlPipe implements PipeTransform {
 
   transform(fa: FormArray, index: number, controlName: string): any {
-    console.log('val', fa, index, controlName)
     if (fa && controlName) {
       return (fa.at(index).get(controlName) as FormGroup).value;
     }

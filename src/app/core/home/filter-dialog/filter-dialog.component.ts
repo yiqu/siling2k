@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { KeyEvent } from 'src/app/shared/directives/enter-escape.directive.ts/enter-escape.directive';
 import { numbersOnlyValidator } from 'src/app/shared/form-validators/general-form.validator';
 import { AllValidationErrors, calculateNestedFormErrors, createFormControl, createFormControl2 } from 'src/app/shared/general.utils';
 import { DialogFilterOption, FilterDialogInput, Type } from './filter.model';
@@ -12,7 +13,7 @@ import { DialogFilterOption, FilterDialogInput, Type } from './filter.model';
   templateUrl: 'filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.scss']
 })
-export class FilterDialogComponent implements OnInit {
+export class FilterDialogComponent implements OnInit, OnDestroy {
 
   filterFg: FormGroup;
   isLoading$?: Observable<boolean>;
@@ -101,5 +102,16 @@ export class FilterDialogComponent implements OnInit {
 
   onClose(hasData: boolean) {
     this.dialogRef.close(hasData ? this.filterFg.value : undefined);
+  }
+
+  onKeyEvent(event: KeyEvent) {
+    if (event === KeyEvent.ESCAPE) {
+      this.onClose(false);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.compDest$.next();
+    this.compDest$.complete();
   }
 }

@@ -11,9 +11,13 @@ form.form-parent {
   }
 }
 
-.errors {
-  font-size: 14px;
+.action-bar {
+  .errors {
+    font-size: 14px;
+    min-width: 5px;
+  }
 }
+
 
 mat-form-field {
   width: 100%;
@@ -25,4 +29,8 @@ mat-form-field {
 
 .action-bar {
   margin-bottom: 10px;
+}
+
+button .mat-icon {
+  margin-top: -4px;
 }

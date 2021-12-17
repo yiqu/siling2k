@@ -1,4 +1,5 @@
-<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px" class="w-100">
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px" class="w-100"
+  (enterEscapeKeyEvent)="onKeyEvent($event)">
   <section class="if title-bar-bg title w-100" fxLayout="row" fxLayoutAlign="space-between center">
     <div>
       Filter Manager
@@ -15,14 +16,20 @@
         <ng-container *ngIf="((isLoading$ | async) === false) else loading">
           <section fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <button mat-stroked-button color="primary" (click)="onAddNew()"
-                [disabled]="this.filterFg.invalid">Add new filter</button>
+              <button mat-button color="primary" (click)="onAddNew()"
+                [disabled]="this.filterFg.invalid">
+                <mat-icon>add</mat-icon>
+                Add new filter
+              </button>
               <div *ngIf="this.filterFg.touched && this.filterFg.invalid" class="text-muted ml-2 tt">
                 Please validate all filters before adding another.
               </div>
             </div>
             <div>
-              <button mat-stroked-button color="warn" (click)="onRemoveAll()">Remove all</button>
+              <button mat-button color="warn" (click)="onRemoveAll()">
+                <mat-icon>delete_sweep</mat-icon>
+                Remove all
+              </button>
             </div>
           </section>
           <hr>
@@ -83,8 +90,8 @@
           </section>
           <hr class="w-100">
           <section fxLayout="row" fxLayoutAlign="space-between center" class="w-100 action-bar">
-            <ng-container *ngIf="this.filterFg.touched">
-              <div class="errors text-danger">
+            <div class="errors text-danger">
+              <ng-container *ngIf="this.filterFg.touched">
                 <ng-container *ngIf="(allErrors | formErrorDisplay) as errorDisplay">
                   <div>
                     {{errorDisplay.summary}} in filters:
@@ -95,12 +102,13 @@
                     </li>
                   </ul>
                 </ng-container>
-              </div>
-            </ng-container>
+              </ng-container>
+            </div>
 
             <div>
               <button mat-stroked-button color="primary" (click)="onClose(true)"
                 [disabled]="this.filterFg.invalid">
+                  <mat-icon>save</mat-icon>
                   Apply
               </button>
             </div>
