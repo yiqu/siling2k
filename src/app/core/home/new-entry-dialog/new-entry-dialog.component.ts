@@ -151,8 +151,8 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
     this.dialogRef.close(rawValue);
   }
 
-  onKeyEvent(event: KeyEvent) {
-    if (event === KeyEvent.ENTER && this.entryFormGroup.valid) {
+  onKeyEventt(event: KeyboardEvent) {
+    if (event.key === KeyEvent.ENTER && this.entryFormGroup.valid) {
       this.onSave();
     }
   }

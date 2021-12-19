@@ -11,13 +11,14 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { ApexLineChartComponent } from './components/line-chart/line-chart.component';
 import { MatIconModule } from '@angular/material/icon';
 import { EnterEscapeKeyEventDirective } from './directives/enter-escape.directive.ts/enter-escape.directive';
+import { NgxKeyeventModule } from 'ngx-keyevent';
 
 @NgModule({
   declarations: [
     DialogConfirmComponent,
     PopoverComponent,
     ApexLineChartComponent,
-    EnterEscapeKeyEventDirective
+    EnterEscapeKeyEventDirective,
   ],
 
   imports: [
@@ -29,7 +30,8 @@ import { EnterEscapeKeyEventDirective } from './directives/enter-escape.directiv
     FlexLayoutModule,
     PopoverModule,
     NgApexchartsModule,
-    MatIconModule
+    MatIconModule,
+    NgxKeyeventModule
   ],
 
   exports: [
@@ -43,7 +45,8 @@ import { EnterEscapeKeyEventDirective } from './directives/enter-escape.directiv
     PopoverComponent,
     ApexLineChartComponent,
     DialogConfirmComponent,
-    EnterEscapeKeyEventDirective
+    EnterEscapeKeyEventDirective,
+    NgxKeyeventModule
   ],
 
   providers: [
