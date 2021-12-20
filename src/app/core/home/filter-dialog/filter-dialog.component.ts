@@ -104,8 +104,8 @@ export class FilterDialogComponent implements OnInit, OnDestroy {
     this.dialogRef.close(hasData ? this.filterFg.value : undefined);
   }
 
-  onKeyEvent(event: KeyEvent) {
-    if (event === KeyEvent.ESCAPE) {
+  onKeyEvent(event: KeyboardEvent) {
+    if (event.key === KeyEvent.ESCAPE) {
       this.onClose(false);
     }
   }
