@@ -12,6 +12,7 @@ import { ApexLineChartComponent } from './components/line-chart/line-chart.compo
 import { MatIconModule } from '@angular/material/icon';
 import { EnterEscapeKeyEventDirective } from './directives/enter-escape.directive.ts/enter-escape.directive';
 import { NgxKeyeventModule } from 'ngx-keyevent';
+import { ZorroModuleBundle } from './zorro-bundle.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NgxKeyeventModule } from 'ngx-keyevent';
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleBundle,
+    ZorroModuleBundle,
     PipeBundleModule,
     FlexLayoutModule,
     PopoverModule,
@@ -40,6 +42,7 @@ import { NgxKeyeventModule } from 'ngx-keyevent';
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModuleBundle,
+    ZorroModuleBundle,
     PipeBundleModule,
     PopoverModule,
     PopoverComponent,

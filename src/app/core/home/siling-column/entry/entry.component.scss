@@ -18,6 +18,10 @@
   }
 }
 
+.main {
+  word-break: break-all;
+}
+
 .med-number {
   font-size: 20px;
 }
@@ -69,4 +73,8 @@
 
 .border-btn-none {
   border-bottom: 0px;
+}
+
+.list-group-item {
+  border: none;
 }
