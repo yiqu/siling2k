@@ -1,12 +1,15 @@
 .nav-title-container {
   padding: 16px;
   padding-bottom: 10px;
-  font-weight: 700;
+  font-weight: 400;
   display: flex;
   justify-content: space-between;
   font-size: 20px;
-  border-bottom: 1px solid #ccc;
   padding-top: 10px;
+
+  .text {
+    color: #333;
+  }
 }
 
 .nav-title {
@@ -48,9 +51,8 @@ mat-list-item.link-active {
   }
 }
 
-
 .sub-header {
-  font-size: 20px;
-  font-weight: 700;
-  color: #000;
+  font-size: 19px;
+  font-weight: 400;
+  color: #333;
 }

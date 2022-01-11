@@ -12,7 +12,7 @@
   </section>
   <section class="w-100">
     <ng-container *ngIf="this.isLoading$; else loading">
-      <div class="container">
+      <div class="container-fluid">
         <ng-container *ngIf="((isLoading$ | async) === false) else loading">
           <section fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start center">

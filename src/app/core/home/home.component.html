@@ -59,7 +59,7 @@
 
         <ng-container *ngSwitchCase="'expandedView'">
           <section fxLayout.gt-sm="row" fxLayout="column"
-            fxLayoutAlign.gt-sm="center start" fxLayoutAlign="start center"
+            fxLayoutAlign.gt-sm="start start" fxLayoutAlign="start center"
             fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="">
 
             <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">

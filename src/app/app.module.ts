@@ -12,7 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { NotFoundComponentModule } from './404/404.module';
 import { MaterialModuleBundle } from './shared/material-bundle';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedBudleModule } from './shared/shared.module';
 import { TopNavModule } from './top-nav/top-nav.module';
@@ -58,7 +58,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
       stateKey: 'myRouter',
       routerState: RouterState.Minimal
     }),
-    BrowserAnimationsModule,
+    NoopAnimationsModule,
     NotFoundComponentModule,
     MaterialModuleBundle,
     ToastrModule.forRoot({

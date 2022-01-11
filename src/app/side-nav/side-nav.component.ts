@@ -24,23 +24,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   createAllOptions() {
     this.headerList.push(
-      new NavHeaderList(new NavHeader("Issues"), [
+      new NavHeaderList(new NavHeader("Personal"), [
         new NavHeaderLink("Dashboard", "grid_view", ["/", "home"]),
         new NavHeaderLink("Admin", "admin_panel_settings", ["/", "admin"]),
         new NavHeaderLink("Settings", "settings", ["/", "settings"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
-        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"])
       ]),
       new NavHeaderList(new NavHeader("Help & Settings"), [
         new NavHeaderLink("My Account", "account_circle", ["/", "my-account"]),
@@ -57,7 +44,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   onNavItemClick() {
-    this.navClose.emit(true);
+    //this.navClose.emit(true);
   }
 
   onTitleClick() {
