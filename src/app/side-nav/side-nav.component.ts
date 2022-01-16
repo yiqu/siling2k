@@ -49,7 +49,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   onTitleClick() {
     this.router.navigate(['/']);
-    this.navClose.emit(true);
+    //this.navClose.emit(true);
   }
 
   ngOnDestroy() {

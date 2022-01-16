@@ -9,7 +9,7 @@
           {{entryDetail.date ? (entryDetail.date | dateDisplay:'MDY') : 'NO DATE'}}
         </div>
         <div>
-          <app-shared-popover [text]="entryDetail.date"></app-shared-popover>
+          <shared-drop-menu [menuOptions]="menuOptions" (menuSelect)="onMenuOptSelect($event)"></shared-drop-menu>
         </div>
       </div>
       <div class="from-now">

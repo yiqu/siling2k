@@ -15,7 +15,7 @@ import { QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 import { SettingsService } from '../settings.service';
 import * as fromSettingsActions from './settings.actions';
 import { ShowHideCompanyList } from './settings.state';
-
+import * as fromCoreActions from '../../core/store/core.actions';
 
 
 @Injectable()
@@ -60,6 +60,15 @@ export class SilingSettingsEffects {
             return of(fromSettingsActions.getShowHideListFailure({ errMsg: err }));
           })
         )
+      })
+    );
+  });
+
+  refreshSilingDashboard$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromSettingsActions.showHideListUpdateSuccess),
+      map(() => {
+        return fromCoreActions.updateSilingToShowIdsStart();
       })
     );
   });

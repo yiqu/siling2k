@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { EnterEscapeKeyEventDirective } from './directives/enter-escape.directive.ts/enter-escape.directive';
 import { NgxKeyeventModule } from 'ngx-keyevent';
 import { ZorroModuleBundle } from './zorro-bundle.module';
+import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ZorroModuleBundle } from './zorro-bundle.module';
     PopoverComponent,
     ApexLineChartComponent,
     EnterEscapeKeyEventDirective,
+    SharedDropMenuComponent
   ],
 
   imports: [
@@ -49,7 +51,8 @@ import { ZorroModuleBundle } from './zorro-bundle.module';
     ApexLineChartComponent,
     DialogConfirmComponent,
     EnterEscapeKeyEventDirective,
-    NgxKeyeventModule
+    NgxKeyeventModule,
+    SharedDropMenuComponent
   ],
 
   providers: [

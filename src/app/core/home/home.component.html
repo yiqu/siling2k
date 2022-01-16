@@ -16,7 +16,7 @@
   <div>
     <ng-container *ngIf="(this.cs.dataLastFetched$ | async) as lastFetched">
       <div class="if">
-        Last fetched: {{lastFetched | dateDisplay:'FULLDATE'}}
+        Fetched: {{lastFetched | dateDisplay:'FULLDATE'}}
       </div>
     </ng-container>
   </div>
