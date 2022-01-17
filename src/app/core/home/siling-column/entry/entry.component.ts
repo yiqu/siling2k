@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SilingDataDetail } from 'src/app/models/general.models';
-import { MenuOption } from 'src/app/shared/models/drop-menu.model';
+import { MenuOption, SilingEntryOption } from 'src/app/shared/models/drop-menu.model';
+import { EntryMode } from 'src/app/shared/models/general.model';
 
 @Component({
   selector: 'app-core-siling-column-entry',
@@ -16,21 +17,23 @@ export class SilingColumnEntryComponent implements OnInit, OnChanges {
   @Input()
   isLast: boolean = false;
 
+  @Output()
+  menuSelect: EventEmitter<SilingEntryOption> = new EventEmitter<SilingEntryOption>();
+
   menuOptions: MenuOption[];
 
   constructor() {
     this.menuOptions = [{
       display: 'Edit',
-      id: 'edit',
+      id: EntryMode.UPDATE,
       icon: 'edit',
     },
     {
       display: 'Delete',
-      id: 'trash',
+      id: EntryMode.DELETE,
       icon: 'delete',
     }]
   }
-
 
   ngOnChanges() {
 
@@ -41,7 +44,9 @@ export class SilingColumnEntryComponent implements OnInit, OnChanges {
   }
 
   onMenuOptSelect(opt: MenuOption) {
-    console.log(opt)
-    console.log(this.entryDetail)
+    this.menuSelect.emit({
+      option: opt,
+      entry: this.entryDetail
+    });
   }
 }

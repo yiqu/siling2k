@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { SilingData, SilingDataDetail } from 'src/app/models/general.models';
+import { SilingEntryOption } from 'src/app/shared/models/drop-menu.model';
 
 @Component({
   selector: 'app-core-siling-column',
@@ -15,6 +16,9 @@ export class SilingColumnComponent implements OnInit, OnChanges {
   @Input()
   silingData: SilingDataDetail[] = [];
 
+  @Output()
+  menuSelect: EventEmitter<SilingEntryOption> = new EventEmitter<SilingEntryOption>();
+
   constructor() {
 
   }
@@ -24,5 +28,9 @@ export class SilingColumnComponent implements OnInit, OnChanges {
 
   ngOnInit() {
 
+  }
+
+  onMenuSelection(selectionData: SilingEntryOption) {
+    this.menuSelect.emit(selectionData);
   }
 }

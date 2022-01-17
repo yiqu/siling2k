@@ -2,8 +2,8 @@
   <section class="if title-bar-bg title w-100" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
       <div>
-        <ng-container *ngIf="this.data.company; else newEntry">
-          Editing Existing Entry
+        <ng-container *ngIf="editMode; else newEntry">
+          Editing Entry
         </ng-container>
         <ng-template #newEntry>
           New Siling1k Entry
@@ -43,7 +43,7 @@
               <ng-container *ngSwitchCase="'CHECK_INPUT'">
                 <div class="mt-1">
                   <mat-checkbox class="" [formControlName]="control.controlName" color="primary">
-                    {{ control.controlName | silingEntryTooltip }}
+                    {{ control.controlName | silingEntryTooltip:false:editMode }}
                   </mat-checkbox>
                 </div>
               </ng-container>
@@ -53,7 +53,7 @@
                   <mat-label>{{control.controlName | silingEntryTooltip:true}}</mat-label>
                   <ng-container *ngIf="(this.data.companies | async) as companyOptions">
                     <mat-select [formControlName]="control.controlName" (focus)="onFocus(control.controlName)">
-                      <mat-option>None</mat-option>
+                      <mat-option [disabled]="true">Select a institution</mat-option>
                       <mat-option *ngFor="let opt of companyOptions" [value]="opt">
                         <mat-icon>account_balance</mat-icon>
                         {{ opt.name | silingCompanyDisplay}}

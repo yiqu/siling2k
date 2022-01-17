@@ -7,6 +7,8 @@ import { AdminService } from 'src/app/admin/admin.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
 import { SilingData, SilingEntry, SilingEntryDialogData } from 'src/app/models/general.models';
 import { convertCommaDecimalNumberToNumber } from 'src/app/shared/general.utils';
+import { SilingEntryOption } from 'src/app/shared/models/drop-menu.model';
+import { EntryMode } from 'src/app/shared/models/general.model';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { environment } from 'src/environments/environment';
 import { SilingCoreService } from '../core.service';
@@ -53,8 +55,7 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 
     dialogRef.afterClosed().pipe(
       takeUntil(this.compDest$)
-    )
-    .subscribe((res: SilingEntryDialogData) => {
+    ).subscribe((res: SilingEntryDialogData) => {
       if (res && res.amount && res.company && res.date) {
         const amountInt: number = convertCommaDecimalNumberToNumber(res.amount);
         const dataToSave: SilingData = {
@@ -91,6 +92,60 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
       takeUntil(this.compDest$)
     ).subscribe((res: any) => {
       console.log(res);
+    });
+  }
+
+  onMenuSelected(menuSelectionData: SilingEntryOption) {
+    let initSilingData: SilingEntry | undefined = {
+      companies: this.as.getSilingCompanies$,
+      companyLoading: this.as.getSilingCompanyLoading$,
+    };
+    let silingData: SilingEntry | undefined;
+    let mode: EntryMode | undefined;
+
+    if (menuSelectionData.option.id === EntryMode.UPDATE) {
+      mode = EntryMode.UPDATE;
+      silingData = {
+        ...initSilingData,
+        amount: menuSelectionData.entry?.amount,
+        company: menuSelectionData.entry?.company,
+        date: menuSelectionData.entry?.date ?? new Date().getTime()
+      }
+    } else if (menuSelectionData.option.id === EntryMode.DELETE) {
+      mode = EntryMode.DELETE;
+    }
+
+    if (silingData && mode) {
+      this.upsertSilingEntry(mode, silingData);
+    }
+  }
+
+  upsertSilingEntry(mode: EntryMode, data: SilingEntry) {
+    let dialogRef;
+    if (mode === EntryMode.CREATE) {
+
+    } else if (mode === EntryMode.UPDATE) {
+      dialogRef = this.neds.getDialog(data);
+    }
+
+    dialogRef?.afterClosed().pipe(
+      takeUntil(this.compDest$)
+    ).subscribe((res: SilingEntryDialogData) => {
+      if (res && res.amount && res.company && res.date) {
+        const amountInt: number = convertCommaDecimalNumberToNumber(res.amount);
+        const dataToSave: SilingData = {
+          amount: amountInt,
+          company: res.company.name.toLowerCase(),
+          date: res.date.getTime(),
+          id: res.id
+        }
+
+        if (mode === EntryMode.CREATE) {
+          this.cs.saveSilingEntry(dataToSave);
+        } else if (mode === EntryMode.UPDATE) {
+          console.log(dataToSave)
+        }
+      }
     });
   }
 

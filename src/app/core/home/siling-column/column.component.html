@@ -17,7 +17,8 @@
     <ng-container *ngIf="(silingData && silingData.length > 0); else noData">
       <ul class="list-group">
         <ng-container *ngFor="let entry of silingData; last as isLast">
-          <app-core-siling-column-entry [entryDetail]="entry" [isLast]="isLast"></app-core-siling-column-entry>
+          <app-core-siling-column-entry [entryDetail]="entry" [isLast]="isLast"
+            (menuSelect)="onMenuSelection($event)"></app-core-siling-column-entry>
         </ng-container>
       </ul>
     </ng-container>

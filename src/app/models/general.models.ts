@@ -4,7 +4,7 @@ import { SilingCompany } from "../admin/store/admin.state";
 export interface SilingEntry {
   company?: string;
   amount?: number;
-  date: number;
+  date?: number;
   companies: Observable<SilingCompany[]>;
   companyLoading: Observable<boolean>;
 }
@@ -30,6 +30,7 @@ export interface SilingData {
 }
 
 export interface SilingEntryDialogData {
+  id?: string;
   amount: string;
   company: SilingCompany;
   date: Date;

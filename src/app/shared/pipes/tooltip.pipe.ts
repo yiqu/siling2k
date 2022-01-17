@@ -7,7 +7,7 @@ import memo from 'memo-decorator';
 })
 export class SilingEntryTooltipDisplay implements PipeTransform {
 
-  transform(value: string, compact?: boolean): any {
+  transform(value: string, compact?: boolean, editing?: boolean): any {
     let res: string = value;
 
     switch(value) {
@@ -24,7 +24,7 @@ export class SilingEntryTooltipDisplay implements PipeTransform {
         break;
       }
       case "updateDate": {
-        res = compact ? 'Use a different date than now' : "Use a different date than now";
+        res = editing ? 'Update recorded date?' : (compact ? 'Use a different date than now.' : "Use a different date than now.");
         break;
       }
     }

@@ -23,6 +23,7 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   entryFormGroup: FormGroup;
   entryFormGroupStruct: SilingEntryStruct[] = [];
   currentFocusControl: string | undefined;
+  editMode: boolean = false;
   compDest$: Subject<void> = new Subject<void>();
 
   get amountControl(): FormControl {
@@ -32,6 +33,10 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   constructor(public dialogRef: MatDialogRef<NewEntryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SilingEntry, private fb: FormBuilder) {
       this.entryFormGroup = this.fb.group(this.createFormGroup(data));
+
+      if (this.data && (this.data.amount !== undefined) && this.data.company) {
+        this.editMode = true;
+      }
   }
 
   ngOnInit() {
@@ -50,63 +55,79 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
 
     this.amountControl.valueChanges.pipe(
       takeUntil(this.compDest$),
-      map((res: string) => {
-        if (res && (res + '').trim() !== '') {
-          if (!this.entryFormGroup.get('company')) {
-            this.entryFormGroup.addControl('company', fromFormUtils.createFormControl2(undefined, false,
-              [Validators.required]), {emitEvent: false});
-            this.updateFormGroupStruct('company', true);
-          }
-          return this.entryFormGroup.get('company')! as FormControl;
-        }
-        return false;
+      filter((amount) => {
+        return (amount && (amount + '').trim() !== '');
       }),
-      switchMap((companyControl: FormControl | false) => {
-        if (companyControl) {
-          return companyControl.valueChanges.pipe(
-            takeUntil(this.compDest$),
-            map((res: SilingCompany) => {
-              if (res) {
-                if (!this.entryFormGroup.get('updateDate')) {
-                  this.entryFormGroup.addControl('updateDate', fromFormUtils.createFormControl2(false, false), {emitEvent: false});
-                  this.updateFormGroupStruct('updateDate', true);
-                }
-                return this.entryFormGroup.get('updateDate')! as FormControl;
+      map((amountValue: string) => {
+        if (!this.entryFormGroup.get('company')) {
+          this.entryFormGroup.addControl('company', fromFormUtils.createFormControl2(undefined, false,
+            [Validators.required]), {emitEvent: false});
+          this.updateFormGroupStruct('company', true);
+        }
+
+        if (!this.entryFormGroup.get('updateDate')) {
+          this.entryFormGroup.addControl('updateDate', fromFormUtils.createFormControl2(false, false), {emitEvent: false});
+          this.updateFormGroupStruct('updateDate', true);
+        }
+        return this.entryFormGroup.get('updateDate')! as FormControl;
+      }),
+      switchMap((co) => {
+        return this.data.companies.pipe(
+          filter((allCompanies) => {
+            return allCompanies && allCompanies.length > 0;
+          }),
+          map((companies: SilingCompany[]) => {
+            const index: number = companies.findIndex((company: SilingCompany) => {
+              if (this.data.company) {
+                return this.data.company.toUpperCase() === company.name.toUpperCase();
               }
               return false;
-            }),
-            switchMap((updateDateControl: FormControl | false) => {
-              if (updateDateControl) {
-                return updateDateControl.valueChanges.pipe(
-                  takeUntil(this.compDest$),
-                  tap((res: boolean) => {
-                    if (res) {
-                      if (!this.entryFormGroup.get('date')) {
-                        this.entryFormGroup.addControl('date', fromFormUtils.createFormControl2(undefined, false,
-                          [Validators.required]));
-                        this.updateFormGroupStruct('date', true);
-                      }
-                    } else {
-                      this.entryFormGroup.removeControl('date', {emitEvent: false});
-                      this.updateFormGroupStruct('date', false);
-                    }
-                  })
-                )
+            });
+            const companiesAndSelection: [FormControl, SilingCompany] = [this.entryFormGroup.get('company')! as FormControl,
+              companies[index]];
+            return companiesAndSelection;
+          }),
+          switchMap((companiesAndSelection: [FormControl, SilingCompany]) => {
+            if (companiesAndSelection) {
+              if (this.editMode) {
+                this.entryFormGroup.get('company')?.setValue(companiesAndSelection[1]);
               }
-              return EMPTY;
-            })
-          )
-        }
-        return EMPTY;
-      })
+              return this.entryFormGroup.get('updateDate')!.valueChanges.pipe(
+                takeUntil(this.compDest$),
+                tap((res: boolean) => {
+                  if (res) {
+                    if (!this.entryFormGroup.get('date')) {
+                      const dateToUse: Date = this.data.date ? new Date(this.data.date) : new Date();
+                      this.entryFormGroup.addControl('date', fromFormUtils.createFormControl2(dateToUse, false,
+                        [Validators.required]));
+                      this.updateFormGroupStruct('date', true);
+                    }
+                  } else {
+                    this.entryFormGroup.removeControl('date', {emitEvent: false});
+                    this.updateFormGroupStruct('date', false);
+                  }
+                })
+              );
+            }
+            return EMPTY;
+          })
+        );
+      }),
     ).subscribe();
 
+    if (this.editMode) {
+      this.fillForEdit(this.data);
+    }
   }
 
   createFormGroup(data: SilingEntry): {[key: string]: FormControl} {
     return {
-      amount: fromFormUtils.createFormControl2(data.amount, false, [customNumberWithOptionalCommaAndSingleDecimal])
+      amount: fromFormUtils.createFormControl2(undefined, false, [customNumberWithOptionalCommaAndSingleDecimal])
     }
+  }
+
+  fillForEdit(formData: SilingEntry) {
+    this.amountControl.setValue(formData.amount);
   }
 
   updateFormGroupStruct(ctrlName: string, toAdd: boolean): void {
@@ -143,9 +164,13 @@ export class NewEntryDialogComponent implements OnInit, OnDestroy {
   onSave() {
     let rawValue = this.entryFormGroup.getRawValue();
     if (rawValue.updateDate === false || !rawValue.date) {
+      let dateValue: Date | undefined = new Date();
+      if (this.editMode && this.data.date) {
+        dateValue = new Date(this.data.date);
+      }
       rawValue = {
         ...rawValue,
-        date: new Date()
+        date: dateValue
       }
     }
     this.dialogRef.close(rawValue);
