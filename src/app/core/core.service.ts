@@ -67,6 +67,10 @@ export class SilingCoreService {
     this.store.dispatch(fromCoreActions.refreshData());
   }
 
+  public updateSilingData(data: SilingData) {
+    this.store.dispatch(fromCoreActions.updateSilingEntryStart({ toUpdate: data }));
+  }
+
   public getSilingShownIdsObs(): Observable<string[]> {
     return forkJoin({
       allCompanies: this.fetchSilingCompanies(),

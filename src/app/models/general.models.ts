@@ -5,6 +5,7 @@ export interface SilingEntry {
   company?: string;
   amount?: number;
   date?: number;
+  id?: string;
   companies: Observable<SilingCompany[]>;
   companyLoading: Observable<boolean>;
 }

@@ -5,7 +5,7 @@ import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, delay
 import { ToasterService } from 'src/app/shared/services/toaster.service';
 import * as fromFirebaseUtils from '../../shared/services/firebase.utils';
 import { Update } from '@ngrx/entity';
-import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { EMPTY, forkJoin, Observable, of, throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromCoreActions from './core.actions';
@@ -52,6 +52,21 @@ export class SilingDashboardEffects {
       })
     );
   });
+
+  // updateSilingEntry$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(fromCoreActions.updateSilingEntryStart),
+  //     concatMap((res) => {
+  //       console.log(res.toUpdate)
+  //       const company = res.toUpdate.company;
+  //       const entryId = res.toUpdate.id;
+  //       if (entryId) {
+
+  //       }
+  //       return EMPTY;
+  //     })
+  //   );
+  // });
 
   /**
    * Updat the siling data being fetched name list, and dispatch call to get all siling data

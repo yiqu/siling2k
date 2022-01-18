@@ -109,7 +109,8 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
         ...initSilingData,
         amount: menuSelectionData.entry?.amount,
         company: menuSelectionData.entry?.company,
-        date: menuSelectionData.entry?.date ?? new Date().getTime()
+        date: menuSelectionData.entry?.date ?? new Date().getTime(),
+        id: menuSelectionData.entry?.id
       }
     } else if (menuSelectionData.option.id === EntryMode.DELETE) {
       mode = EntryMode.DELETE;
@@ -137,13 +138,13 @@ export class SummaryComponent implements OnInit, OnDestroy, AfterViewInit {
           amount: amountInt,
           company: res.company.name.toLowerCase(),
           date: res.date.getTime(),
-          id: res.id
+          id: data.id
         }
 
         if (mode === EntryMode.CREATE) {
           this.cs.saveSilingEntry(dataToSave);
         } else if (mode === EntryMode.UPDATE) {
-          console.log(dataToSave)
+          this.cs.updateSilingData(dataToSave);
         }
       }
     });
