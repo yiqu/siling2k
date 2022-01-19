@@ -25,6 +25,14 @@ mat-list-item:hover {
   border-bottom-right-radius: 30px;
 }
 
+mat-nav-list.side-nav {
+  min-height: 100%
+}
+
+.side-nav {
+  background-color: #f0f0f0;
+}
+
 mat-list-item.link-active {
   background-color: #d3d1f3;
   color: #2a2961;
