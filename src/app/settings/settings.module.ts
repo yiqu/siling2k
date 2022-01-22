@@ -22,7 +22,11 @@ import { NgBusyWatchModule } from 'ng-busy-watch';
     SettingsRoutingModule,
     EffectsModule.forFeature(settingsEffects),
     StoreModule.forFeature('settings', settingsReducer),
-    NgBusyWatchModule.forRoot(),
+    NgBusyWatchModule.forRoot({
+      extraCssClass: 'busy-css-class',
+      message: 'Loading Settings Data...',
+      showSpinner: true
+    }),
   ],
 
   exports: [],

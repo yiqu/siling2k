@@ -44,53 +44,54 @@
 
 <hr>
 
-<mat-tab-group mat-align-tabs="center" #tabGroup [selectedIndex]="(this.cs.selectTabIndex$ | async)"
-  (selectedTabChange)="onTabChange($event)" animationDuration="0ms"
-  class="pb-3 siling-tab-group">
+<div>
+  <mat-tab-group mat-align-tabs="center" #tabGroup
+    [selectedIndex]="(this.cs.selectTabIndex$ | async)"
+    (selectedTabChange)="onTabChange($event)"
+    animationDuration="0ms"
+    class="pb-3 siling-tab-group"
+    *ngBusyWatch="{busy:this.cs.isDataLoading$, message: 'Loading...'}">
 
-  <ng-container *ngFor="let tab of (this.cs.dashboardTabs$ | async)">
-    <mat-tab [label]="tab.display">
-      <ng-template mat-tab-label>
-        <mat-icon class="tab-icon mr-2">{{ tab.tabIcon }}</mat-icon>
-          {{ tab.display }}
-      </ng-template>
+    <ng-container *ngFor="let tab of (this.cs.dashboardTabs$ | async)">
+      <mat-tab [label]="tab.display">
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon mr-2">{{ tab.tabIcon }}</mat-icon>
+            {{ tab.display }}
+        </ng-template>
 
-      <ng-container [ngSwitch]="tab.id">
-        <ng-container *ngSwitchCase="'expandedView'">
-          <div>
-            <section fxLayout.gt-sm="row" fxLayout="column" *ngBusyWatch="this.cs.isDataLoading$"
+        <ng-container [ngSwitch]="tab.id">
+          <ng-container *ngSwitchCase="'expandedView'">
+            <section fxLayout.gt-sm="row" fxLayout="column"
               fxLayoutAlign.gt-sm="start start" fxLayoutAlign="start center"
               fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="">
 
-            <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
-              <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
-                <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
-                  <ng-container *ngFor="let silingKey of dashboardData.keys">
-                    <div class="" [fxFlex]="dashboardData.flexNumber + '%'">
-                      <app-core-siling-column (menuSelect)="onMenuSelected($event)"
-                        [silingCompanyId]="silingKey"
-                        [silingData]="dashboardData.data[silingKey]">
-                    </app-core-siling-column>
-                    </div>
+              <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
+                <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
+                  <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
+                    <ng-container *ngFor="let silingKey of dashboardData.keys">
+                      <div class="" [fxFlex]="dashboardData.flexNumber + '%'">
+                        <app-core-siling-column (menuSelect)="onMenuSelected($event)"
+                          [silingCompanyId]="silingKey"
+                          [silingData]="dashboardData.data[silingKey]">
+                      </app-core-siling-column>
+                      </div>
+                    </ng-container>
                   </ng-container>
                 </ng-container>
               </ng-container>
-            </ng-container>
-          </section>
-          </div>
+            </section>
 
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'compactView'">
+            Table
+          </ng-container>
         </ng-container>
 
-        <ng-container *ngSwitchCase="'compactView'">
-          Table
-        </ng-container>
-      </ng-container>
-
-    </mat-tab>
-  </ng-container>
-</mat-tab-group>
-
-
+      </mat-tab>
+    </ng-container>
+  </mat-tab-group>
+</div>
 
 
 <ng-template #isLoading>

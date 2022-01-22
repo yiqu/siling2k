@@ -31,7 +31,7 @@ import { NgBusyWatchModule } from 'ng-busy-watch';
     PipeBundleModule,
     NgBusyWatchModule.forRoot({
       extraCssClass: 'busy-css-class',
-      message: 'Loading...',
+      message: 'Loading Siling Data...',
       showSpinner: true
     }),
   ],
