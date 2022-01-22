@@ -350,6 +350,9 @@ MIT
 ng-apexcharts
 MIT
 
+ng-busy-watch
+MIT
+
 ng-zorro-antd
 MIT
 
