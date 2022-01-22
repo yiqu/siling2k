@@ -17,7 +17,7 @@ import { silingDashboardReducer } from './store/core.reducer';
 import { dashboardUiReducer } from './store/dashboard.reducer';
 import { dashboardUiEffects } from './store/dashboard.effects';
 import { FilterDialogComponent } from './home/filter-dialog/filter-dialog.component';
-
+import { NgBusyWatchModule } from 'ng-busy-watch';
 
 @NgModule({
   imports: [
@@ -28,7 +28,12 @@ import { FilterDialogComponent } from './home/filter-dialog/filter-dialog.compon
     StoreModule.forFeature('dashboard', silingDashboardReducer),
     StoreModule.forFeature('dashboardUI', dashboardUiReducer),
     CoreRoutingModule,
-    PipeBundleModule
+    PipeBundleModule,
+    NgBusyWatchModule.forRoot({
+      extraCssClass: 'busy-css-class',
+      message: 'Loading...',
+      showSpinner: true
+    }),
   ],
 
   exports: [],

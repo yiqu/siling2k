@@ -29,7 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SettingsModule } from './settings/settings.module';
 import { PopoverModule } from "ngx-smart-popover";
 import { NgApexchartsModule } from "ng-apexcharts";
-
+import { NgBusyWatchModule } from 'ng-busy-watch';
 
 @NgModule({
   declarations: [

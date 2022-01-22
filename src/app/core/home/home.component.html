@@ -34,7 +34,7 @@
     <div class="chart-shell">
       <div class="load-parent">
         <ng-container *ngIf="(this.cs.isDataLoading$ | async)">
-          <shared-loading-bar></shared-loading-bar>
+          <loading-bar-css></loading-bar-css>
         </ng-container>
       </div>
       <app-shared-line-chart [chartData]="(this.cs.chartData$ | async)"></app-shared-line-chart>
@@ -56,11 +56,11 @@
       </ng-template>
 
       <ng-container [ngSwitch]="tab.id">
-
         <ng-container *ngSwitchCase="'expandedView'">
-          <section fxLayout.gt-sm="row" fxLayout="column"
-            fxLayoutAlign.gt-sm="start start" fxLayoutAlign="start center"
-            fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="">
+          <div>
+            <section fxLayout.gt-sm="row" fxLayout="column" *ngBusyWatch="this.cs.isDataLoading$"
+              fxLayoutAlign.gt-sm="start start" fxLayoutAlign="start center"
+              fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="">
 
             <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
               <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
@@ -77,12 +77,15 @@
               </ng-container>
             </ng-container>
           </section>
+          </div>
+
         </ng-container>
 
         <ng-container *ngSwitchCase="'compactView'">
           Table
         </ng-container>
       </ng-container>
+
     </mat-tab>
   </ng-container>
 </mat-tab-group>

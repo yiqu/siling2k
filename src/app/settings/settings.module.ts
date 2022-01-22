@@ -13,6 +13,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
 import { settingsEffects } from './store/settings.effects';
 import { settingsReducer } from './store/settings.reducer';
+import { NgBusyWatchModule } from 'ng-busy-watch';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { settingsReducer } from './store/settings.reducer';
     SettingsRoutingModule,
     EffectsModule.forFeature(settingsEffects),
     StoreModule.forFeature('settings', settingsReducer),
+    NgBusyWatchModule.forRoot(),
   ],
 
   exports: [],

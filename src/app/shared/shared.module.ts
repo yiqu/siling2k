@@ -14,6 +14,7 @@ import { EnterEscapeKeyEventDirective } from './directives/enter-escape.directiv
 import { NgxKeyeventModule } from 'ngx-keyevent';
 import { ZorroModuleBundle } from './zorro-bundle.module';
 import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.component';
+import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar-css.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.compon
     PopoverComponent,
     ApexLineChartComponent,
     EnterEscapeKeyEventDirective,
-    SharedDropMenuComponent
+    SharedDropMenuComponent,
+    LoadingBarCssComponent
   ],
 
   imports: [
@@ -52,7 +54,8 @@ import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.compon
     DialogConfirmComponent,
     EnterEscapeKeyEventDirective,
     NgxKeyeventModule,
-    SharedDropMenuComponent
+    SharedDropMenuComponent,
+    LoadingBarCssComponent,
   ],
 
   providers: [

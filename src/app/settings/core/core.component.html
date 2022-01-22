@@ -9,17 +9,18 @@
 
     <ng-container *ngIf="((this.as.getSilingCompanyLoading$ | async) === false); else loading">
       <div>
-        <app-settings-core-show-hide [showHideData]="(this.ss.showHideList$ | async)!"
-          (onShowHideChange)="onShowHideChange($event)"
-          [apiLoading]="(this.ss.showHideApiLoading$ | async)!">
-        </app-settings-core-show-hide>
+        <div *ngBusyWatch="this.ss.showHideApiLoading$">
+          <app-settings-core-show-hide [showHideData]="(this.ss.showHideList$ | async)!"
+            (onShowHideChange)="onShowHideChange($event)"
+            [apiLoading]="(this.ss.showHideApiLoading$ | async)!">
+          </app-settings-core-show-hide>
+        </div>
       </div>
     </ng-container>
 
   </section>
 
   <section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="45px" class="w-100">
-
     <div fxLayout="row" fxLayoutAlign="center center">
       <button mat-flat-button color="primary" (click)="onAddNewIns()">
         <mat-icon>add</mat-icon>

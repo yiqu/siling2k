@@ -1,49 +1,53 @@
-<div cdkDropListGroup>
-  <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
-    ngClass.lt-sm="mobile-width">
-    <h2 class="mb-3 if">
-      Currently Being Displayed
-      <span *ngIf="apiLoading" class="ml-1">(loading...)</span>
-    </h2>
+<div>
+  <div cdkDropListGroup>
+    <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
+      ngClass.lt-sm="mobile-width">
+      <h2 class="mb-3 if">
+        Currently Being Displayed
+        <span *ngIf="apiLoading" class="ml-1">(loading...)</span>
+      </h2>
 
-    <div cdkDropList [cdkDropListData]="showList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
-      <div class="item-box left roboto" *ngFor="let company of showList" cdkDrag>
-        <mat-icon class="mr-2">account_balance</mat-icon>
-        {{company.name| silingCompanyDisplay}}
-        <img *cdkDragPreview [src]="'assets/banner/' + (company.name | lowercase) + '.jpg'"
-          [alt]="company.name + ' logo'" class="drop-logo">
+      <div cdkDropList [cdkDropListData]="showList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
+        <div class="item-box left roboto" *ngFor="let company of showList" cdkDrag>
+          <mat-icon class="mr-2">account_balance</mat-icon>
+          {{company.name| silingCompanyDisplay}}
+          <img *cdkDragPreview [src]="'assets/banner/' + (company.name | lowercase) + '.jpg'"
+            [alt]="company.name + ' logo'" class="drop-logo">
+        </div>
+      </div>
+    </div>
+
+    <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
+      ngClass.lt-sm="mobile-width">
+      <h2 class="mb-3 if">
+        Hidden
+        <span *ngIf="apiLoading" class="ml-1">(loading...)</span>
+      </h2>
+
+      <div cdkDropList [cdkDropListData]="hideList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
+        <ng-container *ngIf="hideList && hideList.length > 0; else emptydataList">
+          <div class="item-box right roboto" *ngFor="let company of hideList" cdkDrag>
+            <mat-icon class="mr-2">hide_source</mat-icon>
+            {{company.name | silingCompanyDisplay}}
+            <img *cdkDragPreview [src]="'assets/banner/' + (company.name | lowercase) + '.jpg'"
+              [alt]="company.name + ' logo'" class="drop-logo">
+          </div>
+        </ng-container>
+        <ng-template #emptydataList>
+          <div class="if p-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <div>
+              Empty!
+            </div>
+            <div>
+              Drag & drop items into here.
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
 
-  <div class="drop-area-container" ngClass.gt-sm="desktop-width" ngClass.sm="mobile-width"
-    ngClass.lt-sm="mobile-width">
-    <h2 class="mb-3 if">
-      Hidden
-      <span *ngIf="apiLoading" class="ml-1">(loading...)</span>
-    </h2>
-
-    <div cdkDropList [cdkDropListData]="hideList" class="drop-area-list" (cdkDropListDropped)="drop($event)">
-      <ng-container *ngIf="hideList && hideList.length > 0; else emptydataList">
-        <div class="item-box right roboto" *ngFor="let company of hideList" cdkDrag>
-          <mat-icon class="mr-2">hide_source</mat-icon>
-          {{company.name | silingCompanyDisplay}}
-          <img *cdkDragPreview [src]="'assets/banner/' + (company.name | lowercase) + '.jpg'"
-            [alt]="company.name + ' logo'" class="drop-logo">
-        </div>
-      </ng-container>
-      <ng-template #emptydataList>
-        <div class="if p-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-          <div>
-            Empty!
-          </div>
-          <div>
-            Drag & drop items into here.
-          </div>
-        </div>
-      </ng-template>
-    </div>
-  </div>
 </div>
+
 
 
