@@ -44,7 +44,7 @@
 
 <hr>
 
-<div>
+<div *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
   <mat-tab-group mat-align-tabs="center" #tabGroup
     [selectedIndex]="(this.cs.selectTabIndex$ | async)"
     (selectedTabChange)="onTabChange($event)"
@@ -65,7 +65,7 @@
               fxLayoutAlign.gt-sm="start start" fxLayoutAlign="start center"
               fxLayoutGap.gt-sm="10px" fxLayoutGap="5px" class="">
 
-              <ng-container *ngIf="((this.cs.isDashboardDataFirstTimeLoading$ | async) === false); else isLoading">
+              <ng-container>
                 <ng-container *ngIf="(this.cs.dashboardData$ | async) as dashboardData">
                   <ng-container *ngIf="(dashboardData.keys && dashboardData.keys.length > 0); else noDataShown">
                     <ng-container *ngFor="let silingKey of dashboardData.keys">

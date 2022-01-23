@@ -16,13 +16,14 @@ import { FirebaseDocObsAndId, SilingDataCollection } from './core.state';
 import { QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 import { SilingCoreService } from '../core.service';
 import { SilingCompany } from 'src/app/admin/store/admin.state';
+import { ZorroToasterService } from 'src/app/shared/services/toaster-zorro.service';
 
 
 @Injectable()
 export class SilingDashboardEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService, public rs: RestService,
-    public cs: SilingCoreService) {
+    public cs: SilingCoreService, private zs: ZorroToasterService) {
   }
 
   // ngrxOnInitEffects(): Action {
@@ -75,12 +76,13 @@ export class SilingDashboardEffects {
     return this.actions$.pipe(
       ofType(fromCoreActions.updateSilingToShowIdsStart),
       switchMap((res) => {
+        const msgId: string | null = this.zs.openLoadingToast('Fetching Siling data.')
         return this.cs.getSilingShownIdsObs().pipe(
           map((idsToShow: string[]) => {
-            return fromCoreActions.getSilingDataByNameStart({names: idsToShow});
+            return fromCoreActions.getSilingDataByNameStart({names: idsToShow, toastId: msgId});
           }),
           catchError((err) => {
-            return of(fromCoreActions.updateSilingToShowIdsFailure({ errMsg: err}));
+            return of(fromCoreActions.updateSilingToShowIdsFailure({ errMsg: err }));
           })
         )
       })
@@ -98,13 +100,16 @@ export class SilingDashboardEffects {
       switchMap((res) => {
         const silingDataNames: string[] = res.names;
         const forkObs: {[key: string] : Observable<SilingData[]>} = {};
+        const toastMsgId: string | null | undefined = res.toastId;
+
         silingDataNames.forEach((res) => {
           forkObs[res] = this.rs.getDataByCollectionName(res);
         });
         return forkJoin(forkObs).pipe(
           map((allData: SilingDataCollection) => {
             this.ts.getSnackbar('Fetched data successfully.');
-            return fromCoreActions.getSilingDataByNameSuccess({payload: allData, date: new Date().getTime()});
+            return fromCoreActions.getSilingDataByNameSuccess({payload: allData,
+              date: new Date().getTime(), toastId: toastMsgId});
           }),
           catchError((res) => {
             return of(fromCoreActions.getSilingDataByNameFailure({errMsg: res}));
@@ -124,6 +129,21 @@ export class SilingDashboardEffects {
       })
     );
   });
+
+  crudActionSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(...[fromCoreActions.getSilingDataByNameSuccess]),
+      tap((res) => {
+        this.removeToastById(res.toastId);
+      })
+    );
+  }, {dispatch: false});
+
+  private removeToastById(id: string | null | undefined) {
+    if (id) {
+      this.zs.removeMessagebyId(id);
+    }
+  }
 }
 
 

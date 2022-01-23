@@ -38,12 +38,12 @@ export const saveSilingEntryFailure = createAction(
 
 export const getSilingDataByNameStart = createAction(
   GET_SILING_DATA_BY_NAME_START,
-  props<{names: string[]}>()
+  props<{names: string[], toastId?: string | null}>()
 )
 
 export const getSilingDataByNameSuccess = createAction(
   GET_SILING_DATA_BY_NAME_SUCCESS,
-  props<{payload: SilingDataCollection, date: number}>()
+  props<{payload: SilingDataCollection, date: number, toastId?: string | null}>()
 )
 
 export const getSilingDataByNameFailure = createAction(
