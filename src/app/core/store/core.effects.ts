@@ -54,27 +54,29 @@ export class SilingDashboardEffects {
     );
   });
 
-  // updateSilingEntry$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(fromCoreActions.updateSilingEntryStart),
-  //     concatMap((res) => {
-  //       console.log(res.toUpdate)
-  //       const company = res.toUpdate.company;
-  //       const entryId = res.toUpdate.id;
-  //       if (entryId) {
-
-  //       }
-  //       return EMPTY;
-  //     })
-  //   );
-  // });
+  updateSilingEntry$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCoreActions.updateSilingEntryStart),
+      concatMap((res) => {
+        const msgId: string | null = this.zs.openLoadingToast('Updating Siling data.')
+        return this.rs.updateDocument(res.toUpdate).then(
+          (resolve) => {
+            return fromCoreActions.updateSilingEntrySuccess({ payload: res.toUpdate,
+              date: new Date().getTime(), toastId: msgId });
+          }
+        ).catch((err) => {
+          return fromCoreActions.updateSilingEntryFailure({ errMsg: err });
+        })
+      })
+    );
+  });
 
   /**
    * Updat the siling data being fetched name list, and dispatch call to get all siling data
    */
   getSilingToShowIds$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromCoreActions.updateSilingToShowIdsStart),
+      ofType(...[fromCoreActions.updateSilingToShowIdsStart, fromCoreActions.updateSilingEntrySuccess]),
       switchMap((res) => {
         const msgId: string | null = this.zs.openLoadingToast('Fetching Siling data.')
         return this.cs.getSilingShownIdsObs().pipe(
@@ -132,7 +134,7 @@ export class SilingDashboardEffects {
 
   crudActionSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(...[fromCoreActions.getSilingDataByNameSuccess]),
+      ofType(...[fromCoreActions.getSilingDataByNameSuccess, fromCoreActions.updateSilingEntrySuccess]),
       tap((res) => {
         this.removeToastById(res.toastId);
       })

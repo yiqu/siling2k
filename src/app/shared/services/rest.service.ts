@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Firestore, doc, onSnapshot, DocumentReference, docSnapshots, collectionSnapshots,
-  CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot, DocumentSnapshot } from '@angular/fire/firestore';
-import { collection } from '@angular/fire/firestore';
+  CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot,
+  DocumentSnapshot, collection,  } from '@angular/fire/firestore';
 import { setDoc, addDoc, documentId , getDoc, updateDoc} from '@angular/fire/firestore';
-import { Observable, throwError } from 'rxjs';
+import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { FirebaseDocObsAndId } from 'src/app/core/store/core.state';
 import { SilingData } from 'src/app/models/general.models';
@@ -20,6 +20,18 @@ export class RestService {
   createDocument<T>(data: T, url: string): Promise<void> {
     const dataDoc = doc(this.firestore, 'siling/' + url);
     return setDoc(dataDoc, data);
+  }
+
+  updateDocument(silingData: SilingData): Promise<void> {
+    if (silingData && silingData.company && silingData.id) {
+      const dataDocRef: DocumentReference<DocumentData> = doc(this.firestore, 'siling/' +
+        silingData.company + "/" + "all" + "/" + silingData.id);
+      const dataDoc = updateDoc(dataDocRef, {
+        amount: silingData.amount
+      });
+      return dataDoc;
+    }
+    return Promise.resolve();
   }
 
   addDocumentToCollection<T>(data: T, url: string): FirebaseDocObsAndId {

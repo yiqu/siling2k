@@ -76,7 +76,7 @@ export const updateSilingEntryStart = createAction(
 
 export const updateSilingEntrySuccess = createAction(
   UPDATE_SILING_ENTRY_SUCCESS,
-  props<{payload: SilingData, date: number}>()
+  props<{payload: SilingData, date: number, toastId?: string | null}>()
 )
 
 export const updateSilingEntryFailure = createAction(
