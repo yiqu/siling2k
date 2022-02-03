@@ -29,7 +29,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SettingsModule } from './settings/settings.module';
 import { PopoverModule } from "ngx-smart-popover";
 import { NgApexchartsModule } from "ng-apexcharts";
-import { NgBusyWatchModule } from 'ng-busy-watch';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+
+const nzZorroConfig: NzConfig = {
+  message: {
+    nzTop: 11
+  }
+};
 
 @NgModule({
   declarations: [
@@ -92,9 +98,15 @@ import { NgBusyWatchModule } from 'ng-busy-watch';
     NgbModule,
     AppRoutingModule
   ],
+
   providers: [
-    ScreenTrackingService,UserTrackingService
+    ScreenTrackingService,
+    UserTrackingService,
+    {
+      provide: NZ_CONFIG, useValue: nzZorroConfig
+    }
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
