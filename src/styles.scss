@@ -294,6 +294,15 @@ section.title {
   overflow-y: auto;
 }
 
+mat-list-item {
+  .mat-list-text {
+    .mat-line {
+      // shift text down
+      padding-top: 2px !important;
+    }
+  }
+}
+
 /**
 Zorro
 **/

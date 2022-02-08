@@ -1,21 +1,44 @@
-<mat-toolbar class="app-footer2 title-bar-bg">
-  <div class="container">
-    <div class="row">
-
-      <div class="col-lg-2">
+<mat-toolbar class="footer-parent title-bar-bg">
+  <div class="container-fluid">
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="50px">
+      <!-- App logo -->
+      <div fxLayout="column" fxLayoutAlign="start start">
         <div class="img-parent">
-          <img src="assets/banner/money.png"
-          class="footer-img d-inline-block" alt="logo">
+          <img src="assets/banner/money.png" class="footer-img" alt="logo">
         </div>
-        <div class="if logo-txt">Siling1k</div>
+        <div class="font1 logo-txt">{{ appTitle }}</div>
+        <div>
+          {{ this.ms.getAppVersion$ | async }}
+        </div>
       </div>
 
-      <div class="col-lg-10">
-        <div class="mr-3">
-          <span class="mr-2">{{footerTitle}} </span>
-          <a [href]="myUrl" target="_blank">Come visit me</a></div>
-      </div>
+      <!-- Links -->
+      <ng-container *ngFor="let section of footerSections">
+        <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <section class="w-100">
+            {{ section.title }}
+          </section>
+          <section class="w-100">
+            <ul>
+              <ng-container *ngFor="let link of section.links">
+                <li>
+                  <a [href]="link.url" target="_blank">
+                    {{ link.text }}
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </section>
+        </div>
 
+      </ng-container>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+      <div class="">{{ footerTitle }} </div>
+      <a [href]="myUrl" target="_blank">Come visit me</a>
     </div>
   </div>
+
+
 </mat-toolbar>
