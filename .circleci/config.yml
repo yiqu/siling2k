@@ -17,7 +17,7 @@ jobs:
       - run: sudo npm install -g @angular/cli > /dev/null
       - run: echo "Building for PROD"
       - run: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          if [ "${CIRCLE_BRANCH}" == "main" ]; then
             ng build --configuration=production --base-href=/siling2k/
           else
             npm run build
@@ -61,4 +61,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
