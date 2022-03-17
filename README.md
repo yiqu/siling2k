@@ -1,6 +1,6 @@
 # Siling2k
 
-[![Build Status](https://travis-ci.com/yiqu/siling2k.svg?branch=main)](https://travis-ci.com/yiqu/siling2k)
+[![Build Status](https://img.shields.io/circleci/build/github/yiqu/siling2k/main?style=flat-square)](https://app.circleci.com/pipelines/github/yiqu/siling2k)
 
 
 Prod: https://siling1k.web.app/
