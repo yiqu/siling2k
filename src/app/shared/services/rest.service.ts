@@ -19,7 +19,7 @@ export class RestService {
 
   createDocument<T>(data: T, url: string): Promise<void> {
     const dataDoc = doc(this.firestore, 'siling/' + url);
-    return setDoc(dataDoc, data);
+    return setDoc(dataDoc, data as any);
   }
 
   updateDocument(silingData: SilingData): Promise<void> {
